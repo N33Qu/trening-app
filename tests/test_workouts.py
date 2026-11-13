@@ -152,3 +152,19 @@ def test_pagination(auth_client, app):
     assert "Strona 1 z 2" in page1
     page2 = auth_client.get("/workouts/?page=2").get_data(as_text=True)
     assert "Strona 2 z 2" in page2
+
+
+def test_running_pace_shown_as_minutes_and_seconds(auth_client, app):
+    run = exercise_id(app, "Bieganie")
+    resp = create_workout(auth_client, [{"exercise_id": run, "distance_km": "5", "duration_min": "27"}])
+    html = resp.get_data(as_text=True)
+    assert "5:24 min/km" in html
+    assert "5.40 min/km" not in html
+
+
+def test_set_chips_do_not_wrap_inside():
+    from pathlib import Path
+
+    css = (Path(__file__).resolve().parent.parent / "app" / "static" / "css" / "style.css").read_text()
+    chip_rule = next(line for line in css.splitlines() if line.startswith(".set-chip {"))
+    assert "white-space: nowrap" in chip_rule

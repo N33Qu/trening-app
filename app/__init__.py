@@ -12,6 +12,7 @@ from werkzeug.middleware.proxy_fix import ProxyFix
 from .config import build_config
 from .extensions import csrf, db, login_manager
 from .metrics import init_metrics
+from .services import format_pace
 
 log = logging.getLogger(__name__)
 
@@ -103,6 +104,8 @@ def _register_hooks(app):
         if request.endpoint and not request.endpoint.startswith(("static", "health.")):
             response.headers.setdefault("Cache-Control", "no-store")
         return response
+
+    app.add_template_filter(format_pace, "pace")
 
     @app.context_processor
     def _inject():

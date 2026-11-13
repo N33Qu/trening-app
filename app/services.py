@@ -72,6 +72,14 @@ def parse_sets(text):
     return result
 
 
+def format_pace(duration_min, distance_km):
+    """Running pace as m:ss per km, e.g. 27 min / 5 km -> '5:24'."""
+    if not duration_min or not distance_km or distance_km <= 0:
+        return None
+    seconds = round(duration_min * 60 / distance_km)
+    return f"{seconds // 60}:{seconds % 60:02d}"
+
+
 def epley(weight, reps):
     if reps <= 0 or weight <= 0:
         return 0.0

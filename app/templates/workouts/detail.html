@@ -40,7 +40,7 @@
         {% if e.distance_km or e.duration_min %}<span class="muted">{% if e.distance_km %}{{ kg(e.distance_km) }} km{% endif %}{% if e.distance_km and e.duration_min %} · {% endif %}{% if e.duration_min %}{{ kg(e.duration_min) }} min{% endif %}</span>{% endif %}
       </td>
       <td class="num nowrap">
-        {% if e.exercise.is_cardio and e.distance_km and e.duration_min %}{{ '%.2f'|format(e.duration_min / e.distance_km) }} min/km
+        {% if e.exercise.is_cardio and e.distance_km and e.duration_min %}{{ e.duration_min|pace(e.distance_km) }} min/km
         {% elif e.sets %}{{ kg(e.sets|map(attribute='weight_kg')|max) }} kg max{% endif %}
       </td>
     </tr>

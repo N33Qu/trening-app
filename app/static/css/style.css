@@ -270,7 +270,7 @@ details.add-box[open] summary { margin-bottom: .75rem; }
 .meta { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; color: var(--text-muted); font-size: .9rem; }
 
 .set-chips { display: flex; gap: .35rem; flex-wrap: wrap; }
-.set-chip { font-family: var(--mono); font-size: .82rem; padding: .15rem .5rem; border-radius: 7px; background: var(--bg-sunken); border: 1px solid var(--border); }
+.set-chip { white-space: nowrap; font-family: var(--mono); font-size: .82rem; padding: .15rem .5rem; border-radius: 7px; background: var(--bg-sunken); border: 1px solid var(--border); }
 
 .pr-value { font-size: 1.35rem; font-weight: 900; letter-spacing: -0.02em; }
 .pr-value small { font-size: .8rem; color: var(--text-muted); font-weight: 600; }

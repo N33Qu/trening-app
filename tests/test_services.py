@@ -1,6 +1,6 @@
 import pytest
 
-from app.services import SetsParseError, epley, parse_sets
+from app.services import SetsParseError, epley, format_pace, parse_sets
 
 
 @pytest.mark.parametrize(
@@ -33,3 +33,20 @@ def test_epley():
     assert epley(100, 10) == pytest.approx(133.3)
     assert epley(0, 5) == 0
     assert epley(100, 0) == 0
+
+
+@pytest.mark.parametrize(
+    ("duration", "distance", "expected"),
+    [
+        (27, 5, "5:24"),
+        (30, 5, "6:00"),
+        (59.99, 10, "6:00"),
+        (25.5, 5, "5:06"),
+        (61, 5, "12:12"),
+        (None, 5, None),
+        (30, None, None),
+        (30, 0, None),
+    ],
+)
+def test_format_pace(duration, distance, expected):
+    assert format_pace(duration, distance) == expected

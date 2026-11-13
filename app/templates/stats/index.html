@@ -7,7 +7,7 @@
   <form method="get" class="inline-fields" action="{{ url_for('stats.index') }}">
     <div class="field">
       <label for="exercise">Ćwiczenie</label>
-      <select name="exercise" id="exercise">
+      <select name="exercise" id="exercise" data-autosubmit>
         {% for e in exercises %}<option value="{{ e.id }}" {{ 'selected' if selected and e.id == selected.id }}>{{ e.name }}</option>{% endfor %}
       </select>
     </div>

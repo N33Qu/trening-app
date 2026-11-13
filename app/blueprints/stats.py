@@ -14,6 +14,7 @@ from ..models import (
     PlanDay,
     Workout,
     WorkoutEntry,
+    WorkoutSet,
 )
 from ..services import epley, visible_exercise
 
@@ -98,6 +99,18 @@ def exercise_progress(user_id, exercise):
     }
 
 
+def default_exercise(user_id, exercises):
+    """Most logged exercise that has weight data; otherwise the most logged one."""
+    weighted = set(db.session.execute(
+        select(WorkoutEntry.exercise_id)
+        .join(Workout, Workout.id == WorkoutEntry.workout_id)
+        .join(WorkoutSet, WorkoutSet.entry_id == WorkoutEntry.id)
+        .where(Workout.user_id == user_id, WorkoutSet.weight_kg > 0)
+        .distinct()
+    ).scalars())
+    return next((e for e in exercises if e.id in weighted), exercises[0])
+
+
 @bp.get("/")
 def dashboard():
     if not current_user.is_authenticated:
@@ -155,7 +168,7 @@ def index():
     if requested:
         selected = visible_exercise(requested, uid)
     if selected is None and exercises:
-        selected = exercises[0]
+        selected = default_exercise(uid, exercises)
     progress = exercise_progress(uid, selected) if selected else None
     charts = {
         "progress": progress,

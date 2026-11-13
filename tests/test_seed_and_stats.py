@@ -98,3 +98,42 @@ def test_stats_helpers(app):
         assert completion["total"] == 3
         assert completion["done"] == 2
         assert completion["percent"] == 67
+
+
+def test_stats_defaults_to_most_logged_weighted_exercise(app, auth_client):
+    from .conftest import create_workout, exercise_id
+
+    dips = exercise_id(app, "Pompki na poręczach (dipy)")
+    squat = exercise_id(app, "Przysiad ze sztangą")
+    bench = exercise_id(app, "Wyciskanie sztangi leżąc")
+    for day in ("2025-01-06", "2025-01-08", "2025-01-10"):
+        create_workout(auth_client, [{"exercise_id": dips, "sets": "10, 10"}], date=day)
+    for day in ("2025-01-07", "2025-01-09"):
+        create_workout(auth_client, [{"exercise_id": squat, "sets": "5x100"}], date=day)
+    create_workout(auth_client, [{"exercise_id": bench, "sets": "5x80"}], date="2025-01-11")
+    html = auth_client.get("/stats").get_data(as_text=True)
+    assert f'<option value="{squat}" selected>' in html
+    assert "data-autosubmit" in html
+    html = auth_client.get(f"/stats?exercise={dips}").get_data(as_text=True)
+    assert f'<option value="{dips}" selected>' in html
+
+
+def test_stats_default_falls_back_to_most_logged(app, auth_client):
+    from .conftest import create_workout, exercise_id
+
+    dips = exercise_id(app, "Pompki na poręczach (dipy)")
+    create_workout(auth_client, [{"exercise_id": dips, "sets": "10, 10"}])
+    html = auth_client.get("/stats").get_data(as_text=True)
+    assert f'<option value="{dips}" selected>' in html
+
+
+def test_demo_stats_default_has_weight_data(app, client):
+    with app.app_context():
+        seed_demo()
+        dips = db.session.execute(
+            select(Exercise.id).where(Exercise.name == "Pompki na poręczach (dipy)")
+        ).scalar_one()
+    login(client, "demo", "demo1234")
+    html = client.get("/stats").get_data(as_text=True)
+    assert f'<option value="{dips}" selected>' not in html
+    assert "Progresja ciężaru – " in html
