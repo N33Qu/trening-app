@@ -21,7 +21,7 @@ Data wykonania: 2026-11-13. Autorzy: Mikołaj Stasz, Ewelina Sałata.
 | Kubernetes (serwer) / kubectl | v1.35.1 / v1.35.2 |
 | Helm / k6 / Trivy | v4.3.0 / v2.4.0 / 0.76.2 |
 | Docker | 29.8.2 |
-| Obraz aplikacji | `ghcr.io/n33qu/trening-app` (tagi `sha-<commit>`, wdrożony `sha-130fc55`) |
+| Obraz aplikacji | `ghcr.io/n33qu/trening-app` (tagi `sha-<commit>`; w testach `latest` i `sha-130fc55`, stan końcowy `sha-36ef4a8`) |
 | Baza danych | `postgres:16-alpine` (StatefulSet, PVC 1Gi) |
 | Dodatki | ingress-nginx, cert-manager, kube-prometheus-stack, Argo CD |
 
@@ -138,9 +138,12 @@ HPA: min 2, max 6, cel CPU 60% żądania (100m). Skrypt k6 rozszerzono o zmienne
 
 - k6: 101 348 żądań (ok. 375 req/s), 0% błędów, p95 = 43 ms (progi: p95 < 1 s, błędy < 1% – spełnione).
 - Maksimum: **6 replik**; powrót do **2 replik** po ok. 4,5 min od końca obciążenia. 50 VU wystarczyło (CPU ok. 71% celu 60%).
+- Dashboard Grafany „Trening App” dla okna testu (10:35–10:50): ruch ok. 450 req/s, p95 poniżej 0,1 s, brak 5xx,
+  repliki 2 → 6 → 2, CPU i pamięć poszczególnych podów:
+
+  ![Grafana – test obciążenia](img/test4-grafana-dashboard.jpg)
+
 - Wykres liczby replik w Prometheusie: ![repliki](img/test4-prometheus-repliki.jpg)
-- Zrzutu dashboardu Grafany nie wykonano (logowanie do Grafany wymaga hasła administratora); zamiast tego
-  użyto wykresu z Prometheusa.
 
 **Kryterium → ZALICZONY.**
 
@@ -200,6 +203,10 @@ więc Argo CD (selfHeal) sam nie przywrócił replik – wymagało to ręcznego 
 - Pierwsze uruchomienia GitHub Actions były zablokowane z powodu problemu z rozliczeniami konta; po odblokowaniu
   pełny pipeline zakończył się sukcesem (run 43404820070).
 - Testy 1–4 wykonano na obrazie `latest` zbudowanym lokalnie w Dockerze minikube (`pullPolicy: IfNotPresent`),
-  test 5 oraz stan końcowy – na obrazie `sha-130fc55` z GHCR.
-- Dane testowe (konta `test_a_*`, `test_b_*`) pozostały w bazie jako ślad wykonania testów.
-- Dashboard Grafany nie został zrzucony ekranowo (patrz test 4).
+  test 5 – na obrazie `sha-130fc55` z GHCR; stan końcowy po kolejnych przebiegach pipeline’u: `sha-36ef4a8`.
+- Konta testowe `test_a_*`, `test_b_*` usunięto z bazy po zakończeniu testów (w bazie pozostało konto `demo`).
+- Przy wykonywaniu zrzutu dashboardu wykryto i poprawiono dwa błędy konfiguracji monitoringu: panele nie miały jawnie
+  wskazanego źródła danych Prometheus, a panele CPU/pamięci filtrowały po etykiecie `container`, której cAdvisor w minikube
+  (sterownik docker) nie ustawia. Dodatkowo zwiększono limit pamięci Grafany do 1 GiB (przy 512 MiB kontener nie osiągał gotowości).
+- Po przepisaniu historii repozytorium (zmiana adresu e-mail autora) skróty commitów różnią się od podanych w logach;
+  nazwy tagów obrazów (`sha-130fc55` itd.) pozostają ważne w GHCR.
