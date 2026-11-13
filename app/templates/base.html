@@ -1,0 +1,70 @@
+{% from "_macros.html" import icon %}
+<!doctype html>
+<html lang="pl" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>{% block title %}Trening{% endblock %} · Trening</title>
+  <script nonce="{{ csp_nonce }}">(function(){var t=null;try{t=localStorage.getItem("theme");}catch(e){}if(t!=="dark"&&t!=="light"){t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);})();</script>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v={{ app_version }}">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container" aria-label="Główna nawigacja">
+      <a class="brand" href="{{ url_for('stats.dashboard') }}"><span class="brand-mark">{{ icon("dumbbell") }}</span>Trening</a>
+      {% if current_user.is_authenticated %}
+      {% set ep = request.endpoint or "" %}
+      <ul class="nav-links">
+        <li><a href="{{ url_for('stats.dashboard') }}" class="{{ 'active' if ep == 'stats.dashboard' }}">Pulpit</a></li>
+        <li><a href="{{ url_for('workouts.index') }}" class="{{ 'active' if ep.startswith('workouts.') }}">Treningi</a></li>
+        <li><a href="{{ url_for('plans.index') }}" class="{{ 'active' if ep.startswith('plans.') }}">Plany</a></li>
+        <li><a href="{{ url_for('exercises.index') }}" class="{{ 'active' if ep.startswith('exercises.') }}">Ćwiczenia</a></li>
+        <li><a href="{{ url_for('records.index') }}" class="{{ 'active' if ep.startswith('records.') }}">Rekordy</a></li>
+        <li><a href="{{ url_for('body.index') }}" class="{{ 'active' if ep.startswith('body.') }}">Ciało</a></li>
+        <li><a href="{{ url_for('stats.index') }}" class="{{ 'active' if ep == 'stats.index' }}">Statystyki</a></li>
+      </ul>
+      {% endif %}
+      <div class="nav-actions">
+        <button type="button" class="icon-btn theme-toggle" data-theme-toggle aria-label="Przełącz motyw jasny/ciemny" title="Przełącz motyw">{{ icon("moon") }}{{ icon("sun") }}</button>
+        {% if current_user.is_authenticated %}
+        <span class="nav-user">{{ current_user.username }}</span>
+        <form method="post" action="{{ url_for('auth.logout') }}" class="inline-form">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <button type="submit" class="icon-btn" aria-label="Wyloguj" title="Wyloguj">{{ icon("logout") }}</button>
+        </form>
+        <button type="button" class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu" aria-expanded="false">{{ icon("menu") }}</button>
+        {% else %}
+        <a class="btn btn-ghost btn-sm" href="{{ url_for('auth.login') }}">Zaloguj</a>
+        <a class="btn btn-sm" href="{{ url_for('auth.register') }}">Załóż konto</a>
+        {% endif %}
+      </div>
+    </nav>
+  </header>
+
+  <main class="container" id="main">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      <div class="flashes" role="status">
+        {% for category, message in messages %}
+        <div class="flash flash-{{ category if category in ['success', 'error', 'info', 'record'] else 'info' }}">
+          {% if category == "record" %}{{ icon("trophy") }}{% endif %}{{ message }}
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <span>Trening – planowanie i monitorowanie treningu siłowego</span>
+      <span>wersja <span class="version">{{ app_version }}</span></span>
+    </div>
+  </footer>
+  <script src="{{ url_for('static', filename='js/app.js') }}?v={{ app_version }}"></script>
+  {% block scripts %}{% endblock %}
+</body>
+</html>

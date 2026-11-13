@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% from "_macros.html" import delete_button %}
+{% block title %}Ćwiczenia{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>Katalog ćwiczeń</h1><p class="subtitle">Ćwiczenia wbudowane oraz Twoje własne.</p></div>
+  <a class="btn" href="{{ url_for('exercises.create') }}">+ Własne ćwiczenie</a>
+</div>
+<div class="grid grid-2">
+  <div class="card">
+    <div class="card-head"><h2>Moje ćwiczenia</h2><span class="badge">{{ own_exercises|length }}</span></div>
+    {% if own_exercises %}
+    <div class="table-wrap"><table>
+      <thead><tr><th>Nazwa</th><th>Kategoria</th><th></th></tr></thead>
+      <tbody>
+      {% for e in own_exercises %}
+      <tr>
+        <td>{{ e.name }}{% if e.muscle_group %}<br><span class="muted small">{{ e.muscle_group }}</span>{% endif %}</td>
+        <td><span class="badge {{ 'badge-info' if e.is_cardio else 'badge-accent' }}">{{ e.category_label }}</span></td>
+        <td class="num nowrap">
+          <a class="btn btn-secondary btn-sm" href="{{ url_for('exercises.edit', exercise_id=e.id) }}">Edytuj</a>
+          {{ delete_button(url_for('exercises.delete', exercise_id=e.id), delete_form, "Usuń", "Usunąć ćwiczenie?") }}
+        </td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+    {% else %}<div class="empty"><p>Brak własnych ćwiczeń.</p></div>{% endif %}
+  </div>
+  <div class="card">
+    <div class="card-head"><h2>Katalog wbudowany</h2><span class="badge">{{ global_exercises|length }}</span></div>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Nazwa</th><th>Partia</th><th>Kategoria</th></tr></thead>
+      <tbody>
+      {% for e in global_exercises %}
+      <tr><td><a href="{{ url_for('stats.index', exercise=e.id) }}">{{ e.name }}</a></td><td class="muted small">{{ e.muscle_group or '–' }}</td><td><span class="badge {{ 'badge-info' if e.is_cardio else 'badge-accent' }}">{{ e.category_label }}</span></td></tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+  </div>
+</div>
+{% endblock %}

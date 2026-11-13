@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% from "_macros.html" import field %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="page-head"><h1>{{ title }}</h1></div>
+<div class="card form-card">
+  <form method="post" novalidate>
+    {{ form.hidden_tag() }}
+    {{ field(form.name, placeholder="np. Wyciskanie na maszynie") }}
+    {{ field(form.category, help="Ćwiczenia cardio zapisujesz jako dystans i czas.") }}
+    {{ field(form.muscle_group, placeholder="np. klatka") }}
+    <div class="form-actions">{{ form.submit(class_="btn") }}<a class="btn btn-ghost" href="{{ url_for('exercises.index') }}">Anuluj</a></div>
+  </form>
+</div>
+{% endblock %}

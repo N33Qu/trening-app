@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% from "_macros.html" import kg %}
+{% block title %}Rekordy{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>Rekordy osobiste</h1><p class="subtitle">Wykrywane automatycznie przy zapisie treningu: najcięższy ciężar w serii oraz szacowany 1RM wg wzoru Epleya (ciężar × (1 + powt./30)).</p></div>
+</div>
+{% if summary %}
+<div class="card">
+  <div class="table-wrap"><table>
+    <thead><tr><th>Ćwiczenie</th><th class="num">Maks. ciężar</th><th class="num">Szac. 1RM</th><th>Ostatni rekord</th><th class="num">Historia</th></tr></thead>
+    <tbody>
+    {% for s in summary %}
+    {% set mw = s[PR_MAX_WEIGHT] %}{% set e1 = s[PR_E1RM] %}
+    <tr>
+      <td><strong>{{ s.exercise.name }}</strong></td>
+      <td class="num">{% if mw %}<span class="pr-value">{{ kg(mw.value) }}</span> kg<br><span class="muted small">{{ mw.reps }} powt. · {{ mw.achieved_on.strftime('%d.%m.%Y') }}</span>{% else %}–{% endif %}</td>
+      <td class="num">{% if e1 %}<span class="pr-value">{{ kg(e1.value) }}</span> kg<br><span class="muted small">{{ e1.reps }} × {{ kg(e1.weight_kg) }} kg</span>{% else %}–{% endif %}</td>
+      <td class="nowrap">{% set last = [mw, e1]|select|sort(attribute='achieved_on')|last %}{{ last.achieved_on.strftime('%d.%m.%Y') if last else '–' }}</td>
+      <td class="num"><a class="btn btn-secondary btn-sm" href="{{ url_for('records.history', exercise_id=s.exercise.id) }}">{{ s.count }} wpisów →</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+</div>
+<div class="card mt">
+  <div class="card-head"><h2>Najnowsze rekordy</h2></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Data</th><th>Ćwiczenie</th><th>Rodzaj</th><th class="num">Wynik</th><th>Trening</th></tr></thead>
+    <tbody>
+    {% for pr in recent %}
+    <tr>
+      <td class="nowrap">{{ pr.achieved_on.strftime('%d.%m.%Y') }}</td>
+      <td>{{ pr.exercise.name }}</td>
+      <td><span class="badge badge-accent">{{ pr.kind_label }}</span></td>
+      <td class="num"><strong>{{ kg(pr.value) }} kg</strong></td>
+      <td>{% if pr.workout_id %}<a href="{{ url_for('workouts.detail', workout_id=pr.workout_id) }}">zobacz</a>{% endif %}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+</div>
+{% else %}
+<div class="card empty"><p>Brak rekordów. Zapisz trening siłowy z ciężarem, a rekordy pojawią się automatycznie.</p><a class="btn" href="{{ url_for('workouts.create') }}">Nowy trening</a></div>
+{% endif %}
+{% endblock %}

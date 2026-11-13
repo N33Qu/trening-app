@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% from "_macros.html" import kg %}
+{% block title %}Rekordy – {{ exercise.name }}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>{{ exercise.name }}</h1><p class="subtitle">Historia rekordów osobistych.</p></div>
+  <a class="btn btn-secondary" href="{{ url_for('stats.index', exercise=exercise.id) }}">Wykres progresji</a>
+</div>
+{% if rows %}
+<div class="card">
+  <div class="table-wrap"><table>
+    <thead><tr><th>Data</th><th>Rodzaj</th><th class="num">Wynik</th><th class="num">Seria</th><th>Trening</th></tr></thead>
+    <tbody>
+    {% for pr in rows %}
+    <tr>
+      <td class="nowrap">{{ pr.achieved_on.strftime('%d.%m.%Y') }}</td>
+      <td><span class="badge {{ 'badge-accent' if pr.kind == 'max_weight' else 'badge-success' }}">{{ pr.kind_label }}</span></td>
+      <td class="num"><strong>{{ kg(pr.value) }} kg</strong></td>
+      <td class="num">{{ pr.reps }} × {{ kg(pr.weight_kg) }} kg</td>
+      <td>{% if pr.workout_id %}<a href="{{ url_for('workouts.detail', workout_id=pr.workout_id) }}">zobacz</a>{% endif %}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+</div>
+{% else %}
+<div class="card empty"><p>Brak rekordów dla tego ćwiczenia.</p></div>
+{% endif %}
+<p class="mt"><a href="{{ url_for('records.index') }}">← Wszystkie rekordy</a></p>
+{% endblock %}

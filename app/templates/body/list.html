@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% from "_macros.html" import delete_button, kg %}
+{% block title %}Pomiary ciała{% endblock %}
+{% block content %}
+<div class="page-head">
+  <div><h1>Pomiary ciała</h1><p class="subtitle">Masa ciała, obwody i poziom tkanki tłuszczowej.</p></div>
+  <div class="actions">
+    <a class="btn btn-secondary" href="{{ url_for('body.import_placeholder') }}">Import z Apple Health</a>
+    <a class="btn" href="{{ url_for('body.create') }}">+ Nowy pomiar</a>
+  </div>
+</div>
+{% if rows %}
+<div class="grid grid-2">
+  <div class="card">
+    <div class="card-head"><h2>Masa ciała</h2>{% if change is not none %}<span class="badge {{ 'badge-success' if change <= 0 else 'badge-accent' }}">{{ '%+.1f'|format(change) }} kg</span>{% endif %}</div>
+    {% if chart.weight %}<div class="chart-box"><canvas data-chart="bodyWeight" role="img" aria-label="Masa ciała"></canvas></div>{% else %}<div class="empty"><p>Brak pomiarów masy.</p></div>{% endif %}
+  </div>
+  <div class="card stat">
+    <div class="label">Ostatni pomiar</div>
+    {% set last = rows[0] %}
+    <div class="value">{{ kg(last.weight_kg) }}<small>kg</small></div>
+    <div class="hint">{{ last.date.strftime('%d.%m.%Y') }}{% if last.body_fat_pct %} · {{ kg(last.body_fat_pct) }}% tkanki tłuszczowej{% endif %}</div>
+  </div>
+</div>
+<div class="card mt">
+  <div class="table-wrap"><table>
+    <thead><tr><th>Data</th><th class="num">Masa</th><th class="num">Tł. %</th><th class="num">Talia</th><th class="num">Klatka</th><th class="num">Ramię</th><th class="num">Udo</th><th>Źródło</th><th></th></tr></thead>
+    <tbody>
+    {% for m in rows %}
+    <tr>
+      <td class="nowrap">{{ m.date.strftime('%d.%m.%Y') }}</td>
+      <td class="num">{{ kg(m.weight_kg) }}</td>
+      <td class="num">{{ kg(m.body_fat_pct) }}</td>
+      <td class="num">{{ kg(m.waist_cm) }}</td>
+      <td class="num">{{ kg(m.chest_cm) }}</td>
+      <td class="num">{{ kg(m.arm_cm) }}</td>
+      <td class="num">{{ kg(m.thigh_cm) }}</td>
+      <td><span class="badge">{{ m.source_label }}</span></td>
+      <td class="num nowrap">
+        <a class="btn btn-secondary btn-sm" href="{{ url_for('body.edit', measurement_id=m.id) }}">Edytuj</a>
+        {{ delete_button(url_for('body.delete', measurement_id=m.id), delete_form, "Usuń", "Usunąć pomiar?") }}
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table></div>
+</div>
+{% else %}
+<div class="card empty"><p>Brak pomiarów. Dodaj pierwszy, aby śledzić zmiany sylwetki.</p><a class="btn" href="{{ url_for('body.create') }}">Dodaj pomiar</a></div>
+{% endif %}
+{% endblock %}
+{% block scripts %}{% include "_charts.html" %}{% endblock %}

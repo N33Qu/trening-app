@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Import z Apple Health{% endblock %}
+{% block content %}
+<div class="page-head"><div><h1>Import z Apple Health</h1><p class="subtitle">Funkcja planowana w kolejnej wersji.</p></div></div>
+<div class="card form-wide">
+  <span class="badge badge-info">wkrótce</span>
+  <h2 class="mt">Jak to będzie działać</h2>
+  <ol>
+    <li>W aplikacji Zdrowie na iPhonie wybierzesz <em>Profil → Eksportuj wszystkie dane zdrowotne</em>.</li>
+    <li>Prześlesz tutaj plik <span class="mono">eksport.zip</span> (lub <span class="mono">export.xml</span>).</li>
+    <li>Aplikacja zaimportuje pomiary masy ciała (<span class="mono">HKQuantityTypeIdentifierBodyMass</span>) i tkanki tłuszczowej (<span class="mono">HKQuantityTypeIdentifierBodyFatPercentage</span>).</li>
+    <li>Rekordy zostaną oznaczone źródłem „Apple Health”, a ponowny import nie utworzy duplikatów.</li>
+  </ol>
+  <p class="muted">Model danych jest już przygotowany (pola <span class="mono">source</span> i <span class="mono">external_id</span>). Do tego czasu dodawaj pomiary ręcznie.</p>
+  <div class="form-actions"><a class="btn" href="{{ url_for('body.create') }}">Dodaj pomiar ręcznie</a><a class="btn btn-ghost" href="{{ url_for('body.index') }}">Wróć</a></div>
+</div>
+{% endblock %}

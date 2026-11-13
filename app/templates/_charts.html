@@ -1,0 +1,3 @@
+<script type="application/json" id="chart-data">{{ charts|tojson }}</script>
+<script src="{{ url_for('static', filename='vendor/chart.umd.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/charts.js') }}?v={{ app_version }}"></script>
