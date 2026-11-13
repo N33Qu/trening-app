@@ -21,7 +21,7 @@ Data wykonania: 2026-11-13. Autorzy: Mikołaj Stasz, Ewelina Sałata.
 | Kubernetes (serwer) / kubectl | v1.35.1 / v1.35.2 |
 | Helm / k6 / Trivy | v4.3.0 / v2.4.0 / 0.76.2 |
 | Docker | 29.8.2 |
-| Obraz aplikacji | `ghcr.io/n33qu/trening-app` (tagi `sha-<commit>`; w testach `latest` i `sha-130fc55`, stan końcowy `sha-36ef4a8`) |
+| Obraz aplikacji | `ghcr.io/n33qu/trening-app` (tagi `sha-<commit>`; w testach `latest` i `sha-130fc55`, stan końcowy – tag z `helm/trening/values.yaml`, ustawiany przez pipeline) |
 | Baza danych | `postgres:16-alpine` (StatefulSet, PVC 1Gi) |
 | Dodatki | ingress-nginx, cert-manager, kube-prometheus-stack, Argo CD |
 
@@ -203,7 +203,7 @@ więc Argo CD (selfHeal) sam nie przywrócił replik – wymagało to ręcznego 
 - Pierwsze uruchomienia GitHub Actions były zablokowane z powodu problemu z rozliczeniami konta; po odblokowaniu
   pełny pipeline zakończył się sukcesem (run 43404820070).
 - Testy 1–4 wykonano na obrazie `latest` zbudowanym lokalnie w Dockerze minikube (`pullPolicy: IfNotPresent`),
-  test 5 – na obrazie `sha-130fc55` z GHCR; stan końcowy po kolejnych przebiegach pipeline’u: `sha-36ef4a8`.
+  test 5 – na obrazie `sha-130fc55` z GHCR; stan końcowy – obraz z ostatniego przebiegu pipeline’u (tag w `helm/trening/values.yaml`).
 - Konta testowe `test_a_*`, `test_b_*` usunięto z bazy po zakończeniu testów (w bazie pozostało konto `demo`).
 - Przy wykonywaniu zrzutu dashboardu wykryto i poprawiono dwa błędy konfiguracji monitoringu: panele nie miały jawnie
   wskazanego źródła danych Prometheus, a panele CPU/pamięci filtrowały po etykiecie `container`, której cAdvisor w minikube
