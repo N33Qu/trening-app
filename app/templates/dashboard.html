@@ -1,73 +1,73 @@
 {% extends "base.html" %}
 {% from "_macros.html" import kg %}
-{% block title %}Pulpit{% endblock %}
+{% block title %}{{ _('Pulpit') }}{% endblock %}
 {% block content %}
 <div class="page-head">
   <div>
-    <h1>Cześć, {{ current_user.username }}!</h1>
-    <p class="subtitle">Twoje podsumowanie treningowe.</p>
+    <h1>{{ _('Cześć, %(name)s!', name=current_user.username) }}</h1>
+    <p class="subtitle">{{ _('Twoje podsumowanie treningowe.') }}</p>
   </div>
   <div class="actions">
-    <a class="btn" href="{{ url_for('workouts.create') }}">+ Nowy trening</a>
-    <a class="btn btn-secondary" href="{{ url_for('body.create') }}">+ Pomiar ciała</a>
+    <a class="btn" href="{{ url_for('workouts.create') }}">+ {{ _('Nowy trening') }}</a>
+    <a class="btn btn-secondary" href="{{ url_for('body.create') }}">+ {{ _('Pomiar ciała') }}</a>
   </div>
 </div>
 
 <div class="grid grid-4">
-  <div class="card stat"><div class="label">Ten tydzień</div><div class="value">{{ week_workouts }}<small>trening(ów)</small></div></div>
-  <div class="card stat"><div class="label">Wszystkie treningi</div><div class="value">{{ total_workouts }}</div></div>
-  <div class="card stat"><div class="label">Rekordy osobiste</div><div class="value">{{ total_records }}</div></div>
-  <div class="card stat"><div class="label">Masa ciała</div>
+  <div class="card stat"><div class="label">{{ _('Ten tydzień') }}</div><div class="value">{{ week_workouts }}<small>{{ ngettext('trening', 'treningów', week_workouts) }}</small></div></div>
+  <div class="card stat"><div class="label">{{ _('Wszystkie treningi') }}</div><div class="value">{{ total_workouts }}</div></div>
+  <div class="card stat"><div class="label">{{ _('Rekordy osobiste') }}</div><div class="value">{{ total_records }}</div></div>
+  <div class="card stat"><div class="label">{{ _('Masa ciała') }}</div>
     <div class="value">{% if last_body %}{{ kg(last_body.weight_kg) }}<small>kg</small>{% else %}–{% endif %}</div>
-    {% if last_body %}<div class="hint">{{ last_body.date.strftime('%d.%m.%Y') }}</div>{% endif %}
+    {% if last_body %}<div class="hint">{{ last_body.date|day }}</div>{% endif %}
   </div>
 </div>
 
 <div class="grid grid-2 mt">
   <div class="card">
-    <div class="card-head"><h2>Treningi w tygodniu</h2><span class="muted small">ostatnie 12 tygodni</span></div>
-    <div class="chart-box"><canvas data-chart="perWeek" aria-label="Liczba treningów w tygodniu" role="img"></canvas></div>
+    <div class="card-head"><h2>{{ _('Treningi w tygodniu') }}</h2><span class="muted small">{{ _('ostatnie 12 tygodni') }}</span></div>
+    <div class="chart-box"><canvas data-chart="perWeek" aria-label="{{ _('Liczba treningów w tygodniu') }}" role="img"></canvas></div>
   </div>
   {% include "_completion.html" %}
 </div>
 
 <div class="grid grid-2 mt">
   <div class="card">
-    <div class="card-head"><h2>Masa ciała</h2><a class="small" href="{{ url_for('body.index') }}">Wszystkie pomiary →</a></div>
+    <div class="card-head"><h2>{{ _('Masa ciała') }}</h2><a class="small" href="{{ url_for('body.index') }}">{{ _('Wszystkie pomiary') }} →</a></div>
     {% if charts.bodyWeight["values"] %}
-    <div class="chart-box"><canvas data-chart="bodyWeight" aria-label="Wykres masy ciała" role="img"></canvas></div>
+    <div class="chart-box"><canvas data-chart="bodyWeight" aria-label="{{ _('Wykres masy ciała') }}" role="img"></canvas></div>
     {% else %}
-    <div class="empty"><p>Brak pomiarów masy ciała.</p><a class="btn btn-sm" href="{{ url_for('body.create') }}">Dodaj pomiar</a></div>
+    <div class="empty"><p>{{ _('Brak pomiarów masy ciała.') }}</p><a class="btn btn-sm" href="{{ url_for('body.create') }}">{{ _('Dodaj pomiar') }}</a></div>
     {% endif %}
   </div>
   <div class="card">
-    <div class="card-head"><h2>Ostatnie rekordy</h2><a class="small" href="{{ url_for('records.index') }}">Wszystkie →</a></div>
+    <div class="card-head"><h2>{{ _('Ostatnie rekordy') }}</h2><a class="small" href="{{ url_for('records.index') }}">{{ _('Wszystkie') }} →</a></div>
     {% if recent_records %}
     <div class="table-wrap"><table>
-      <thead><tr><th>Data</th><th>Ćwiczenie</th><th>Rodzaj</th><th class="num">Wynik</th></tr></thead>
+      <thead><tr><th>{{ _('Data') }}</th><th>{{ _('Ćwiczenie') }}</th><th>{{ _('Rodzaj') }}</th><th class="num">{{ _('Wynik') }}</th></tr></thead>
       <tbody>
       {% for pr in recent_records %}
-      <tr><td class="nowrap">{{ pr.achieved_on.strftime('%d.%m') }}</td><td>{{ pr.exercise.name }}</td><td><span class="badge badge-accent">{{ 'max' if pr.kind == 'max_weight' else '1RM' }}</span></td><td class="num"><strong>{{ kg(pr.value) }} kg</strong></td></tr>
+      <tr><td class="nowrap">{{ pr.achieved_on|day_short }}</td><td>{{ pr.exercise.display_name }}</td><td><span class="badge badge-accent">{{ 'max' if pr.kind == 'max_weight' else '1RM' }}</span></td><td class="num"><strong>{{ kg(pr.value) }} kg</strong></td></tr>
       {% endfor %}
       </tbody>
     </table></div>
     {% else %}
-    <div class="empty"><p>Rekordy pojawią się automatycznie po zapisaniu treningów.</p></div>
+    <div class="empty"><p>{{ _('Rekordy pojawią się automatycznie po zapisaniu treningów.') }}</p></div>
     {% endif %}
   </div>
 </div>
 
 <div class="card mt">
-  <div class="card-head"><h2>Ostatnie treningi</h2><a class="small" href="{{ url_for('workouts.index') }}">Dziennik →</a></div>
+  <div class="card-head"><h2>{{ _('Ostatnie treningi') }}</h2><a class="small" href="{{ url_for('workouts.index') }}">{{ _('Dziennik') }} →</a></div>
   {% if recent %}
   <div class="table-wrap"><table>
-    <thead><tr><th>Data</th><th>Dzień planu</th><th>Ćwiczenia</th><th class="num">Serie</th><th class="num">Objętość</th></tr></thead>
+    <thead><tr><th>{{ _('Data') }}</th><th>{{ _('Dzień planu') }}</th><th>{{ _('Ćwiczenia') }}</th><th class="num">{{ _('Serie') }}</th><th class="num">{{ _('Objętość') }}</th></tr></thead>
     <tbody>
     {% for w in recent %}
     <tr>
-      <td class="nowrap"><a href="{{ url_for('workouts.detail', workout_id=w.id) }}">{{ w.date.strftime('%d.%m.%Y') }}</a></td>
+      <td class="nowrap"><a href="{{ url_for('workouts.detail', workout_id=w.id) }}">{{ w.date|day }}</a></td>
       <td>{{ w.plan_day.name if w.plan_day else '–' }}</td>
-      <td>{{ w.entries|map(attribute='exercise.name')|join(', ') }}</td>
+      <td>{{ w.entries|map(attribute='exercise.display_name')|join(', ') }}</td>
       <td class="num">{{ w.total_sets }}</td>
       <td class="num nowrap">{{ '{:,.0f}'.format(w.total_volume).replace(',', ' ') }} kg</td>
     </tr>
@@ -75,7 +75,7 @@
     </tbody>
   </table></div>
   {% else %}
-  <div class="empty"><p>Nie masz jeszcze żadnych treningów.</p><a class="btn" href="{{ url_for('workouts.create') }}">Zapisz pierwszy trening</a></div>
+  <div class="empty"><p>{{ _('Nie masz jeszcze żadnych treningów.') }}</p><a class="btn" href="{{ url_for('workouts.create') }}">{{ _('Zapisz pierwszy trening') }}</a></div>
   {% endif %}
 </div>
 {% endblock %}

@@ -1,0 +1,1142 @@
+# Translations template for trening.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: trening VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-11-13 12:17+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#, python-format
+msgid "%(done)s z %(total)s dni"
+msgstr ""
+
+#, python-format
+msgid "%(num)s dzień"
+msgid_plural "%(num)s dni"
+msgstr[0] ""
+msgstr[1] ""
+
+#, python-format
+msgid "%(num)s dzień treningowy"
+msgid_plural "%(num)s dni treningowych"
+msgstr[0] ""
+msgstr[1] ""
+
+#, python-format
+msgid "%(num)s powt."
+msgstr ""
+
+#, python-format
+msgid "%(num)s seria"
+msgid_plural "%(num)s serii"
+msgstr[0] ""
+msgstr[1] ""
+
+#, python-format
+msgid "%(num)s sesja"
+msgid_plural "%(num)s sesji"
+msgstr[0] ""
+msgstr[1] ""
+
+#, python-format
+msgid "%(num)s wpis"
+msgid_plural "%(num)s wpisów"
+msgstr[0] ""
+msgstr[1] ""
+
+#, python-format
+msgid "%(num)s zapisany trening."
+msgid_plural "%(num)s zapisanych treningów."
+msgstr[0] ""
+msgstr[1] ""
+
+#, python-format
+msgid "%(num)s ćwiczenie"
+msgid_plural "%(num)s ćwiczeń"
+msgstr[0] ""
+msgstr[1] ""
+
+#, python-format
+msgid "%(volume)s kg objętości"
+msgstr ""
+
+msgid "3–32 znaki: litery, cyfry, _ . -"
+msgstr ""
+
+msgid "Aktywne plany liczą się do realizacji tygodnia."
+msgstr ""
+
+msgid "Anuluj"
+msgstr ""
+
+#, python-format
+msgid ""
+"Aplikacja zaimportuje pomiary masy ciała (%(mass)s) i tkanki tłuszczowej "
+"(%(fat)s)."
+msgstr ""
+
+msgid "Bieganie"
+msgstr ""
+
+msgid "Bij rekordy."
+msgstr ""
+
+msgid "Brak aktywnego planu z dniami treningowymi."
+msgstr ""
+
+msgid "Brak danych do wykresów – zapisz kilka treningów."
+msgstr ""
+
+msgid "Brak dostępu"
+msgstr ""
+
+msgid "Brak pomiarów masy ciała."
+msgstr ""
+
+msgid "Brak pomiarów masy."
+msgstr ""
+
+msgid "Brak pomiarów."
+msgstr ""
+
+msgid "Brak pomiarów. Dodaj pierwszy, aby śledzić zmiany sylwetki."
+msgstr ""
+
+msgid "Brak rekordów dla tego ćwiczenia."
+msgstr ""
+
+msgid ""
+"Brak rekordów. Zapisz trening siłowy z ciężarem, a rekordy pojawią się "
+"automatycznie."
+msgstr ""
+
+msgid "Brak własnych ćwiczeń."
+msgstr ""
+
+msgid "Brak ćwiczeń – dodaj pierwsze poniżej."
+msgstr ""
+
+msgid "Błąd serwera"
+msgstr ""
+
+msgid "Ciało"
+msgstr ""
+
+msgid "Ciężar (kg)"
+msgstr ""
+
+msgid "Ciężar wygląda na nierealny (> 1000 kg)."
+msgstr ""
+
+msgid "Co najmniej 8 znaków."
+msgstr ""
+
+msgid "Coś poszło nie tak. Spróbuj ponownie za chwilę."
+msgstr ""
+
+msgid "Czas"
+msgstr ""
+
+msgid "Czas (min)"
+msgstr ""
+
+msgid "Czas min"
+msgstr ""
+
+#, python-format
+msgid "Cześć, %(name)s!"
+msgstr ""
+
+msgid "Czw"
+msgstr ""
+
+msgid "Czwartek"
+msgstr ""
+
+msgid "Data"
+msgstr ""
+
+msgid "Data nie może być z przyszłości."
+msgstr ""
+
+msgid "Dla cardio podaj dystans i/lub czas."
+msgstr ""
+
+msgid "Dni tygodnia, ćwiczenia i docelowe serie × powtórzenia × ciężar."
+msgstr ""
+
+msgid "Dodaj co najmniej jedno ćwiczenie."
+msgstr ""
+
+msgid "Dodaj dzień"
+msgstr ""
+
+msgid "Dodaj pomiar"
+msgstr ""
+
+msgid "Dodaj pomiar ręcznie"
+msgstr ""
+
+msgid "Dodaj ćwiczenie"
+msgstr ""
+
+msgid "Dodano dzień treningowy."
+msgstr ""
+
+msgid "Dodano ćwiczenie do dnia."
+msgstr ""
+
+msgid "Dodano ćwiczenie."
+msgstr ""
+
+msgid "Dozwolone znaki: litery, cyfry, _ . -"
+msgstr ""
+
+msgid "Dystans"
+msgstr ""
+
+msgid "Dystans (km)"
+msgstr ""
+
+msgid "Dystans km"
+msgstr ""
+
+msgid "Dziennik"
+msgstr ""
+
+msgid "Dziennik treningów"
+msgstr ""
+
+msgid "Dzień planu"
+msgstr ""
+
+msgid "Dzień tygodnia"
+msgstr ""
+
+msgid "Edytuj"
+msgstr ""
+
+msgid "Edytuj plan"
+msgstr ""
+
+msgid "Edytuj pomiar"
+msgstr ""
+
+msgid "Edytuj trening"
+msgstr ""
+
+msgid "Edytuj ćwiczenie"
+msgstr ""
+
+msgid "Ergometr wioślarski"
+msgstr ""
+
+#, python-format
+msgid "Field cannot be longer than %(max)d character."
+msgid_plural "Field cannot be longer than %(max)d characters."
+msgstr[0] ""
+msgstr[1] ""
+
+#, python-format
+msgid "Field must be at least %(min)d character long."
+msgid_plural "Field must be at least %(min)d characters long."
+msgstr[0] ""
+msgstr[1] ""
+
+#, python-format
+msgid "Field must be between %(min)d and %(max)d characters long."
+msgstr ""
+
+#, python-format
+msgid "Field must be equal to %(other_name)s."
+msgstr ""
+
+msgid "Formularz wygasł lub zawiera błędy. Odśwież stronę i spróbuj ponownie."
+msgstr ""
+
+msgid "Funkcja planowana w kolejnej wersji."
+msgstr ""
+
+msgid "Główna nawigacja"
+msgstr ""
+
+msgid "Hasła nie są identyczne."
+msgstr ""
+
+msgid "Hasło"
+msgstr ""
+
+msgid "Hasło musi mieć co najmniej 8 znaków."
+msgstr ""
+
+msgid "Hip thrust"
+msgstr ""
+
+msgid "Historia"
+msgstr ""
+
+msgid "Historia rekordów"
+msgstr ""
+
+msgid "Historia rekordów osobistych."
+msgstr ""
+
+msgid "Import z Apple Health"
+msgstr ""
+
+msgid "Invalid Choice: could not coerce."
+msgstr ""
+
+msgid "Invalid input."
+msgstr ""
+
+msgid "Jak to będzie działać"
+msgstr ""
+
+msgid "Język"
+msgstr ""
+
+msgid "Katalog wbudowany"
+msgstr ""
+
+msgid "Katalog ćwiczeń"
+msgstr ""
+
+msgid "Kategoria"
+msgstr ""
+
+msgid "Klatka"
+msgstr ""
+
+msgid "Klatka (cm)"
+msgstr ""
+
+msgid "Konto demonstracyjne:"
+msgstr ""
+
+msgid "Konto utworzone. Zacznij od dodania planu lub pierwszego treningu!"
+msgstr ""
+
+msgid "Liczba powtórzeń musi być większa od zera."
+msgstr ""
+
+msgid "Liczba serii i powtórzeń musi być liczbą całkowitą."
+msgstr ""
+
+msgid "Liczba treningów w tygodniu"
+msgstr ""
+
+msgid "Login"
+msgstr ""
+
+msgid "Login musi mieć od 3 do 32 znaków."
+msgstr ""
+
+msgid "Logowanie"
+msgstr ""
+
+msgid "Maks. ciężar"
+msgstr ""
+
+msgid "Maks. ciężar (kg)"
+msgstr ""
+
+#, python-format
+msgid "Maksymalnie %(num)d serii na ćwiczenie."
+msgstr ""
+
+msgid "Maksymalny ciężar"
+msgstr ""
+
+msgid "Maksymalny ciężar i szacowany 1RM (wzór Epleya) wykrywane automatycznie."
+msgstr ""
+
+msgid "Mam już konto"
+msgstr ""
+
+msgid "Martwy ciąg"
+msgstr ""
+
+msgid "Masa"
+msgstr ""
+
+msgid "Masa ciała"
+msgstr ""
+
+msgid "Masa ciała (kg)"
+msgstr ""
+
+msgid "Masa ciała, obwody i poziom tkanki tłuszczowej."
+msgstr ""
+
+msgid "Masz już konto?"
+msgstr ""
+
+msgid "Menu"
+msgstr ""
+
+#, python-format
+msgid ""
+"Model danych jest już przygotowany (pola %(source)s i %(ext)s). Do tego "
+"czasu dodawaj pomiary ręcznie."
+msgstr ""
+
+msgid "Moje ćwiczenia"
+msgstr ""
+
+msgid "Na pewno usunąć?"
+msgstr ""
+
+msgid "Najnowsze rekordy"
+msgstr ""
+
+msgid "Nazwa"
+msgstr ""
+
+msgid "Nazwa dnia"
+msgstr ""
+
+msgid "Nazwa planu"
+msgstr ""
+
+msgid "Nd"
+msgstr ""
+
+msgid "Nie masz jeszcze planu treningowego."
+msgstr ""
+
+msgid "Nie masz jeszcze żadnych treningów."
+msgstr ""
+
+msgid "Nie masz konta?"
+msgstr ""
+
+msgid "Nie masz uprawnień do tej operacji."
+msgstr ""
+
+msgid "Nie można usunąć ćwiczenia używanego w treningach lub planach."
+msgstr ""
+
+#, python-format
+msgid "Nie rozumiem serii „%(token)s”. Użyj formatu np. 5x100 lub 3x5x80."
+msgstr ""
+
+msgid "Nie znaleziono"
+msgstr ""
+
+msgid "Niedziela"
+msgstr ""
+
+msgid "Nieprawidłowa liczba powtórzeń."
+msgstr ""
+
+msgid "Nieprawidłowa liczba serii."
+msgstr ""
+
+msgid "Nieprawidłowe żądanie"
+msgstr ""
+
+msgid "Nieprawidłowe żądanie."
+msgstr ""
+
+msgid "Nieprawidłowy login lub hasło."
+msgstr ""
+
+msgid "Nieznane ćwiczenie."
+msgstr ""
+
+msgid "Not a valid choice."
+msgstr ""
+
+msgid "Not a valid date value."
+msgstr ""
+
+msgid "Not a valid decimal value."
+msgstr ""
+
+msgid "Not a valid float value."
+msgstr ""
+
+msgid "Not a valid integer value."
+msgstr ""
+
+msgid "Notatka"
+msgstr ""
+
+msgid "Notatki"
+msgstr ""
+
+msgid "Notatki:"
+msgstr ""
+
+msgid "Nowe ćwiczenie"
+msgstr ""
+
+msgid "Nowsze"
+msgstr ""
+
+msgid "Nowy dzień treningowy"
+msgstr ""
+
+msgid "Nowy plan"
+msgstr ""
+
+msgid "Nowy pomiar"
+msgstr ""
+
+#, python-format
+msgid "Nowy rekord! %(exercise)s – %(kind)s: %(value)s kg"
+msgstr ""
+
+msgid "Nowy trening"
+msgstr ""
+
+#, python-format
+msgid "Number must be at least %(min)s."
+msgstr ""
+
+#, python-format
+msgid "Number must be at most %(max)s."
+msgstr ""
+
+#, python-format
+msgid "Number must be between %(min)s and %(max)s."
+msgstr ""
+
+msgid "Objętość"
+msgstr ""
+
+msgid "Objętość na sesję"
+msgstr ""
+
+msgid "Objętość treningowa"
+msgstr ""
+
+msgid "Obwody (opcjonalnie)"
+msgstr ""
+
+msgid "Opis"
+msgstr ""
+
+msgid "Ostatni pomiar"
+msgstr ""
+
+msgid "Ostatni rekord"
+msgstr ""
+
+msgid "Ostatnie rekordy"
+msgstr ""
+
+msgid "Ostatnie treningi"
+msgstr ""
+
+msgid "Otwórz"
+msgstr ""
+
+msgid "Partia"
+msgstr ""
+
+msgid "Partia mięśniowa"
+msgstr ""
+
+msgid "Piątek"
+msgstr ""
+
+msgid "Plan aktywny (liczony w realizacji tygodnia)"
+msgstr ""
+
+msgid "Planuj. Trenuj."
+msgstr ""
+
+msgid "Plany"
+msgstr ""
+
+msgid "Plany treningowe"
+msgstr ""
+
+msgid "Podaj co najmniej jedną wartość pomiaru."
+msgstr ""
+
+msgid "Podaj dystans lub czas."
+msgstr ""
+
+msgid "Podaj serie, np. 5x100."
+msgstr ""
+
+msgid "Podciąganie na drążku"
+msgstr ""
+
+msgid "Pokaż"
+msgstr ""
+
+msgid "Pomiar ciała"
+msgstr ""
+
+msgid "Pomiary ciała"
+msgstr ""
+
+msgid "Pompki"
+msgstr ""
+
+msgid "Pompki na poręczach (dipy)"
+msgstr ""
+
+msgid "Pon"
+msgstr ""
+
+msgid "Poniedziałek"
+msgstr ""
+
+msgid "Popraw dane dnia treningowego."
+msgstr ""
+
+msgid "Popraw dane ćwiczenia (serie 1–20, powtórzenia 1–100)."
+msgstr ""
+
+msgid "Powtórz hasło"
+msgstr ""
+
+msgid "Powtórzenia"
+msgstr ""
+
+msgid "Profil → Eksportuj wszystkie dane zdrowotne"
+msgstr ""
+
+msgid "Progresja ciężaru"
+msgstr ""
+
+msgid ""
+"Progresja ciężarów, masa ciała, liczba treningów w tygodniu i realizacja "
+"planu."
+msgstr ""
+
+msgid "Progresja ciężarów, szacowany 1RM i regularność treningów."
+msgstr ""
+
+msgid "Progresja ćwiczenia"
+msgstr ""
+
+msgid "Prostowanie ramion na wyciągu"
+msgstr ""
+
+msgid "Przełącz motyw"
+msgstr ""
+
+msgid "Przełącz motyw jasny/ciemny"
+msgstr ""
+
+#, python-format
+msgid "Prześlesz tutaj plik %(zip)s (lub %(xml)s)."
+msgstr ""
+
+msgid "Przysiad ze sztangą"
+msgstr ""
+
+msgid "Pt"
+msgstr ""
+
+msgid "Pulpit"
+msgstr ""
+
+msgid "Pływanie"
+msgstr ""
+
+msgid "Ramię"
+msgstr ""
+
+msgid "Ramię (cm)"
+msgstr ""
+
+msgid "Realizacja planu – ten tydzień"
+msgstr ""
+
+msgid "Rejestracja"
+msgstr ""
+
+msgid "Rekordy"
+msgstr ""
+
+msgid "Rekordy osobiste"
+msgstr ""
+
+msgid "Rekordy pojawią się automatycznie po zapisaniu treningów."
+msgstr ""
+
+msgid "Rekordy z tego treningu"
+msgstr ""
+
+msgid ""
+"Rekordy zostaną oznaczone źródłem „Apple Health”, a ponowny import nie "
+"utworzy duplikatów."
+msgstr ""
+
+msgid "Rodzaj"
+msgstr ""
+
+msgid "Rower"
+msgstr ""
+
+msgid "Rumuński martwy ciąg"
+msgstr ""
+
+msgid "Samopoczucie, technika, uwagi…"
+msgstr ""
+
+msgid "Seria"
+msgstr ""
+
+msgid "Serie"
+msgstr ""
+
+msgid "Serie (powt. x kg)"
+msgstr ""
+
+msgid "Serie siłowe i cardio – dystans oraz czas. Szybki zapis w formacie 5x100."
+msgstr ""
+
+#, python-format
+msgid "Serie wpisuj jako %(fmt)s oddzielone przecinkami, np. %(example)s."
+msgstr ""
+
+msgid "Skakanka"
+msgstr ""
+
+#, python-format
+msgid ""
+"Skrót %(short)s oznacza 3 serie po 5 powtórzeń ze 100 kg. Ćwiczenia z "
+"masą ciała: %(bw)s."
+msgstr ""
+
+msgid "Sob"
+msgstr ""
+
+msgid "Sobota"
+msgstr ""
+
+msgid "Starsze"
+msgstr ""
+
+msgid "Statystyki"
+msgstr ""
+
+#, python-format
+msgid "Strona %(page)s z %(pages)s"
+msgstr ""
+
+msgid "Strona nie istnieje albo nie masz do niej dostępu."
+msgstr ""
+
+msgid "Strony"
+msgstr ""
+
+msgid "Szac. 1RM"
+msgstr ""
+
+msgid "Szacowany 1RM"
+msgstr ""
+
+msgid "Szacowany 1RM (Epley)"
+msgstr ""
+
+msgid "Szacowany 1RM (kg)"
+msgstr ""
+
+msgid "Talia"
+msgstr ""
+
+msgid "Talia (cm)"
+msgstr ""
+
+msgid "Ten login jest już zajęty."
+msgstr ""
+
+msgid "Ten tydzień"
+msgstr ""
+
+msgid "The CSRF session token is missing."
+msgstr ""
+
+msgid "The CSRF token has expired."
+msgstr ""
+
+msgid "The CSRF token is invalid."
+msgstr ""
+
+msgid "The CSRF token is missing."
+msgstr ""
+
+msgid "The CSRF tokens do not match."
+msgstr ""
+
+msgid "The referrer does not match the host."
+msgstr ""
+
+msgid "The referrer header is missing."
+msgstr ""
+
+msgid "This field is required."
+msgstr ""
+
+msgid "Tkanka tłuszczowa (%)"
+msgstr ""
+
+msgid "Trening"
+msgstr ""
+
+#, python-format
+msgid "Trening %(date)s"
+msgstr ""
+
+msgid ""
+"Trening to prosty dziennik siłowni: plany tygodniowe, zapis serii i "
+"ciężarów, automatyczne wykrywanie rekordów osobistych oraz wykresy "
+"postępów i masy ciała."
+msgstr ""
+
+msgid "Trening – planowanie i monitorowanie treningu siłowego"
+msgstr ""
+
+msgid "Treningi"
+msgstr ""
+
+msgid "Treningi w tygodniu"
+msgstr ""
+
+msgid "Twoje podsumowanie treningowe."
+msgstr ""
+
+msgid "Tł."
+msgstr ""
+
+msgid "Udo"
+msgstr ""
+
+msgid "Udo (cm)"
+msgstr ""
+
+msgid "Uginanie ramion ze sztangą"
+msgstr ""
+
+msgid "Usunięto dzień."
+msgstr ""
+
+msgid "Usunięto plan."
+msgstr ""
+
+msgid "Usunięto pomiar."
+msgstr ""
+
+msgid "Usunięto trening."
+msgstr ""
+
+msgid "Usunięto ćwiczenie z planu."
+msgstr ""
+
+msgid "Usunięto ćwiczenie."
+msgstr ""
+
+#, python-format
+msgid "Usunąć dzień „%(name)s”?"
+msgstr ""
+
+msgid "Usunąć plan wraz ze wszystkimi dniami?"
+msgstr ""
+
+msgid "Usunąć pomiar?"
+msgstr ""
+
+msgid "Usunąć trening? Rekordy z tego treningu również zostaną usunięte."
+msgstr ""
+
+msgid "Usunąć ćwiczenie z dnia?"
+msgstr ""
+
+msgid "Usunąć ćwiczenie?"
+msgstr ""
+
+msgid "Usuń"
+msgstr ""
+
+msgid "Usuń plan"
+msgstr ""
+
+msgid "Usuń wiersz"
+msgstr ""
+
+msgid "Utworzono plan. Dodaj dni treningowe."
+msgstr ""
+
+msgid "Utwórz pierwszy plan"
+msgstr ""
+
+msgid "Utwórz plan"
+msgstr ""
+
+#, python-format
+msgid "W aplikacji Zdrowie na iPhonie wybierzesz %(path)s."
+msgstr ""
+
+msgid "Wiosłowanie sztangą"
+msgstr ""
+
+msgid "Witaj"
+msgstr ""
+
+#, python-format
+msgid "Witaj, %(name)s!"
+msgstr ""
+
+msgid "Wróć"
+msgstr ""
+
+msgid "Wróć na pulpit"
+msgstr ""
+
+msgid "Wszystkie"
+msgstr ""
+
+msgid "Wszystkie plany"
+msgstr ""
+
+msgid "Wszystkie pomiary"
+msgstr ""
+
+msgid "Wszystkie rekordy"
+msgstr ""
+
+msgid "Wszystkie treningi"
+msgstr ""
+
+msgid "Wt"
+msgstr ""
+
+msgid "Wtorek"
+msgstr ""
+
+msgid "Wybierz ćwiczenie."
+msgstr ""
+
+msgid "Wyciskanie hantli na skosie"
+msgstr ""
+
+msgid "Wyciskanie sztangi leżąc"
+msgstr ""
+
+msgid "Wyciskanie żołnierskie"
+msgstr ""
+
+msgid "Wykres masy ciała"
+msgstr ""
+
+msgid "Wykres progresji"
+msgstr ""
+
+msgid "Wykroki z hantlami"
+msgstr ""
+
+msgid ""
+"Wykrywane automatycznie przy zapisie treningu: najcięższy ciężar w serii "
+"oraz szacowany 1RM wg wzoru Epleya (ciężar × (1 + powt./30))."
+msgstr ""
+
+msgid "Wylogowano."
+msgstr ""
+
+msgid "Wyloguj"
+msgstr ""
+
+msgid "Wynik"
+msgstr ""
+
+msgid "Wznosy bokiem z hantlami"
+msgstr ""
+
+msgid "Własne ćwiczenie"
+msgstr ""
+
+msgid "Zaloguj"
+msgstr ""
+
+msgid "Zaloguj się"
+msgstr ""
+
+msgid "Zaloguj się, aby zobaczyć tę stronę."
+msgstr ""
+
+msgid "Zapamiętaj mnie"
+msgstr ""
+
+msgid "Zapisano plan."
+msgstr ""
+
+msgid "Zapisano pomiar."
+msgstr ""
+
+msgid "Zapisano trening."
+msgstr ""
+
+msgid "Zapisano zmiany."
+msgstr ""
+
+msgid "Zapisz"
+msgstr ""
+
+msgid "Zapisz pierwszy trening"
+msgstr ""
+
+msgid "Zapisz plan"
+msgstr ""
+
+msgid "Zapisz pomiar"
+msgstr ""
+
+msgid "Zapisz trening"
+msgstr ""
+
+msgid "Zapisz trening z tego dnia"
+msgstr ""
+
+msgid "Zarejestruj się"
+msgstr ""
+
+msgid "Załóż darmowe konto"
+msgstr ""
+
+msgid "Załóż konto"
+msgstr ""
+
+msgid "Zbyt wiele nieudanych prób logowania. Spróbuj ponownie za kilka minut."
+msgstr ""
+
+msgid "aktywny"
+msgstr ""
+
+msgid "barki"
+msgstr ""
+
+msgid "biceps"
+msgstr ""
+
+msgid "cardio"
+msgstr ""
+
+msgid "dwugłowe uda"
+msgstr ""
+
+msgid "eksport.zip"
+msgstr ""
+
+msgid "klatka"
+msgstr ""
+
+msgid "klatka / triceps"
+msgstr ""
+
+msgid "max"
+msgstr ""
+
+msgid "nieaktywny"
+msgstr ""
+
+msgid "nogi"
+msgstr ""
+
+msgid "np. 5x100, 5x100, 3x5x90"
+msgstr ""
+
+msgid "np. Pon – klatka"
+msgstr ""
+
+msgid "np. Siła 3 dni"
+msgstr ""
+
+msgid "np. Wyciskanie na maszynie"
+msgstr ""
+
+msgid "np. klatka"
+msgstr ""
+
+msgid "ostatnie 12 tygodni"
+msgstr ""
+
+msgid "plecy"
+msgstr ""
+
+msgid "plecy / nogi"
+msgstr ""
+
+msgid "powtórzenia x ciężar"
+msgstr ""
+
+msgid "powtórzenia × ciężar"
+msgstr ""
+
+msgid "pośladki"
+msgstr ""
+
+msgid "ręcznie"
+msgstr ""
+
+msgid "siłowe"
+msgstr ""
+
+msgid "tkanki tłuszczowej"
+msgstr ""
+
+msgid "trening"
+msgid_plural "treningów"
+msgstr[0] ""
+msgstr[1] ""
+
+msgid "triceps"
+msgstr ""
+
+msgid "wersja"
+msgstr ""
+
+msgid "wkrótce"
+msgstr ""
+
+msgid "zobacz"
+msgstr ""
+
+msgid "Ćwiczenia"
+msgstr ""
+
+msgid "Ćwiczenia cardio zapisujesz jako dystans i czas."
+msgstr ""
+
+msgid "Ćwiczenia wbudowane oraz Twoje własne."
+msgstr ""
+
+msgid "Ćwiczenie"
+msgstr ""
+
+msgid "Ćwiczenie o tej nazwie już istnieje."
+msgstr ""
+
+msgid "Ściąganie drążka wyciągu"
+msgstr ""
+
+msgid "Śr"
+msgstr ""
+
+msgid "Środa"
+msgstr ""
+
+msgid "Źródło"
+msgstr ""
+
+msgid "— bez planu —"
+msgstr ""
+
+msgid "— wybierz ćwiczenie —"
+msgstr ""
+

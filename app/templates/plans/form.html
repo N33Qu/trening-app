@@ -6,12 +6,12 @@
 <div class="card form-card">
   <form method="post" novalidate>
     {{ form.hidden_tag() }}
-    {{ field(form.name, placeholder="np. Siła 3 dni") }}
+    {{ field(form.name, placeholder=_("np. Siła 3 dni")) }}
     {{ field(form.description, rows=3) }}
     {{ field(form.is_active) }}
     <div class="form-actions">
       {{ form.submit(class_="btn") }}
-      <a class="btn btn-ghost" href="{{ url_for('plans.detail', plan_id=plan.id) if plan else url_for('plans.index') }}">Anuluj</a>
+      <a class="btn btn-ghost" href="{{ url_for('plans.detail', plan_id=plan.id) if plan else url_for('plans.index') }}">{{ _('Anuluj') }}</a>
     </div>
   </form>
 </div>

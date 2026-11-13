@@ -2,6 +2,7 @@ import re
 from dataclasses import dataclass
 
 from flask import abort
+from flask_babel import gettext
 from flask_login import current_user
 from sqlalchemy import func, or_, select
 
@@ -26,7 +27,7 @@ _SET_TOKEN = re.compile(
 
 def _int(value):
     if value is None or not re.fullmatch(r"\d+", value):
-        raise SetsParseError("Liczba serii i powtórzeń musi być liczbą całkowitą.")
+        raise SetsParseError(gettext("Liczba serii i powtórzeń musi być liczbą całkowitą."))
     return int(value)
 
 
@@ -49,7 +50,9 @@ def parse_sets(text):
             continue
         match = _SET_TOKEN.match(token)
         if not match:
-            raise SetsParseError(f"Nie rozumiem serii „{token}”. Użyj formatu np. 5x100 lub 3x5x80.")
+            raise SetsParseError(
+                gettext("Nie rozumiem serii „%(token)s”. Użyj formatu np. 5x100 lub 3x5x80.", token=token)
+            )
         a, b, c = match.group("a"), match.group("b"), match.group("c")
         if c is not None:
             count, reps, weight = _int(a), _int(b), c
@@ -59,16 +62,16 @@ def parse_sets(text):
             count, reps, weight = 1, _int(a), "0"
         weight = float(weight.replace(",", "."))
         if reps <= 0:
-            raise SetsParseError("Liczba powtórzeń musi być większa od zera.")
+            raise SetsParseError(gettext("Liczba powtórzeń musi być większa od zera."))
         if count <= 0 or count > MAX_SETS_PER_ENTRY:
-            raise SetsParseError("Nieprawidłowa liczba serii.")
+            raise SetsParseError(gettext("Nieprawidłowa liczba serii."))
         if reps > 500:
-            raise SetsParseError("Nieprawidłowa liczba powtórzeń.")
+            raise SetsParseError(gettext("Nieprawidłowa liczba powtórzeń."))
         if weight > 1000:
-            raise SetsParseError("Ciężar wygląda na nierealny (> 1000 kg).")
+            raise SetsParseError(gettext("Ciężar wygląda na nierealny (> 1000 kg)."))
         result.extend([(reps, weight)] * count)
         if len(result) > MAX_SETS_PER_ENTRY:
-            raise SetsParseError(f"Maksymalnie {MAX_SETS_PER_ENTRY} serii na ćwiczenie.")
+            raise SetsParseError(gettext("Maksymalnie %(num)d serii na ćwiczenie.", num=MAX_SETS_PER_ENTRY))
     return result
 
 
@@ -127,7 +130,7 @@ def visible_exercise(exercise_id, user_id):
 
 def exercise_choices(user_id):
     exercises = db.session.execute(visible_exercises_query(user_id)).scalars().all()
-    return [(e.id, f"{e.name} ({e.category_label})") for e in exercises], {e.id: e for e in exercises}
+    return [(e.id, f"{e.display_name} ({e.category_label})") for e in exercises], {e.id: e for e in exercises}
 
 
 def user_plan_days(user_id):
@@ -204,7 +207,7 @@ def detect_personal_records(workout, count_metric=True):
             )
             old = previous.get((exercise_id, kind))
             if old is None or value > old:
-                new_records.append(NewRecord(exercises[exercise_id].name, kind, value))
+                new_records.append(NewRecord(exercises[exercise_id].display_name, kind, value))
 
     if count_metric and new_records:
         record_personal_records(len(new_records))

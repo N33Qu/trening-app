@@ -101,6 +101,15 @@ main.container { flex: 1; padding-top: 1.5rem; padding-bottom: 2.5rem; }
 [data-theme="dark"] .theme-toggle .icon-moon { display: none; }
 .nav-toggle { display: none; }
 .inline-form { display: inline; margin: 0; }
+.lang-switch { display: inline-flex; margin: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; height: 38px; }
+.lang-switch button {
+  border: 0; background: var(--bg-elev); color: var(--text-muted); font: inherit; font-size: .8rem; font-weight: 700;
+  padding: 0 .55rem; cursor: pointer; letter-spacing: .03em;
+}
+.lang-switch button + button { border-left: 1px solid var(--border); }
+.lang-switch button:hover { color: var(--accent); }
+.lang-switch button.active { background: var(--accent-soft); color: var(--accent); }
+.lang-switch button:focus-visible { outline: 3px solid color-mix(in srgb, var(--accent) 45%, transparent); outline-offset: -3px; }
 
 @media (max-width: 900px) {
   .nav { flex-wrap: wrap; }

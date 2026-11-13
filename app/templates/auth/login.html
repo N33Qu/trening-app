@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% from "_macros.html" import field %}
-{% block title %}Logowanie{% endblock %}
+{% block title %}{{ _('Logowanie') }}{% endblock %}
 {% block content %}
 <div class="auth-wrap">
   <div class="card auth-card">
-    <h1>Zaloguj się</h1>
+    <h1>{{ _('Zaloguj się') }}</h1>
     <form method="post" novalidate>
       {{ form.hidden_tag() }}
       {{ field(form.username, autocomplete="username", autofocus=true) }}
@@ -12,8 +12,8 @@
       {{ field(form.remember) }}
       {{ form.submit(class_="btn btn-block") }}
     </form>
-    <p class="auth-alt">Nie masz konta? <a href="{{ url_for('auth.register') }}">Zarejestruj się</a></p>
-    <p class="demo-hint">Konto demonstracyjne: <span class="mono">demo</span> / <span class="mono">demo1234</span></p>
+    <p class="auth-alt">{{ _('Nie masz konta?') }} <a href="{{ url_for('auth.register') }}">{{ _('Zarejestruj się') }}</a></p>
+    <p class="demo-hint">{{ _('Konto demonstracyjne:') }} <span class="mono">demo</span> / <span class="mono">demo1234</span></p>
   </div>
 </div>
 {% endblock %}

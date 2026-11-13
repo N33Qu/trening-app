@@ -1,3 +1,13 @@
 <script type="application/json" id="chart-data">{{ charts|tojson }}</script>
+<script type="application/json" id="chart-i18n">{{ {
+  "lang": current_lang,
+  "workouts": _("Treningi"),
+  "bodyWeight": _("Masa ciała"),
+  "distance": _("Dystans (km)"),
+  "maxWeight": _("Maks. ciężar (kg)"),
+  "duration": _("Czas (min)"),
+  "e1rm": _("Szacowany 1RM (kg)"),
+  "volume": _("Objętość"),
+}|tojson }}</script>
 <script src="{{ url_for('static', filename='vendor/chart.umd.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/charts.js') }}?v={{ app_version }}"></script>

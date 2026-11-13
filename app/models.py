@@ -1,6 +1,7 @@
 import datetime as dt
 from datetime import UTC, datetime
 
+from flask_babel import gettext, lazy_gettext
 from flask_login import UserMixin
 from sqlalchemy import CheckConstraint, ForeignKey, Index, String, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -10,18 +11,20 @@ from .extensions import db
 
 CATEGORY_STRENGTH = "strength"
 CATEGORY_CARDIO = "cardio"
-CATEGORY_LABELS = {CATEGORY_STRENGTH: "siłowe", CATEGORY_CARDIO: "cardio"}
+CATEGORY_LABELS = {CATEGORY_STRENGTH: lazy_gettext("siłowe"), CATEGORY_CARDIO: lazy_gettext("cardio")}
 
-WEEKDAYS = ["Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota", "Niedziela"]
-WEEKDAYS_SHORT = ["Pon", "Wt", "Śr", "Czw", "Pt", "Sob", "Nd"]
+WEEKDAYS = [lazy_gettext("Poniedziałek"), lazy_gettext("Wtorek"), lazy_gettext("Środa"), lazy_gettext("Czwartek"),
+            lazy_gettext("Piątek"), lazy_gettext("Sobota"), lazy_gettext("Niedziela")]
+WEEKDAYS_SHORT = [lazy_gettext("Pon"), lazy_gettext("Wt"), lazy_gettext("Śr"), lazy_gettext("Czw"),
+                  lazy_gettext("Pt"), lazy_gettext("Sob"), lazy_gettext("Nd")]
 
 PR_MAX_WEIGHT = "max_weight"
 PR_E1RM = "e1rm"
-PR_LABELS = {PR_MAX_WEIGHT: "Maksymalny ciężar", PR_E1RM: "Szacowany 1RM (Epley)"}
+PR_LABELS = {PR_MAX_WEIGHT: lazy_gettext("Maksymalny ciężar"), PR_E1RM: lazy_gettext("Szacowany 1RM (Epley)")}
 
 SOURCE_MANUAL = "manual"
 SOURCE_APPLE_HEALTH = "apple_health"
-SOURCE_LABELS = {SOURCE_MANUAL: "ręcznie", SOURCE_APPLE_HEALTH: "Apple Health"}
+SOURCE_LABELS = {SOURCE_MANUAL: lazy_gettext("ręcznie"), SOURCE_APPLE_HEALTH: "Apple Health"}
 
 
 def utcnow():
@@ -63,6 +66,17 @@ class Exercise(db.Model):
     @property
     def is_cardio(self):
         return self.category == CATEGORY_CARDIO
+
+    @property
+    def display_name(self):
+        """Catalogue exercises are translated; user-created ones are shown as typed."""
+        return gettext(self.name) if self.is_global else self.name
+
+    @property
+    def display_muscle_group(self):
+        if self.muscle_group and self.is_global:
+            return gettext(self.muscle_group)
+        return self.muscle_group
 
     @property
     def category_label(self):

@@ -1,17 +1,17 @@
 {% extends "base.html" %}
-{% block title %}Import z Apple Health{% endblock %}
+{% block title %}{{ _('Import z Apple Health') }}{% endblock %}
 {% block content %}
-<div class="page-head"><div><h1>Import z Apple Health</h1><p class="subtitle">Funkcja planowana w kolejnej wersji.</p></div></div>
+<div class="page-head"><div><h1>{{ _('Import z Apple Health') }}</h1><p class="subtitle">{{ _('Funkcja planowana w kolejnej wersji.') }}</p></div></div>
 <div class="card form-wide">
-  <span class="badge badge-info">wkrótce</span>
-  <h2 class="mt">Jak to będzie działać</h2>
+  <span class="badge badge-info">{{ _('wkrótce') }}</span>
+  <h2 class="mt">{{ _('Jak to będzie działać') }}</h2>
   <ol>
-    <li>W aplikacji Zdrowie na iPhonie wybierzesz <em>Profil → Eksportuj wszystkie dane zdrowotne</em>.</li>
-    <li>Prześlesz tutaj plik <span class="mono">eksport.zip</span> (lub <span class="mono">export.xml</span>).</li>
-    <li>Aplikacja zaimportuje pomiary masy ciała (<span class="mono">HKQuantityTypeIdentifierBodyMass</span>) i tkanki tłuszczowej (<span class="mono">HKQuantityTypeIdentifierBodyFatPercentage</span>).</li>
-    <li>Rekordy zostaną oznaczone źródłem „Apple Health”, a ponowny import nie utworzy duplikatów.</li>
+    <li>{{ _('W aplikacji Zdrowie na iPhonie wybierzesz %(path)s.', path='<em>%s</em>'|format(_('Profil → Eksportuj wszystkie dane zdrowotne'))|safe) }}</li>
+    <li>{{ _('Prześlesz tutaj plik %(zip)s (lub %(xml)s).', zip='<span class="mono">%s</span>'|format(_('eksport.zip'))|safe, xml='<span class="mono">export.xml</span>'|safe) }}</li>
+    <li>{{ _('Aplikacja zaimportuje pomiary masy ciała (%(mass)s) i tkanki tłuszczowej (%(fat)s).', mass='<span class="mono">HKQuantityTypeIdentifierBodyMass</span>'|safe, fat='<span class="mono">HKQuantityTypeIdentifierBodyFatPercentage</span>'|safe) }}</li>
+    <li>{{ _('Rekordy zostaną oznaczone źródłem „Apple Health”, a ponowny import nie utworzy duplikatów.') }}</li>
   </ol>
-  <p class="muted">Model danych jest już przygotowany (pola <span class="mono">source</span> i <span class="mono">external_id</span>). Do tego czasu dodawaj pomiary ręcznie.</p>
-  <div class="form-actions"><a class="btn" href="{{ url_for('body.create') }}">Dodaj pomiar ręcznie</a><a class="btn btn-ghost" href="{{ url_for('body.index') }}">Wróć</a></div>
+  <p class="muted">{{ _('Model danych jest już przygotowany (pola %(source)s i %(ext)s). Do tego czasu dodawaj pomiary ręcznie.', source='<span class="mono">source</span>'|safe, ext='<span class="mono">external_id</span>'|safe) }}</p>
+  <div class="form-actions"><a class="btn" href="{{ url_for('body.create') }}">{{ _('Dodaj pomiar ręcznie') }}</a><a class="btn btn-ghost" href="{{ url_for('body.index') }}">{{ _('Wróć') }}</a></div>
 </div>
 {% endblock %}

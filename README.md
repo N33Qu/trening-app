@@ -16,6 +16,8 @@ Zespół: **Mikołaj Stasz**, **Ewelina Sałata**.
 - automatyczne wykrywanie rekordów osobistych (max ciężar, szacowane 1RM) z komunikatem „Nowy rekord!”,
 - pomiary ciała (masa, tkanka tłuszczowa, obwody) z importem,
 - pulpit i statystyki z wykresami (jasny i ciemny motyw),
+- wersja językowa polska i angielska (przełącznik PL/EN w nagłówku; wybór zapamiętywany w ciasteczku,
+  domyślnie język z przeglądarki, a gdy nie jest obsługiwany – polski),
 - pełna izolacja danych między użytkownikami (cudzy zasób = 404),
 - konto demonstracyjne: `demo` / `demo1234` (dane przykładowe, `SEED_DEMO=true`).
 
@@ -127,8 +129,22 @@ Aplikacja udostępnia `/metrics` (m.in. `flask_http_request_total`, `trening_use
 ```bash
 python -m venv .venv && . .venv/bin/activate
 pip install -r requirements-dev.txt -r requirements.txt
+pybabel compile -d app/translations
 ruff check .
 pytest --cov=app
+```
+
+### Tłumaczenia
+
+Teksty interfejsu są po polsku i oznaczone w kodzie (`_()`, `_l()`, `gettext`); katalogi
+`app/translations/{pl,en}/LC_MESSAGES/messages.po` są w repozytorium, a pliki `.mo` powstają przy
+budowie obrazu (`pybabel compile` w `Dockerfile`) i w pipeline przed testami. Po zmianie tekstów:
+
+```bash
+pybabel extract -F babel.cfg -k _l -k lazy_gettext -k N_plural:1,2 --no-location --sort-output -o messages.pot .
+pybabel update -i messages.pot -d app/translations --no-fuzzy-matching
+# uzupełnij msgstr w app/translations/en/LC_MESSAGES/messages.po (i formy mnogie w pl)
+pybabel compile -d app/translations
 ```
 
 Scenariusze testów akceptacyjnych na klastrze (wdrożenie, izolacja, trwałość, HPA, pipeline/GitOps/monitoring)

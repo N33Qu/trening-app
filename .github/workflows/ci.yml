@@ -26,6 +26,7 @@ jobs:
           cache: pip
       - run: pip install -r requirements-dev.txt -r requirements.txt
       - run: ruff check .
+      - run: pybabel compile -d app/translations
       - run: pytest --cov=app --cov-report=term-missing --cov-report=xml
       - uses: actions/upload-artifact@v4
         with:

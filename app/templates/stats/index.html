@@ -1,17 +1,17 @@
 {% extends "base.html" %}
-{% block title %}Statystyki{% endblock %}
+{% block title %}{{ _('Statystyki') }}{% endblock %}
 {% block content %}
 <div class="page-head">
-  <div><h1>Statystyki</h1><p class="subtitle">Progresja ciężarów, szacowany 1RM i regularność treningów.</p></div>
+  <div><h1>{{ _('Statystyki') }}</h1><p class="subtitle">{{ _('Progresja ciężarów, szacowany 1RM i regularność treningów.') }}</p></div>
   {% if exercises %}
   <form method="get" class="inline-fields" action="{{ url_for('stats.index') }}">
     <div class="field">
-      <label for="exercise">Ćwiczenie</label>
+      <label for="exercise">{{ _('Ćwiczenie') }}</label>
       <select name="exercise" id="exercise" data-autosubmit>
-        {% for e in exercises %}<option value="{{ e.id }}" {{ 'selected' if selected and e.id == selected.id }}>{{ e.name }}</option>{% endfor %}
+        {% for e in exercises %}<option value="{{ e.id }}" {{ 'selected' if selected and e.id == selected.id }}>{{ e.display_name }}</option>{% endfor %}
       </select>
     </div>
-    <button type="submit" class="btn btn-secondary">Pokaż</button>
+    <button type="submit" class="btn btn-secondary">{{ _('Pokaż') }}</button>
   </form>
   {% endif %}
 </div>
@@ -19,34 +19,34 @@
 {% if selected and progress and progress.sessions %}
 <div class="grid grid-2">
   <div class="card">
-    <div class="card-head"><h2>{{ 'Dystans' if selected.is_cardio else 'Progresja ciężaru' }} – {{ selected.name }}</h2><span class="badge">{{ progress.sessions }} sesji</span></div>
-    <div class="chart-box tall"><canvas data-chart="progress" role="img" aria-label="Progresja ćwiczenia"></canvas></div>
+    <div class="card-head"><h2>{{ _('Dystans') if selected.is_cardio else _('Progresja ciężaru') }} – {{ selected.display_name }}</h2><span class="badge">{{ ngettext('%(num)s sesja', '%(num)s sesji', progress.sessions) }}</span></div>
+    <div class="chart-box tall"><canvas data-chart="progress" role="img" aria-label="{{ _('Progresja ćwiczenia') }}"></canvas></div>
   </div>
   <div class="card">
-    <div class="card-head"><h2>{{ 'Czas' if selected.is_cardio else 'Szacowany 1RM (Epley)' }}</h2>{% if not selected.is_cardio %}<a class="small" href="{{ url_for('records.history', exercise_id=selected.id) }}">Historia rekordów →</a>{% endif %}</div>
-    <div class="chart-box tall"><canvas data-chart="e1rm" role="img" aria-label="Szacowany 1RM"></canvas></div>
+    <div class="card-head"><h2>{{ _('Czas') if selected.is_cardio else _('Szacowany 1RM (Epley)') }}</h2>{% if not selected.is_cardio %}<a class="small" href="{{ url_for('records.history', exercise_id=selected.id) }}">{{ _('Historia rekordów') }} →</a>{% endif %}</div>
+    <div class="chart-box tall"><canvas data-chart="e1rm" role="img" aria-label="{{ _('Szacowany 1RM') }}"></canvas></div>
   </div>
 </div>
 {% if not selected.is_cardio %}
 <div class="card mt">
-  <div class="card-head"><h2>Objętość na sesję</h2><span class="muted small">powtórzenia × ciężar</span></div>
-  <div class="chart-box"><canvas data-chart="volume" role="img" aria-label="Objętość treningowa"></canvas></div>
+  <div class="card-head"><h2>{{ _('Objętość na sesję') }}</h2><span class="muted small">{{ _('powtórzenia × ciężar') }}</span></div>
+  <div class="chart-box"><canvas data-chart="volume" role="img" aria-label="{{ _('Objętość treningowa') }}"></canvas></div>
 </div>
 {% endif %}
 {% else %}
-<div class="card empty"><p>Brak danych do wykresów – zapisz kilka treningów.</p><a class="btn" href="{{ url_for('workouts.create') }}">Nowy trening</a></div>
+<div class="card empty"><p>{{ _('Brak danych do wykresów – zapisz kilka treningów.') }}</p><a class="btn" href="{{ url_for('workouts.create') }}">{{ _('Nowy trening') }}</a></div>
 {% endif %}
 
 <div class="grid grid-2 mt">
   <div class="card">
-    <div class="card-head"><h2>Treningi w tygodniu</h2><span class="muted small">ostatnie 12 tygodni</span></div>
-    <div class="chart-box"><canvas data-chart="perWeek" role="img" aria-label="Treningi w tygodniu"></canvas></div>
+    <div class="card-head"><h2>{{ _('Treningi w tygodniu') }}</h2><span class="muted small">{{ _('ostatnie 12 tygodni') }}</span></div>
+    <div class="chart-box"><canvas data-chart="perWeek" role="img" aria-label="{{ _('Treningi w tygodniu') }}"></canvas></div>
   </div>
   <div class="card">
-    <div class="card-head"><h2>Masa ciała</h2></div>
+    <div class="card-head"><h2>{{ _('Masa ciała') }}</h2></div>
     {% if charts.bodyWeight["values"] %}
-    <div class="chart-box"><canvas data-chart="bodyWeight" role="img" aria-label="Masa ciała"></canvas></div>
-    {% else %}<div class="empty"><p>Brak pomiarów.</p></div>{% endif %}
+    <div class="chart-box"><canvas data-chart="bodyWeight" role="img" aria-label="{{ _('Masa ciała') }}"></canvas></div>
+    {% else %}<div class="empty"><p>{{ _('Brak pomiarów.') }}</p></div>{% endif %}
   </div>
 </div>
 <div class="mt">{% include "_completion.html" %}</div>

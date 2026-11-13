@@ -7,6 +7,7 @@ from sqlalchemy import select, text
 from sqlalchemy.exc import IntegrityError
 
 from .extensions import db
+from .i18n import N_
 from .models import (
     CATEGORY_CARDIO,
     CATEGORY_STRENGTH,
@@ -28,27 +29,27 @@ DEMO_USERNAME = "demo"
 DEMO_PASSWORD = "demo1234"
 
 CATALOGUE = [
-    ("Przysiad ze sztangą", CATEGORY_STRENGTH, "nogi"),
-    ("Wyciskanie sztangi leżąc", CATEGORY_STRENGTH, "klatka"),
-    ("Martwy ciąg", CATEGORY_STRENGTH, "plecy / nogi"),
-    ("Wyciskanie żołnierskie", CATEGORY_STRENGTH, "barki"),
-    ("Podciąganie na drążku", CATEGORY_STRENGTH, "plecy"),
-    ("Wiosłowanie sztangą", CATEGORY_STRENGTH, "plecy"),
-    ("Wyciskanie hantli na skosie", CATEGORY_STRENGTH, "klatka"),
-    ("Pompki na poręczach (dipy)", CATEGORY_STRENGTH, "klatka / triceps"),
-    ("Rumuński martwy ciąg", CATEGORY_STRENGTH, "dwugłowe uda"),
-    ("Wykroki z hantlami", CATEGORY_STRENGTH, "nogi"),
-    ("Hip thrust", CATEGORY_STRENGTH, "pośladki"),
-    ("Uginanie ramion ze sztangą", CATEGORY_STRENGTH, "biceps"),
-    ("Prostowanie ramion na wyciągu", CATEGORY_STRENGTH, "triceps"),
-    ("Ściąganie drążka wyciągu", CATEGORY_STRENGTH, "plecy"),
-    ("Wznosy bokiem z hantlami", CATEGORY_STRENGTH, "barki"),
-    ("Pompki", CATEGORY_STRENGTH, "klatka"),
-    ("Bieganie", CATEGORY_CARDIO, None),
-    ("Rower", CATEGORY_CARDIO, None),
-    ("Ergometr wioślarski", CATEGORY_CARDIO, None),
-    ("Pływanie", CATEGORY_CARDIO, None),
-    ("Skakanka", CATEGORY_CARDIO, None),
+    (N_("Przysiad ze sztangą"), CATEGORY_STRENGTH, N_("nogi")),
+    (N_("Wyciskanie sztangi leżąc"), CATEGORY_STRENGTH, N_("klatka")),
+    (N_("Martwy ciąg"), CATEGORY_STRENGTH, N_("plecy / nogi")),
+    (N_("Wyciskanie żołnierskie"), CATEGORY_STRENGTH, N_("barki")),
+    (N_("Podciąganie na drążku"), CATEGORY_STRENGTH, N_("plecy")),
+    (N_("Wiosłowanie sztangą"), CATEGORY_STRENGTH, N_("plecy")),
+    (N_("Wyciskanie hantli na skosie"), CATEGORY_STRENGTH, N_("klatka")),
+    (N_("Pompki na poręczach (dipy)"), CATEGORY_STRENGTH, N_("klatka / triceps")),
+    (N_("Rumuński martwy ciąg"), CATEGORY_STRENGTH, N_("dwugłowe uda")),
+    (N_("Wykroki z hantlami"), CATEGORY_STRENGTH, N_("nogi")),
+    (N_("Hip thrust"), CATEGORY_STRENGTH, N_("pośladki")),
+    (N_("Uginanie ramion ze sztangą"), CATEGORY_STRENGTH, N_("biceps")),
+    (N_("Prostowanie ramion na wyciągu"), CATEGORY_STRENGTH, N_("triceps")),
+    (N_("Ściąganie drążka wyciągu"), CATEGORY_STRENGTH, N_("plecy")),
+    (N_("Wznosy bokiem z hantlami"), CATEGORY_STRENGTH, N_("barki")),
+    (N_("Pompki"), CATEGORY_STRENGTH, N_("klatka")),
+    (N_("Bieganie"), CATEGORY_CARDIO, None),
+    (N_("Rower"), CATEGORY_CARDIO, None),
+    (N_("Ergometr wioślarski"), CATEGORY_CARDIO, None),
+    (N_("Pływanie"), CATEGORY_CARDIO, None),
+    (N_("Skakanka"), CATEGORY_CARDIO, None),
 ]
 
 

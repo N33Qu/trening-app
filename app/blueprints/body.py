@@ -1,4 +1,5 @@
 from flask import Blueprint, flash, redirect, render_template, url_for
+from flask_babel import gettext
 from flask_login import current_user, login_required
 from sqlalchemy import select
 
@@ -48,9 +49,9 @@ def create():
         _fill(m, form)
         db.session.add(m)
         db.session.commit()
-        flash("Zapisano pomiar.", "success")
+        flash(gettext("Zapisano pomiar."), "success")
         return redirect(url_for("body.index"))
-    return render_template("body/form.html", form=form, title="Nowy pomiar")
+    return render_template("body/form.html", form=form, title=gettext("Nowy pomiar"))
 
 
 @bp.route("/<int:measurement_id>/edit", methods=["GET", "POST"])
@@ -61,9 +62,9 @@ def edit(measurement_id):
     if form.validate_on_submit():
         _fill(m, form)
         db.session.commit()
-        flash("Zapisano zmiany.", "success")
+        flash(gettext("Zapisano zmiany."), "success")
         return redirect(url_for("body.index"))
-    return render_template("body/form.html", form=form, title="Edytuj pomiar", measurement=m)
+    return render_template("body/form.html", form=form, title=gettext("Edytuj pomiar"), measurement=m)
 
 
 @bp.post("/<int:measurement_id>/delete")
@@ -73,7 +74,7 @@ def delete(measurement_id):
     if DeleteForm().validate_on_submit():
         db.session.delete(m)
         db.session.commit()
-        flash("Usunięto pomiar.", "info")
+        flash(gettext("Usunięto pomiar."), "info")
     return redirect(url_for("body.index"))
 
 

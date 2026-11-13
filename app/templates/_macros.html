@@ -11,10 +11,10 @@
 </div>
 {%- endmacro %}
 
-{% macro delete_button(action, form, label="Usuń", confirm="Na pewno usunąć?") -%}
-<form method="post" action="{{ action }}" class="inline-form" data-confirm="{{ confirm }}">
+{% macro delete_button(action, form, label=None, confirm=None) -%}
+<form method="post" action="{{ action }}" class="inline-form" data-confirm="{{ confirm or _('Na pewno usunąć?') }}">
   <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-  <button type="submit" class="btn btn-danger btn-sm">{{ label }}</button>
+  <button type="submit" class="btn btn-danger btn-sm">{{ label or _('Usuń') }}</button>
 </form>
 {%- endmacro %}
 

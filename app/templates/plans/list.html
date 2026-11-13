@@ -1,9 +1,9 @@
 {% extends "base.html" %}
-{% block title %}Plany{% endblock %}
+{% block title %}{{ _('Plany') }}{% endblock %}
 {% block content %}
 <div class="page-head">
-  <div><h1>Plany treningowe</h1><p class="subtitle">Aktywne plany liczą się do realizacji tygodnia.</p></div>
-  <a class="btn" href="{{ url_for('plans.create') }}">+ Nowy plan</a>
+  <div><h1>{{ _('Plany treningowe') }}</h1><p class="subtitle">{{ _('Aktywne plany liczą się do realizacji tygodnia.') }}</p></div>
+  <a class="btn" href="{{ url_for('plans.create') }}">+ {{ _('Nowy plan') }}</a>
 </div>
 {% if plans %}
 <div class="list-cards">
@@ -12,17 +12,17 @@
     <div>
       <a class="title" href="{{ url_for('plans.detail', plan_id=plan.id) }}">{{ plan.name }}</a>
       <div class="meta">
-        {% if plan.is_active %}<span class="badge badge-success">aktywny</span>{% else %}<span class="badge">nieaktywny</span>{% endif %}
-        <span>{{ plan.days|length }} dni</span>
+        {% if plan.is_active %}<span class="badge badge-success">{{ _('aktywny') }}</span>{% else %}<span class="badge">{{ _('nieaktywny') }}</span>{% endif %}
+        <span>{{ ngettext('%(num)s dzień', '%(num)s dni', plan.days|length) }}</span>
         {% for d in plan.days %}<span class="badge badge-accent">{{ d.weekday_short }}</span>{% endfor %}
       </div>
       {% if plan.description %}<p class="muted small mt">{{ plan.description }}</p>{% endif %}
     </div>
-    <a class="btn btn-secondary btn-sm" href="{{ url_for('plans.detail', plan_id=plan.id) }}">Otwórz</a>
+    <a class="btn btn-secondary btn-sm" href="{{ url_for('plans.detail', plan_id=plan.id) }}">{{ _('Otwórz') }}</a>
   </div>
   {% endfor %}
 </div>
 {% else %}
-<div class="card empty"><p>Nie masz jeszcze planu treningowego.</p><a class="btn" href="{{ url_for('plans.create') }}">Utwórz pierwszy plan</a></div>
+<div class="card empty"><p>{{ _('Nie masz jeszcze planu treningowego.') }}</p><a class="btn" href="{{ url_for('plans.create') }}">{{ _('Utwórz pierwszy plan') }}</a></div>
 {% endif %}
 {% endblock %}

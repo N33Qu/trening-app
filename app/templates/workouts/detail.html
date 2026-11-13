@@ -1,28 +1,28 @@
 {% extends "base.html" %}
 {% from "_macros.html" import delete_button, kg, icon %}
-{% block title %}Trening {{ workout.date.strftime('%d.%m.%Y') }}{% endblock %}
+{% block title %}{{ _('Trening %(date)s', date=workout.date|day) }}{% endblock %}
 {% block content %}
 <div class="page-head">
   <div>
-    <h1>Trening {{ workout.date.strftime('%d.%m.%Y') }}</h1>
+    <h1>{{ _('Trening %(date)s', date=workout.date|day) }}</h1>
     <div class="meta">
       {% if workout.plan_day %}<span class="badge badge-accent">{{ workout.plan_day.name }}</span>{% endif %}
-      <span>{{ workout.entries|length }} ćwiczeń</span><span>·</span><span>{{ workout.total_sets }} serii</span><span>·</span>
-      <span>{{ '{:,.0f}'.format(workout.total_volume).replace(',', ' ') }} kg objętości</span>
+      <span>{{ ngettext('%(num)s ćwiczenie', '%(num)s ćwiczeń', workout.entries|length) }}</span><span>·</span><span>{{ ngettext('%(num)s seria', '%(num)s serii', workout.total_sets) }}</span><span>·</span>
+      <span>{{ _('%(volume)s kg objętości', volume='{:,.0f}'.format(workout.total_volume).replace(',', ' ')) }}</span>
     </div>
   </div>
   <div class="actions">
-    <a class="btn btn-secondary" href="{{ url_for('workouts.edit', workout_id=workout.id) }}">Edytuj</a>
-    {{ delete_button(url_for('workouts.delete', workout_id=workout.id), delete_form, "Usuń", "Usunąć trening? Rekordy z tego treningu również zostaną usunięte.") }}
+    <a class="btn btn-secondary" href="{{ url_for('workouts.edit', workout_id=workout.id) }}">{{ _('Edytuj') }}</a>
+    {{ delete_button(url_for('workouts.delete', workout_id=workout.id), delete_form, _("Usuń"), _("Usunąć trening? Rekordy z tego treningu również zostaną usunięte.")) }}
   </div>
 </div>
 
 {% if records %}
 <div class="card mt">
-  <div class="card-head"><h2>{{ icon("trophy") }} Rekordy z tego treningu</h2></div>
+  <div class="card-head"><h2>{{ icon("trophy") }} {{ _('Rekordy z tego treningu') }}</h2></div>
   <div class="grid grid-3">
     {% for pr in records %}
-    <div><div class="muted small">{{ pr.exercise.name }} · {{ pr.kind_label }}</div><div class="pr-value">{{ kg(pr.value) }} kg <small>{{ pr.reps }} × {{ kg(pr.weight_kg) }} kg</small></div></div>
+    <div><div class="muted small">{{ pr.exercise.display_name }} · {{ pr.kind_label }}</div><div class="pr-value">{{ kg(pr.value) }} kg <small>{{ pr.reps }} × {{ kg(pr.weight_kg) }} kg</small></div></div>
     {% endfor %}
   </div>
 </div>
@@ -30,24 +30,24 @@
 
 <div class="card mt">
   <div class="table-wrap"><table>
-    <thead><tr><th>Ćwiczenie</th><th>Serie</th><th class="num">Wynik</th></tr></thead>
+    <thead><tr><th>{{ _('Ćwiczenie') }}</th><th>{{ _('Serie') }}</th><th class="num">{{ _('Wynik') }}</th></tr></thead>
     <tbody>
     {% for e in workout.entries %}
     <tr>
-      <td><strong>{{ e.exercise.name }}</strong><br><span class="badge {{ 'badge-info' if e.exercise.is_cardio else '' }}">{{ e.exercise.category_label }}</span></td>
+      <td><strong>{{ e.exercise.display_name }}</strong><br><span class="badge {{ 'badge-info' if e.exercise.is_cardio else '' }}">{{ e.exercise.category_label }}</span></td>
       <td>
         {% if e.sets %}<div class="set-chips">{% for s in e.sets %}<span class="set-chip">{{ s.reps }} × {{ kg(s.weight_kg) }}</span>{% endfor %}</div>{% endif %}
         {% if e.distance_km or e.duration_min %}<span class="muted">{% if e.distance_km %}{{ kg(e.distance_km) }} km{% endif %}{% if e.distance_km and e.duration_min %} · {% endif %}{% if e.duration_min %}{{ kg(e.duration_min) }} min{% endif %}</span>{% endif %}
       </td>
       <td class="num nowrap">
         {% if e.exercise.is_cardio and e.distance_km and e.duration_min %}{{ e.duration_min|pace(e.distance_km) }} min/km
-        {% elif e.sets %}{{ kg(e.sets|map(attribute='weight_kg')|max) }} kg max{% endif %}
+        {% elif e.sets %}{{ kg(e.sets|map(attribute='weight_kg')|max) }} kg {{ _('max') }}{% endif %}
       </td>
     </tr>
     {% endfor %}
     </tbody>
   </table></div>
-  {% if workout.notes %}<p class="mt"><strong>Notatki:</strong> {{ workout.notes }}</p>{% endif %}
+  {% if workout.notes %}<p class="mt"><strong>{{ _('Notatki:') }}</strong> {{ workout.notes }}</p>{% endif %}
 </div>
-<p class="mt"><a href="{{ url_for('workouts.index') }}">← Dziennik treningów</a></p>
+<p class="mt"><a href="{{ url_for('workouts.index') }}">← {{ _('Dziennik treningów') }}</a></p>
 {% endblock %}

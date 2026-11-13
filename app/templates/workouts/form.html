@@ -9,46 +9,46 @@
     {{ field(form.date, type="date") }}
     {{ field(form.plan_day_id) }}
   </div>
-  {{ field(form.notes, rows=2, placeholder="Samopoczucie, technika, uwagi…") }}
+  {{ field(form.notes, rows=2, placeholder=_("Samopoczucie, technika, uwagi…")) }}
 
-  <h2 class="mt">Ćwiczenia</h2>
+  <h2 class="mt">{{ _('Ćwiczenia') }}</h2>
   <div class="format-hint">
-    Serie wpisuj jako <code>powtórzenia x ciężar</code> oddzielone przecinkami, np. <code>5x100, 5x100, 3x105</code>.
-    Skrót <code>3x5x100</code> oznacza 3 serie po 5 powtórzeń ze 100 kg. Ćwiczenia z masą ciała: <code>10, 8, 8</code>.
-    Dla cardio podaj dystans i/lub czas.
+    {{ _('Serie wpisuj jako %(fmt)s oddzielone przecinkami, np. %(example)s.', fmt='<code>%s</code>'|format(_('powtórzenia x ciężar'))|safe, example='<code>5x100, 5x100, 3x105</code>'|safe) }}
+    {{ _('Skrót %(short)s oznacza 3 serie po 5 powtórzeń ze 100 kg. Ćwiczenia z masą ciała: %(bw)s.', short='<code>3x5x100</code>'|safe, bw='<code>10, 8, 8</code>'|safe) }}
+    {{ _('Dla cardio podaj dystans i/lub czas.') }}
   </div>
   <div class="entries" data-entries data-cardio="{{ cardio_ids|list|tojson|forceescape }}">
     {% for sub in form.entries %}
     <div class="entry-row">
       <div class="field field-exercise{% if sub.exercise_id.errors %} has-error{% endif %}">
-        <label for="{{ sub.exercise_id.id }}">Ćwiczenie</label>
+        <label for="{{ sub.exercise_id.id }}">{{ _('Ćwiczenie') }}</label>
         {{ sub.exercise_id() }}
         {% if sub.exercise_id.errors %}<ul class="errors">{% for e in sub.exercise_id.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
       </div>
       <div class="field field-sets only-strength{% if sub.sets.errors %} has-error{% endif %}">
-        <label for="{{ sub.sets.id }}">Serie (powt. x kg)</label>
+        <label for="{{ sub.sets.id }}">{{ _('Serie (powt. x kg)') }}</label>
         {{ sub.sets(autocomplete="off") }}
         {% if sub.sets.errors %}<ul class="errors">{% for e in sub.sets.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
       </div>
       <div class="field only-cardio{% if sub.distance_km.errors %} has-error{% endif %}">
-        <label for="{{ sub.distance_km.id }}">Dystans km</label>
+        <label for="{{ sub.distance_km.id }}">{{ _('Dystans km') }}</label>
         {{ sub.distance_km(type="number", step="0.01", min="0", inputmode="decimal") }}
         {% if sub.distance_km.errors %}<ul class="errors">{% for e in sub.distance_km.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
       </div>
       <div class="field only-cardio{% if sub.duration_min.errors %} has-error{% endif %}">
-        <label for="{{ sub.duration_min.id }}">Czas min</label>
+        <label for="{{ sub.duration_min.id }}">{{ _('Czas min') }}</label>
         {{ sub.duration_min(type="number", step="0.1", min="0", inputmode="decimal") }}
         {% if sub.duration_min.errors %}<ul class="errors">{% for e in sub.duration_min.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
       </div>
-      <button type="button" class="btn btn-ghost btn-sm remove-row" data-remove-row aria-label="Usuń wiersz">✕</button>
+      <button type="button" class="btn btn-ghost btn-sm remove-row" data-remove-row aria-label="{{ _('Usuń wiersz') }}">✕</button>
     </div>
     {% endfor %}
   </div>
-  <button type="button" class="btn btn-secondary btn-sm mt" data-add-row>+ Dodaj ćwiczenie</button>
+  <button type="button" class="btn btn-secondary btn-sm mt" data-add-row>+ {{ _('Dodaj ćwiczenie') }}</button>
 
   <div class="form-actions">
     {{ form.submit(class_="btn") }}
-    <a class="btn btn-ghost" href="{{ url_for('workouts.detail', workout_id=workout.id) if workout else url_for('workouts.index') }}">Anuluj</a>
+    <a class="btn btn-ghost" href="{{ url_for('workouts.detail', workout_id=workout.id) if workout else url_for('workouts.index') }}">{{ _('Anuluj') }}</a>
   </div>
 </form>
 {% endblock %}

@@ -4,6 +4,7 @@ from collections import defaultdict, deque
 from urllib.parse import urlsplit
 
 from flask import Blueprint, current_app, flash, redirect, render_template, request, url_for
+from flask_babel import gettext
 from flask_login import current_user, login_required, login_user, logout_user
 from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
@@ -67,7 +68,7 @@ def login():
         cfg = current_app.config
         key = f"{request.remote_addr}|{form.username.data.lower()}"
         if throttle.blocked(key, cfg["LOGIN_MAX_ATTEMPTS"], cfg["LOGIN_WINDOW_SECONDS"]):
-            flash("Zbyt wiele nieudanych prób logowania. Spróbuj ponownie za kilka minut.", "error")
+            flash(gettext("Zbyt wiele nieudanych prób logowania. Spróbuj ponownie za kilka minut."), "error")
             return render_template("auth/login.html", form=form), 429
         user = db.session.execute(
             select(User).where(func.lower(User.username) == form.username.data.lower())
@@ -77,11 +78,11 @@ def login():
         if user is None or not user.check_password(form.password.data):
             throttle.fail(key, cfg["LOGIN_WINDOW_SECONDS"])
             current_app.logger.info("failed login for username=%r", form.username.data[:32])
-            flash("Nieprawidłowy login lub hasło.", "error")
+            flash(gettext("Nieprawidłowy login lub hasło."), "error")
             return render_template("auth/login.html", form=form), 401
         throttle.reset(key)
         login_user(user, remember=form.remember.data)
-        flash(f"Witaj, {user.username}!", "success")
+        flash(gettext("Witaj, %(name)s!", name=user.username), "success")
         return redirect(_safe_next(request.args.get("next")) or url_for("stats.dashboard"))
     return render_template("auth/login.html", form=form)
 
@@ -96,7 +97,7 @@ def register():
             select(User.id).where(func.lower(User.username) == form.username.data.lower())
         ).first()
         if exists:
-            form.username.errors.append("Ten login jest już zajęty.")
+            form.username.errors.append(gettext("Ten login jest już zajęty."))
         else:
             user = User(username=form.username.data)
             user.set_password(form.password.data)
@@ -105,10 +106,10 @@ def register():
                 db.session.commit()
             except IntegrityError:
                 db.session.rollback()
-                form.username.errors.append("Ten login jest już zajęty.")
+                form.username.errors.append(gettext("Ten login jest już zajęty."))
                 return render_template("auth/register.html", form=form)
             login_user(user)
-            flash("Konto utworzone. Zacznij od dodania planu lub pierwszego treningu!", "success")
+            flash(gettext("Konto utworzone. Zacznij od dodania planu lub pierwszego treningu!"), "success")
             return redirect(url_for("stats.dashboard"))
     return render_template("auth/register.html", form=form)
 
@@ -117,5 +118,5 @@ def register():
 @login_required
 def logout():
     logout_user()
-    flash("Wylogowano.", "info")
+    flash(gettext("Wylogowano."), "info")
     return redirect(url_for("auth.login"))

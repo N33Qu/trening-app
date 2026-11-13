@@ -6,14 +6,14 @@
   <div>
     <h1>{{ plan.name }}</h1>
     <div class="meta">
-      {% if plan.is_active %}<span class="badge badge-success">aktywny</span>{% else %}<span class="badge">nieaktywny</span>{% endif %}
-      <span>{{ plan.days|length }} dni treningowych</span>
+      {% if plan.is_active %}<span class="badge badge-success">{{ _('aktywny') }}</span>{% else %}<span class="badge">{{ _('nieaktywny') }}</span>{% endif %}
+      <span>{{ ngettext('%(num)s dzień treningowy', '%(num)s dni treningowych', plan.days|length) }}</span>
     </div>
     {% if plan.description %}<p class="subtitle">{{ plan.description }}</p>{% endif %}
   </div>
   <div class="actions">
-    <a class="btn btn-secondary" href="{{ url_for('plans.edit', plan_id=plan.id) }}">Edytuj</a>
-    {{ delete_button(url_for('plans.delete', plan_id=plan.id), delete_form, "Usuń plan", "Usunąć plan wraz ze wszystkimi dniami?") }}
+    <a class="btn btn-secondary" href="{{ url_for('plans.edit', plan_id=plan.id) }}">{{ _('Edytuj') }}</a>
+    {{ delete_button(url_for('plans.delete', plan_id=plan.id), delete_form, _("Usuń plan"), _("Usunąć plan wraz ze wszystkimi dniami?")) }}
   </div>
 </div>
 
@@ -22,20 +22,20 @@
   <div class="card plan-day">
     <div class="card-head">
       <div><div class="weekday">{{ day.weekday_label }}</div><h3>{{ day.name }}</h3></div>
-      {{ delete_button(url_for('plans.delete_day', day_id=day.id), delete_form, "Usuń", "Usunąć dzień „" ~ day.name ~ "”?") }}
+      {{ delete_button(url_for('plans.delete_day', day_id=day.id), delete_form, _("Usuń"), _("Usunąć dzień „%(name)s”?", name=day.name)) }}
     </div>
     {% if day.exercises %}
     <ul>
       {% for pe in day.exercises %}
       <li>
-        <span>{{ pe.exercise.name }}<br><span class="target">{{ pe.target_sets }} × {{ pe.target_reps }}{% if pe.target_weight %} × {{ kg(pe.target_weight) }} kg{% endif %}</span></span>
-        {{ delete_button(url_for('plans.delete_exercise', item_id=pe.id), delete_form, "×", "Usunąć ćwiczenie z dnia?") }}
+        <span>{{ pe.exercise.display_name }}<br><span class="target">{{ pe.target_sets }} × {{ pe.target_reps }}{% if pe.target_weight %} × {{ kg(pe.target_weight) }} kg{% endif %}</span></span>
+        {{ delete_button(url_for('plans.delete_exercise', item_id=pe.id), delete_form, "×", _("Usunąć ćwiczenie z dnia?")) }}
       </li>
       {% endfor %}
     </ul>
-    {% else %}<p class="muted small">Brak ćwiczeń – dodaj pierwsze poniżej.</p>{% endif %}
+    {% else %}<p class="muted small">{{ _('Brak ćwiczeń – dodaj pierwsze poniżej.') }}</p>{% endif %}
     <details class="add-box">
-      <summary>+ Dodaj ćwiczenie</summary>
+      <summary>+ {{ _('Dodaj ćwiczenie') }}</summary>
       <form method="post" action="{{ url_for('plans.add_exercise', day_id=day.id) }}">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
         <div class="field">{{ exercise_form.exercise_id.label(for="ex-" ~ day.id) }}{{ exercise_form.exercise_id(id="ex-" ~ day.id) }}</div>
@@ -47,12 +47,12 @@
         {{ exercise_form.submit(class_="btn btn-sm", id="add-ex-" ~ day.id) }}
       </form>
     </details>
-    <div class="mt"><a class="btn btn-secondary btn-sm btn-block" href="{{ url_for('workouts.create', plan_day=day.id) }}">Zapisz trening z tego dnia</a></div>
+    <div class="mt"><a class="btn btn-secondary btn-sm btn-block" href="{{ url_for('workouts.create', plan_day=day.id) }}">{{ _('Zapisz trening z tego dnia') }}</a></div>
   </div>
   {% endfor %}
 
   <div class="card">
-    <h3>Nowy dzień treningowy</h3>
+    <h3>{{ _('Nowy dzień treningowy') }}</h3>
     <form method="post" action="{{ url_for('plans.add_day', plan_id=plan.id) }}">
       {{ day_form.hidden_tag() }}
       <div class="field">{{ day_form.weekday.label() }}{{ day_form.weekday() }}</div>
@@ -61,5 +61,5 @@
     </form>
   </div>
 </div>
-<p class="mt"><a href="{{ url_for('plans.index') }}">← Wszystkie plany</a></p>
+<p class="mt"><a href="{{ url_for('plans.index') }}">← {{ _('Wszystkie plany') }}</a></p>
 {% endblock %}

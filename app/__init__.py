@@ -5,12 +5,15 @@ import time
 
 import click
 from flask import Flask, g, render_template, request
+from flask_babel import Babel, gettext
+from flask_wtf.csrf import CSRFError
 from sqlalchemy import event, text
 from sqlalchemy.engine import Engine
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 from .config import build_config
 from .extensions import csrf, db, login_manager
+from .i18n import DEFAULT_LANGUAGE, LANGUAGES, current_language, format_day, format_day_short, select_locale
 from .metrics import init_metrics
 from .services import format_pace
 
@@ -43,6 +46,7 @@ def create_app(config_overrides=None):
     db.init_app(app)
     login_manager.init_app(app)
     csrf.init_app(app)
+    Babel(app, locale_selector=select_locale, default_locale=DEFAULT_LANGUAGE)
     init_metrics(app)
 
     from .models import User
@@ -54,9 +58,11 @@ def create_app(config_overrides=None):
         except (TypeError, ValueError):
             return None
 
+    from . import i18n
     from .blueprints import auth, body, exercises, health, plans, records, stats, workouts
 
     app.register_blueprint(health.bp)
+    app.register_blueprint(i18n.bp)
     app.register_blueprint(auth.bp)
     app.register_blueprint(stats.bp)
     app.register_blueprint(plans.bp)
@@ -105,6 +111,8 @@ def _register_hooks(app):
             response.headers.setdefault("Cache-Control", "no-store")
         return response
 
+    app.add_template_filter(format_day, "day")
+    app.add_template_filter(format_day_short, "day_short")
     app.add_template_filter(format_pace, "pace")
 
     @app.context_processor
@@ -112,28 +120,33 @@ def _register_hooks(app):
         return {
             "app_version": app.config["APP_VERSION"],
             "csp_nonce": getattr(g, "csp_nonce", ""),
+            "current_lang": current_language(),
+            "languages": LANGUAGES,
         }
 
     @app.errorhandler(404)
     def _not_found(_e):
-        return render_template("errors/error.html", code=404, title="Nie znaleziono",
-                               message="Strona nie istnieje albo nie masz do niej dostępu."), 404
+        return render_template("errors/error.html", code=404, title=gettext("Nie znaleziono"),
+                               message=gettext("Strona nie istnieje albo nie masz do niej dostępu.")), 404
 
     @app.errorhandler(403)
     def _forbidden(_e):
-        return render_template("errors/error.html", code=403, title="Brak dostępu",
-                               message="Nie masz uprawnień do tej operacji."), 403
+        return render_template("errors/error.html", code=403, title=gettext("Brak dostępu"),
+                               message=gettext("Nie masz uprawnień do tej operacji.")), 403
 
     @app.errorhandler(400)
-    def _bad_request(_e):
-        return render_template("errors/error.html", code=400, title="Nieprawidłowe żądanie",
-                               message="Formularz wygasł lub zawiera błędy. Odśwież stronę i spróbuj ponownie."), 400
+    def _bad_request(e):
+        message = gettext("Formularz wygasł lub zawiera błędy. Odśwież stronę i spróbuj ponownie.")
+        if isinstance(e, CSRFError) and e.description:
+            message = f"{gettext(e.description)} {message}"
+        return render_template("errors/error.html", code=400, title=gettext("Nieprawidłowe żądanie"),
+                               message=message), 400
 
     @app.errorhandler(500)
     def _server_error(_e):
         db.session.rollback()
-        return render_template("errors/error.html", code=500, title="Błąd serwera",
-                               message="Coś poszło nie tak. Spróbuj ponownie za chwilę."), 500
+        return render_template("errors/error.html", code=500, title=gettext("Błąd serwera"),
+                               message=gettext("Coś poszło nie tak. Spróbuj ponownie za chwilę.")), 500
 
 
 def _register_cli(app):

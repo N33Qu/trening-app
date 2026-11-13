@@ -37,7 +37,7 @@ def workouts_per_week(user_id, today=None, weeks=WEEKS):
     labels, values = [], []
     for i in range(weeks):
         ws = first + timedelta(weeks=i)
-        labels.append(ws.strftime("%d.%m"))
+        labels.append(ws.isoformat())
         values.append(counts.get(ws, 0))
     return {"labels": labels, "values": values}
 
@@ -178,7 +178,7 @@ def index():
     }
     return render_template(
         "stats/index.html",
-        exercises=sorted(exercises, key=lambda e: e.name),
+        exercises=sorted(exercises, key=lambda e: e.display_name.lower()),
         selected=selected,
         progress=progress,
         completion=plan_completion(uid),

@@ -1,4 +1,5 @@
 from flask import Blueprint, abort, flash, redirect, render_template, url_for
+from flask_babel import gettext
 from flask_login import current_user, login_required
 from sqlalchemy import select
 
@@ -34,9 +35,9 @@ def create():
                     description=form.description.data or None, is_active=form.is_active.data)
         db.session.add(plan)
         db.session.commit()
-        flash("Utworzono plan. Dodaj dni treningowe.", "success")
+        flash(gettext("Utworzono plan. Dodaj dni treningowe."), "success")
         return redirect(url_for("plans.detail", plan_id=plan.id))
-    return render_template("plans/form.html", form=form, title="Nowy plan")
+    return render_template("plans/form.html", form=form, title=gettext("Nowy plan"))
 
 
 @bp.get("/<int:plan_id>")
@@ -62,9 +63,9 @@ def edit(plan_id):
         plan.description = form.description.data or None
         plan.is_active = form.is_active.data
         db.session.commit()
-        flash("Zapisano plan.", "success")
+        flash(gettext("Zapisano plan."), "success")
         return redirect(url_for("plans.detail", plan_id=plan.id))
-    return render_template("plans/form.html", form=form, title="Edytuj plan", plan=plan)
+    return render_template("plans/form.html", form=form, title=gettext("Edytuj plan"), plan=plan)
 
 
 @bp.post("/<int:plan_id>/delete")
@@ -74,7 +75,7 @@ def delete(plan_id):
     if DeleteForm().validate_on_submit():
         db.session.delete(plan)
         db.session.commit()
-        flash("Usunięto plan.", "info")
+        flash(gettext("Usunięto plan."), "info")
     return redirect(url_for("plans.index"))
 
 
@@ -86,9 +87,9 @@ def add_day(plan_id):
     if form.validate_on_submit():
         plan.days.append(PlanDay(weekday=form.weekday.data, name=form.name.data))
         db.session.commit()
-        flash("Dodano dzień treningowy.", "success")
+        flash(gettext("Dodano dzień treningowy."), "success")
     else:
-        flash("Popraw dane dnia treningowego.", "error")
+        flash(gettext("Popraw dane dnia treningowego."), "error")
     return redirect(url_for("plans.detail", plan_id=plan.id))
 
 
@@ -100,7 +101,7 @@ def delete_day(day_id):
     if DeleteForm().validate_on_submit():
         db.session.delete(day)
         db.session.commit()
-        flash("Usunięto dzień.", "info")
+        flash(gettext("Usunięto dzień."), "info")
     return redirect(url_for("plans.detail", plan_id=plan_id))
 
 
@@ -112,7 +113,7 @@ def add_exercise(day_id):
     if form.validate_on_submit():
         exercise = visible_exercise(form.exercise_id.data, current_user.id)
         if exercise is None:
-            flash("Nieznane ćwiczenie.", "error")
+            flash(gettext("Nieznane ćwiczenie."), "error")
         else:
             day.exercises.append(PlanExercise(
                 exercise_id=exercise.id,
@@ -122,9 +123,9 @@ def add_exercise(day_id):
                 position=len(day.exercises),
             ))
             db.session.commit()
-            flash("Dodano ćwiczenie do dnia.", "success")
+            flash(gettext("Dodano ćwiczenie do dnia."), "success")
     else:
-        flash("Popraw dane ćwiczenia (serie 1–20, powtórzenia 1–100).", "error")
+        flash(gettext("Popraw dane ćwiczenia (serie 1–20, powtórzenia 1–100)."), "error")
     return redirect(url_for("plans.detail", plan_id=day.plan_id))
 
 
@@ -138,5 +139,5 @@ def delete_exercise(item_id):
     if DeleteForm().validate_on_submit():
         db.session.delete(item)
         db.session.commit()
-        flash("Usunięto ćwiczenie z planu.", "info")
+        flash(gettext("Usunięto ćwiczenie z planu."), "info")
     return redirect(url_for("plans.detail", plan_id=day.plan_id))

@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 {% from "_macros.html" import field %}
-{% block title %}Rejestracja{% endblock %}
+{% block title %}{{ _('Rejestracja') }}{% endblock %}
 {% block content %}
 <div class="auth-wrap">
   <div class="card auth-card">
-    <h1>Załóż konto</h1>
+    <h1>{{ _('Załóż konto') }}</h1>
     <form method="post" novalidate>
       {{ form.hidden_tag() }}
-      {{ field(form.username, autocomplete="username", autofocus=true, help="3–32 znaki: litery, cyfry, _ . -") }}
-      {{ field(form.password, autocomplete="new-password", help="Co najmniej 8 znaków.") }}
+      {{ field(form.username, autocomplete="username", autofocus=true, help=_('3–32 znaki: litery, cyfry, _ . -')) }}
+      {{ field(form.password, autocomplete="new-password", help=_('Co najmniej 8 znaków.')) }}
       {{ field(form.confirm, autocomplete="new-password") }}
       {{ form.submit(class_="btn btn-block") }}
     </form>
-    <p class="auth-alt">Masz już konto? <a href="{{ url_for('auth.login') }}">Zaloguj się</a></p>
+    <p class="auth-alt">{{ _('Masz już konto?') }} <a href="{{ url_for('auth.login') }}">{{ _('Zaloguj się') }}</a></p>
   </div>
 </div>
 {% endblock %}

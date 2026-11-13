@@ -1,0 +1,1133 @@
+# Trening – English translations.
+msgid ""
+msgstr ""
+"Project-Id-Version: trening VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-11-13 12:17+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#, python-format
+msgid "%(done)s z %(total)s dni"
+msgstr "%(done)s of %(total)s days"
+
+#, python-format
+msgid "%(num)s dzień"
+msgid_plural "%(num)s dni"
+msgstr[0] "%(num)s day"
+msgstr[1] "%(num)s days"
+
+#, python-format
+msgid "%(num)s dzień treningowy"
+msgid_plural "%(num)s dni treningowych"
+msgstr[0] "%(num)s training day"
+msgstr[1] "%(num)s training days"
+
+#, python-format
+msgid "%(num)s powt."
+msgstr "%(num)s reps"
+
+#, python-format
+msgid "%(num)s seria"
+msgid_plural "%(num)s serii"
+msgstr[0] "%(num)s set"
+msgstr[1] "%(num)s sets"
+
+#, python-format
+msgid "%(num)s sesja"
+msgid_plural "%(num)s sesji"
+msgstr[0] "%(num)s session"
+msgstr[1] "%(num)s sessions"
+
+#, python-format
+msgid "%(num)s wpis"
+msgid_plural "%(num)s wpisów"
+msgstr[0] "%(num)s entry"
+msgstr[1] "%(num)s entries"
+
+#, python-format
+msgid "%(num)s zapisany trening."
+msgid_plural "%(num)s zapisanych treningów."
+msgstr[0] "%(num)s logged workout."
+msgstr[1] "%(num)s logged workouts."
+
+#, python-format
+msgid "%(num)s ćwiczenie"
+msgid_plural "%(num)s ćwiczeń"
+msgstr[0] "%(num)s exercise"
+msgstr[1] "%(num)s exercises"
+
+#, python-format
+msgid "%(volume)s kg objętości"
+msgstr "%(volume)s kg volume"
+
+msgid "3–32 znaki: litery, cyfry, _ . -"
+msgstr "3–32 characters: letters, digits, _ . -"
+
+msgid "Aktywne plany liczą się do realizacji tygodnia."
+msgstr "Active plans count towards weekly completion."
+
+msgid "Anuluj"
+msgstr "Cancel"
+
+#, python-format
+msgid "Aplikacja zaimportuje pomiary masy ciała (%(mass)s) i tkanki tłuszczowej (%(fat)s)."
+msgstr "The app will import body mass (%(mass)s) and body fat (%(fat)s) measurements."
+
+msgid "Bieganie"
+msgstr "Running"
+
+msgid "Bij rekordy."
+msgstr "Break records."
+
+msgid "Brak aktywnego planu z dniami treningowymi."
+msgstr "No active plan with training days."
+
+msgid "Brak danych do wykresów – zapisz kilka treningów."
+msgstr "No chart data yet – log a few workouts."
+
+msgid "Brak dostępu"
+msgstr "Access denied"
+
+msgid "Brak pomiarów masy ciała."
+msgstr "No body weight measurements."
+
+msgid "Brak pomiarów masy."
+msgstr "No weight measurements."
+
+msgid "Brak pomiarów."
+msgstr "No measurements."
+
+msgid "Brak pomiarów. Dodaj pierwszy, aby śledzić zmiany sylwetki."
+msgstr "No measurements yet. Add the first one to track your body changes."
+
+msgid "Brak rekordów dla tego ćwiczenia."
+msgstr "No records for this exercise."
+
+msgid "Brak rekordów. Zapisz trening siłowy z ciężarem, a rekordy pojawią się automatycznie."
+msgstr "No records yet. Log a strength workout with weights and records will appear automatically."
+
+msgid "Brak własnych ćwiczeń."
+msgstr "No custom exercises."
+
+msgid "Brak ćwiczeń – dodaj pierwsze poniżej."
+msgstr "No exercises – add the first one below."
+
+msgid "Błąd serwera"
+msgstr "Server error"
+
+msgid "Ciało"
+msgstr "Body"
+
+msgid "Ciężar (kg)"
+msgstr "Weight (kg)"
+
+msgid "Ciężar wygląda na nierealny (> 1000 kg)."
+msgstr "The weight looks unrealistic (> 1000 kg)."
+
+msgid "Co najmniej 8 znaków."
+msgstr "At least 8 characters."
+
+msgid "Coś poszło nie tak. Spróbuj ponownie za chwilę."
+msgstr "Something went wrong. Please try again in a moment."
+
+msgid "Czas"
+msgstr "Time"
+
+msgid "Czas (min)"
+msgstr "Time (min)"
+
+msgid "Czas min"
+msgstr "Time min"
+
+#, python-format
+msgid "Cześć, %(name)s!"
+msgstr "Hi, %(name)s!"
+
+msgid "Czw"
+msgstr "Thu"
+
+msgid "Czwartek"
+msgstr "Thursday"
+
+msgid "Data"
+msgstr "Date"
+
+msgid "Data nie może być z przyszłości."
+msgstr "The date cannot be in the future."
+
+msgid "Dla cardio podaj dystans i/lub czas."
+msgstr "For cardio enter distance and/or time."
+
+msgid "Dni tygodnia, ćwiczenia i docelowe serie × powtórzenia × ciężar."
+msgstr "Weekdays, exercises and target sets × reps × weight."
+
+msgid "Dodaj co najmniej jedno ćwiczenie."
+msgstr "Add at least one exercise."
+
+msgid "Dodaj dzień"
+msgstr "Add day"
+
+msgid "Dodaj pomiar"
+msgstr "Add measurement"
+
+msgid "Dodaj pomiar ręcznie"
+msgstr "Add measurement manually"
+
+msgid "Dodaj ćwiczenie"
+msgstr "Add exercise"
+
+msgid "Dodano dzień treningowy."
+msgstr "Training day added."
+
+msgid "Dodano ćwiczenie do dnia."
+msgstr "Exercise added to the day."
+
+msgid "Dodano ćwiczenie."
+msgstr "Exercise added."
+
+msgid "Dozwolone znaki: litery, cyfry, _ . -"
+msgstr "Allowed characters: letters, digits, _ . -"
+
+msgid "Dystans"
+msgstr "Distance"
+
+msgid "Dystans (km)"
+msgstr "Distance (km)"
+
+msgid "Dystans km"
+msgstr "Distance km"
+
+msgid "Dziennik"
+msgstr "Log"
+
+msgid "Dziennik treningów"
+msgstr "Workout log"
+
+msgid "Dzień planu"
+msgstr "Plan day"
+
+msgid "Dzień tygodnia"
+msgstr "Weekday"
+
+msgid "Edytuj"
+msgstr "Edit"
+
+msgid "Edytuj plan"
+msgstr "Edit plan"
+
+msgid "Edytuj pomiar"
+msgstr "Edit measurement"
+
+msgid "Edytuj trening"
+msgstr "Edit workout"
+
+msgid "Edytuj ćwiczenie"
+msgstr "Edit exercise"
+
+msgid "Ergometr wioślarski"
+msgstr "Rowing machine"
+
+#, python-format
+msgid "Field cannot be longer than %(max)d character."
+msgid_plural "Field cannot be longer than %(max)d characters."
+msgstr[0] ""
+msgstr[1] ""
+
+#, python-format
+msgid "Field must be at least %(min)d character long."
+msgid_plural "Field must be at least %(min)d characters long."
+msgstr[0] ""
+msgstr[1] ""
+
+#, python-format
+msgid "Field must be between %(min)d and %(max)d characters long."
+msgstr ""
+
+#, python-format
+msgid "Field must be equal to %(other_name)s."
+msgstr ""
+
+msgid "Formularz wygasł lub zawiera błędy. Odśwież stronę i spróbuj ponownie."
+msgstr "The form has expired or contains errors. Refresh the page and try again."
+
+msgid "Funkcja planowana w kolejnej wersji."
+msgstr "Feature planned for the next version."
+
+msgid "Główna nawigacja"
+msgstr "Main navigation"
+
+msgid "Hasła nie są identyczne."
+msgstr "Passwords do not match."
+
+msgid "Hasło"
+msgstr "Password"
+
+msgid "Hasło musi mieć co najmniej 8 znaków."
+msgstr "Password must be at least 8 characters long."
+
+msgid "Hip thrust"
+msgstr "Hip thrust"
+
+msgid "Historia"
+msgstr "History"
+
+msgid "Historia rekordów"
+msgstr "Record history"
+
+msgid "Historia rekordów osobistych."
+msgstr "Personal record history."
+
+msgid "Import z Apple Health"
+msgstr "Import from Apple Health"
+
+msgid "Invalid Choice: could not coerce."
+msgstr ""
+
+msgid "Invalid input."
+msgstr ""
+
+msgid "Jak to będzie działać"
+msgstr "How it will work"
+
+msgid "Język"
+msgstr "Language"
+
+msgid "Katalog wbudowany"
+msgstr "Built-in catalogue"
+
+msgid "Katalog ćwiczeń"
+msgstr "Exercise catalogue"
+
+msgid "Kategoria"
+msgstr "Category"
+
+msgid "Klatka"
+msgstr "Chest"
+
+msgid "Klatka (cm)"
+msgstr "Chest (cm)"
+
+msgid "Konto demonstracyjne:"
+msgstr "Demo account:"
+
+msgid "Konto utworzone. Zacznij od dodania planu lub pierwszego treningu!"
+msgstr "Account created. Start by adding a plan or your first workout!"
+
+msgid "Liczba powtórzeń musi być większa od zera."
+msgstr "The number of reps must be greater than zero."
+
+msgid "Liczba serii i powtórzeń musi być liczbą całkowitą."
+msgstr "The number of sets and reps must be a whole number."
+
+msgid "Liczba treningów w tygodniu"
+msgstr "Workouts per week"
+
+msgid "Login"
+msgstr "Username"
+
+msgid "Login musi mieć od 3 do 32 znaków."
+msgstr "Username must be 3 to 32 characters long."
+
+msgid "Logowanie"
+msgstr "Sign in"
+
+msgid "Maks. ciężar"
+msgstr "Max weight"
+
+msgid "Maks. ciężar (kg)"
+msgstr "Max weight (kg)"
+
+#, python-format
+msgid "Maksymalnie %(num)d serii na ćwiczenie."
+msgstr "At most %(num)d sets per exercise."
+
+msgid "Maksymalny ciężar"
+msgstr "Max weight"
+
+msgid "Maksymalny ciężar i szacowany 1RM (wzór Epleya) wykrywane automatycznie."
+msgstr "Max weight and estimated 1RM (Epley formula) detected automatically."
+
+msgid "Mam już konto"
+msgstr "I already have an account"
+
+msgid "Martwy ciąg"
+msgstr "Deadlift"
+
+msgid "Masa"
+msgstr "Weight"
+
+msgid "Masa ciała"
+msgstr "Body weight"
+
+msgid "Masa ciała (kg)"
+msgstr "Body weight (kg)"
+
+msgid "Masa ciała, obwody i poziom tkanki tłuszczowej."
+msgstr "Body weight, circumferences and body fat."
+
+msgid "Masz już konto?"
+msgstr "Already have an account?"
+
+msgid "Menu"
+msgstr "Menu"
+
+#, python-format
+msgid "Model danych jest już przygotowany (pola %(source)s i %(ext)s). Do tego czasu dodawaj pomiary ręcznie."
+msgstr "The data model is already prepared (fields %(source)s and %(ext)s). Until then, add measurements manually."
+
+msgid "Moje ćwiczenia"
+msgstr "My exercises"
+
+msgid "Na pewno usunąć?"
+msgstr "Delete for sure?"
+
+msgid "Najnowsze rekordy"
+msgstr "Latest records"
+
+msgid "Nazwa"
+msgstr "Name"
+
+msgid "Nazwa dnia"
+msgstr "Day name"
+
+msgid "Nazwa planu"
+msgstr "Plan name"
+
+msgid "Nd"
+msgstr "Sun"
+
+msgid "Nie masz jeszcze planu treningowego."
+msgstr "You don't have a training plan yet."
+
+msgid "Nie masz jeszcze żadnych treningów."
+msgstr "You don't have any workouts yet."
+
+msgid "Nie masz konta?"
+msgstr "Don't have an account?"
+
+msgid "Nie masz uprawnień do tej operacji."
+msgstr "You are not allowed to perform this operation."
+
+msgid "Nie można usunąć ćwiczenia używanego w treningach lub planach."
+msgstr "An exercise used in workouts or plans cannot be deleted."
+
+#, python-format
+msgid "Nie rozumiem serii „%(token)s”. Użyj formatu np. 5x100 lub 3x5x80."
+msgstr "Cannot understand the set \"%(token)s\". Use a format like 5x100 or 3x5x80."
+
+msgid "Nie znaleziono"
+msgstr "Not found"
+
+msgid "Niedziela"
+msgstr "Sunday"
+
+msgid "Nieprawidłowa liczba powtórzeń."
+msgstr "Invalid number of reps."
+
+msgid "Nieprawidłowa liczba serii."
+msgstr "Invalid number of sets."
+
+msgid "Nieprawidłowe żądanie"
+msgstr "Bad request"
+
+msgid "Nieprawidłowe żądanie."
+msgstr "Bad request."
+
+msgid "Nieprawidłowy login lub hasło."
+msgstr "Invalid username or password."
+
+msgid "Nieznane ćwiczenie."
+msgstr "Unknown exercise."
+
+msgid "Not a valid choice."
+msgstr ""
+
+msgid "Not a valid date value."
+msgstr ""
+
+msgid "Not a valid decimal value."
+msgstr ""
+
+msgid "Not a valid float value."
+msgstr ""
+
+msgid "Not a valid integer value."
+msgstr ""
+
+msgid "Notatka"
+msgstr "Note"
+
+msgid "Notatki"
+msgstr "Notes"
+
+msgid "Notatki:"
+msgstr "Notes:"
+
+msgid "Nowe ćwiczenie"
+msgstr "New exercise"
+
+msgid "Nowsze"
+msgstr "Newer"
+
+msgid "Nowy dzień treningowy"
+msgstr "New training day"
+
+msgid "Nowy plan"
+msgstr "New plan"
+
+msgid "Nowy pomiar"
+msgstr "New measurement"
+
+#, python-format
+msgid "Nowy rekord! %(exercise)s – %(kind)s: %(value)s kg"
+msgstr "New record! %(exercise)s – %(kind)s: %(value)s kg"
+
+msgid "Nowy trening"
+msgstr "New workout"
+
+#, python-format
+msgid "Number must be at least %(min)s."
+msgstr ""
+
+#, python-format
+msgid "Number must be at most %(max)s."
+msgstr ""
+
+#, python-format
+msgid "Number must be between %(min)s and %(max)s."
+msgstr ""
+
+msgid "Objętość"
+msgstr "Volume"
+
+msgid "Objętość na sesję"
+msgstr "Volume per session"
+
+msgid "Objętość treningowa"
+msgstr "Training volume"
+
+msgid "Obwody (opcjonalnie)"
+msgstr "Circumferences (optional)"
+
+msgid "Opis"
+msgstr "Description"
+
+msgid "Ostatni pomiar"
+msgstr "Latest measurement"
+
+msgid "Ostatni rekord"
+msgstr "Latest record"
+
+msgid "Ostatnie rekordy"
+msgstr "Recent records"
+
+msgid "Ostatnie treningi"
+msgstr "Recent workouts"
+
+msgid "Otwórz"
+msgstr "Open"
+
+msgid "Partia"
+msgstr "Muscle group"
+
+msgid "Partia mięśniowa"
+msgstr "Muscle group"
+
+msgid "Piątek"
+msgstr "Friday"
+
+msgid "Plan aktywny (liczony w realizacji tygodnia)"
+msgstr "Active plan (counted in weekly completion)"
+
+msgid "Planuj. Trenuj."
+msgstr "Plan. Train."
+
+msgid "Plany"
+msgstr "Plans"
+
+msgid "Plany treningowe"
+msgstr "Training plans"
+
+msgid "Podaj co najmniej jedną wartość pomiaru."
+msgstr "Enter at least one measurement value."
+
+msgid "Podaj dystans lub czas."
+msgstr "Enter distance or time."
+
+msgid "Podaj serie, np. 5x100."
+msgstr "Enter sets, e.g. 5x100."
+
+msgid "Podciąganie na drążku"
+msgstr "Pull-ups"
+
+msgid "Pokaż"
+msgstr "Show"
+
+msgid "Pomiar ciała"
+msgstr "Body measurement"
+
+msgid "Pomiary ciała"
+msgstr "Body measurements"
+
+msgid "Pompki"
+msgstr "Push-ups"
+
+msgid "Pompki na poręczach (dipy)"
+msgstr "Parallel bar dips"
+
+msgid "Pon"
+msgstr "Mon"
+
+msgid "Poniedziałek"
+msgstr "Monday"
+
+msgid "Popraw dane dnia treningowego."
+msgstr "Correct the training day details."
+
+msgid "Popraw dane ćwiczenia (serie 1–20, powtórzenia 1–100)."
+msgstr "Correct the exercise details (sets 1–20, reps 1–100)."
+
+msgid "Powtórz hasło"
+msgstr "Repeat password"
+
+msgid "Powtórzenia"
+msgstr "Reps"
+
+msgid "Profil → Eksportuj wszystkie dane zdrowotne"
+msgstr "Profile → Export All Health Data"
+
+msgid "Progresja ciężaru"
+msgstr "Weight progression"
+
+msgid "Progresja ciężarów, masa ciała, liczba treningów w tygodniu i realizacja planu."
+msgstr "Weight progression, body weight, workouts per week and plan completion."
+
+msgid "Progresja ciężarów, szacowany 1RM i regularność treningów."
+msgstr "Weight progression, estimated 1RM and training consistency."
+
+msgid "Progresja ćwiczenia"
+msgstr "Exercise progression"
+
+msgid "Prostowanie ramion na wyciągu"
+msgstr "Cable triceps pushdown"
+
+msgid "Przełącz motyw"
+msgstr "Toggle theme"
+
+msgid "Przełącz motyw jasny/ciemny"
+msgstr "Toggle light/dark theme"
+
+#, python-format
+msgid "Prześlesz tutaj plik %(zip)s (lub %(xml)s)."
+msgstr "You will upload the %(zip)s file (or %(xml)s) here."
+
+msgid "Przysiad ze sztangą"
+msgstr "Barbell back squat"
+
+msgid "Pt"
+msgstr "Fri"
+
+msgid "Pulpit"
+msgstr "Dashboard"
+
+msgid "Pływanie"
+msgstr "Swimming"
+
+msgid "Ramię"
+msgstr "Arm"
+
+msgid "Ramię (cm)"
+msgstr "Arm (cm)"
+
+msgid "Realizacja planu – ten tydzień"
+msgstr "Plan completion – this week"
+
+msgid "Rejestracja"
+msgstr "Sign up"
+
+msgid "Rekordy"
+msgstr "Records"
+
+msgid "Rekordy osobiste"
+msgstr "Personal records"
+
+msgid "Rekordy pojawią się automatycznie po zapisaniu treningów."
+msgstr "Records will appear automatically after you log workouts."
+
+msgid "Rekordy z tego treningu"
+msgstr "Records from this workout"
+
+msgid "Rekordy zostaną oznaczone źródłem „Apple Health”, a ponowny import nie utworzy duplikatów."
+msgstr "Records will be marked with the \"Apple Health\" source and re-importing will not create duplicates."
+
+msgid "Rodzaj"
+msgstr "Type"
+
+msgid "Rower"
+msgstr "Cycling"
+
+msgid "Rumuński martwy ciąg"
+msgstr "Romanian deadlift"
+
+msgid "Samopoczucie, technika, uwagi…"
+msgstr "How you felt, technique, remarks…"
+
+msgid "Seria"
+msgstr "Set"
+
+msgid "Serie"
+msgstr "Sets"
+
+msgid "Serie (powt. x kg)"
+msgstr "Sets (reps x kg)"
+
+msgid "Serie siłowe i cardio – dystans oraz czas. Szybki zapis w formacie 5x100."
+msgstr "Strength sets and cardio – distance and time. Quick entry in the 5x100 format."
+
+#, python-format
+msgid "Serie wpisuj jako %(fmt)s oddzielone przecinkami, np. %(example)s."
+msgstr "Enter sets as %(fmt)s separated by commas, e.g. %(example)s."
+
+msgid "Skakanka"
+msgstr "Jump rope"
+
+#, python-format
+msgid "Skrót %(short)s oznacza 3 serie po 5 powtórzeń ze 100 kg. Ćwiczenia z masą ciała: %(bw)s."
+msgstr "The shorthand %(short)s means 3 sets of 5 reps with 100 kg. Bodyweight exercises: %(bw)s."
+
+msgid "Sob"
+msgstr "Sat"
+
+msgid "Sobota"
+msgstr "Saturday"
+
+msgid "Starsze"
+msgstr "Older"
+
+msgid "Statystyki"
+msgstr "Statistics"
+
+#, python-format
+msgid "Strona %(page)s z %(pages)s"
+msgstr "Page %(page)s of %(pages)s"
+
+msgid "Strona nie istnieje albo nie masz do niej dostępu."
+msgstr "The page does not exist or you do not have access to it."
+
+msgid "Strony"
+msgstr "Pages"
+
+msgid "Szac. 1RM"
+msgstr "Est. 1RM"
+
+msgid "Szacowany 1RM"
+msgstr "Estimated 1RM"
+
+msgid "Szacowany 1RM (Epley)"
+msgstr "Estimated 1RM (Epley)"
+
+msgid "Szacowany 1RM (kg)"
+msgstr "Estimated 1RM (kg)"
+
+msgid "Talia"
+msgstr "Waist"
+
+msgid "Talia (cm)"
+msgstr "Waist (cm)"
+
+msgid "Ten login jest już zajęty."
+msgstr "This username is already taken."
+
+msgid "Ten tydzień"
+msgstr "This week"
+
+msgid "The CSRF session token is missing."
+msgstr ""
+
+msgid "The CSRF token has expired."
+msgstr ""
+
+msgid "The CSRF token is invalid."
+msgstr ""
+
+msgid "The CSRF token is missing."
+msgstr ""
+
+msgid "The CSRF tokens do not match."
+msgstr ""
+
+msgid "The referrer does not match the host."
+msgstr ""
+
+msgid "The referrer header is missing."
+msgstr ""
+
+msgid "This field is required."
+msgstr ""
+
+msgid "Tkanka tłuszczowa (%)"
+msgstr "Body fat (%)"
+
+msgid "Trening"
+msgstr "Workout"
+
+#, python-format
+msgid "Trening %(date)s"
+msgstr "Workout %(date)s"
+
+msgid ""
+"Trening to prosty dziennik siłowni: plany tygodniowe, zapis serii i ciężarów, automatyczne wykrywanie rekordów "
+"osobistych oraz wykresy postępów i masy ciała."
+msgstr ""
+"Trening is a simple gym log: weekly plans, sets and weights, automatic personal record detection, and progress and "
+"body weight charts."
+
+msgid "Trening – planowanie i monitorowanie treningu siłowego"
+msgstr "Trening – planning and tracking strength training"
+
+msgid "Treningi"
+msgstr "Workouts"
+
+msgid "Treningi w tygodniu"
+msgstr "Workouts per week"
+
+msgid "Twoje podsumowanie treningowe."
+msgstr "Your training summary."
+
+msgid "Tł."
+msgstr "Fat"
+
+msgid "Udo"
+msgstr "Thigh"
+
+msgid "Udo (cm)"
+msgstr "Thigh (cm)"
+
+msgid "Uginanie ramion ze sztangą"
+msgstr "Barbell biceps curl"
+
+msgid "Usunięto dzień."
+msgstr "Day deleted."
+
+msgid "Usunięto plan."
+msgstr "Plan deleted."
+
+msgid "Usunięto pomiar."
+msgstr "Measurement deleted."
+
+msgid "Usunięto trening."
+msgstr "Workout deleted."
+
+msgid "Usunięto ćwiczenie z planu."
+msgstr "Exercise removed from the plan."
+
+msgid "Usunięto ćwiczenie."
+msgstr "Exercise deleted."
+
+#, python-format
+msgid "Usunąć dzień „%(name)s”?"
+msgstr "Delete the day \"%(name)s\"?"
+
+msgid "Usunąć plan wraz ze wszystkimi dniami?"
+msgstr "Delete the plan with all its days?"
+
+msgid "Usunąć pomiar?"
+msgstr "Delete the measurement?"
+
+msgid "Usunąć trening? Rekordy z tego treningu również zostaną usunięte."
+msgstr "Delete the workout? Records from this workout will be deleted as well."
+
+msgid "Usunąć ćwiczenie z dnia?"
+msgstr "Remove the exercise from the day?"
+
+msgid "Usunąć ćwiczenie?"
+msgstr "Delete the exercise?"
+
+msgid "Usuń"
+msgstr "Delete"
+
+msgid "Usuń plan"
+msgstr "Delete plan"
+
+msgid "Usuń wiersz"
+msgstr "Remove row"
+
+msgid "Utworzono plan. Dodaj dni treningowe."
+msgstr "Plan created. Add training days."
+
+msgid "Utwórz pierwszy plan"
+msgstr "Create your first plan"
+
+msgid "Utwórz plan"
+msgstr "Create plan"
+
+#, python-format
+msgid "W aplikacji Zdrowie na iPhonie wybierzesz %(path)s."
+msgstr "In the Health app on your iPhone you will choose %(path)s."
+
+msgid "Wiosłowanie sztangą"
+msgstr "Barbell row"
+
+msgid "Witaj"
+msgstr "Welcome"
+
+#, python-format
+msgid "Witaj, %(name)s!"
+msgstr "Welcome, %(name)s!"
+
+msgid "Wróć"
+msgstr "Back"
+
+msgid "Wróć na pulpit"
+msgstr "Back to dashboard"
+
+msgid "Wszystkie"
+msgstr "All"
+
+msgid "Wszystkie plany"
+msgstr "All plans"
+
+msgid "Wszystkie pomiary"
+msgstr "All measurements"
+
+msgid "Wszystkie rekordy"
+msgstr "All records"
+
+msgid "Wszystkie treningi"
+msgstr "All workouts"
+
+msgid "Wt"
+msgstr "Tue"
+
+msgid "Wtorek"
+msgstr "Tuesday"
+
+msgid "Wybierz ćwiczenie."
+msgstr "Choose an exercise."
+
+msgid "Wyciskanie hantli na skosie"
+msgstr "Incline dumbbell press"
+
+msgid "Wyciskanie sztangi leżąc"
+msgstr "Barbell bench press"
+
+msgid "Wyciskanie żołnierskie"
+msgstr "Overhead press"
+
+msgid "Wykres masy ciała"
+msgstr "Body weight chart"
+
+msgid "Wykres progresji"
+msgstr "Progression chart"
+
+msgid "Wykroki z hantlami"
+msgstr "Dumbbell lunges"
+
+msgid ""
+"Wykrywane automatycznie przy zapisie treningu: najcięższy ciężar w serii oraz szacowany 1RM wg wzoru Epleya (ciężar ×"
+" (1 + powt./30))."
+msgstr ""
+"Detected automatically when a workout is saved: the heaviest weight in a set and the estimated 1RM using the Epley "
+"formula (weight × (1 + reps/30))."
+
+msgid "Wylogowano."
+msgstr "Signed out."
+
+msgid "Wyloguj"
+msgstr "Sign out"
+
+msgid "Wynik"
+msgstr "Result"
+
+msgid "Wznosy bokiem z hantlami"
+msgstr "Dumbbell lateral raises"
+
+msgid "Własne ćwiczenie"
+msgstr "Custom exercise"
+
+msgid "Zaloguj"
+msgstr "Sign in"
+
+msgid "Zaloguj się"
+msgstr "Sign in"
+
+msgid "Zaloguj się, aby zobaczyć tę stronę."
+msgstr "Sign in to see this page."
+
+msgid "Zapamiętaj mnie"
+msgstr "Remember me"
+
+msgid "Zapisano plan."
+msgstr "Plan saved."
+
+msgid "Zapisano pomiar."
+msgstr "Measurement saved."
+
+msgid "Zapisano trening."
+msgstr "Workout saved."
+
+msgid "Zapisano zmiany."
+msgstr "Changes saved."
+
+msgid "Zapisz"
+msgstr "Save"
+
+msgid "Zapisz pierwszy trening"
+msgstr "Log your first workout"
+
+msgid "Zapisz plan"
+msgstr "Save plan"
+
+msgid "Zapisz pomiar"
+msgstr "Save measurement"
+
+msgid "Zapisz trening"
+msgstr "Save workout"
+
+msgid "Zapisz trening z tego dnia"
+msgstr "Log a workout for this day"
+
+msgid "Zarejestruj się"
+msgstr "Sign up"
+
+msgid "Załóż darmowe konto"
+msgstr "Create a free account"
+
+msgid "Załóż konto"
+msgstr "Sign up"
+
+msgid "Zbyt wiele nieudanych prób logowania. Spróbuj ponownie za kilka minut."
+msgstr "Too many failed sign-in attempts. Try again in a few minutes."
+
+msgid "aktywny"
+msgstr "active"
+
+msgid "barki"
+msgstr "shoulders"
+
+msgid "biceps"
+msgstr "biceps"
+
+msgid "cardio"
+msgstr "cardio"
+
+msgid "dwugłowe uda"
+msgstr "hamstrings"
+
+msgid "eksport.zip"
+msgstr "export.zip"
+
+msgid "klatka"
+msgstr "chest"
+
+msgid "klatka / triceps"
+msgstr "chest / triceps"
+
+msgid "max"
+msgstr "max"
+
+msgid "nieaktywny"
+msgstr "inactive"
+
+msgid "nogi"
+msgstr "legs"
+
+msgid "np. 5x100, 5x100, 3x5x90"
+msgstr "e.g. 5x100, 5x100, 3x5x90"
+
+msgid "np. Pon – klatka"
+msgstr "e.g. Mon – chest"
+
+msgid "np. Siła 3 dni"
+msgstr "e.g. Strength 3 days"
+
+msgid "np. Wyciskanie na maszynie"
+msgstr "e.g. Machine chest press"
+
+msgid "np. klatka"
+msgstr "e.g. chest"
+
+msgid "ostatnie 12 tygodni"
+msgstr "last 12 weeks"
+
+msgid "plecy"
+msgstr "back"
+
+msgid "plecy / nogi"
+msgstr "back / legs"
+
+msgid "powtórzenia x ciężar"
+msgstr "reps x weight"
+
+msgid "powtórzenia × ciężar"
+msgstr "reps × weight"
+
+msgid "pośladki"
+msgstr "glutes"
+
+msgid "ręcznie"
+msgstr "manual"
+
+msgid "siłowe"
+msgstr "strength"
+
+msgid "tkanki tłuszczowej"
+msgstr "body fat"
+
+msgid "trening"
+msgid_plural "treningów"
+msgstr[0] "workout"
+msgstr[1] "workouts"
+
+msgid "triceps"
+msgstr "triceps"
+
+msgid "wersja"
+msgstr "version"
+
+msgid "wkrótce"
+msgstr "coming soon"
+
+msgid "zobacz"
+msgstr "view"
+
+msgid "Ćwiczenia"
+msgstr "Exercises"
+
+msgid "Ćwiczenia cardio zapisujesz jako dystans i czas."
+msgstr "Cardio exercises are logged as distance and time."
+
+msgid "Ćwiczenia wbudowane oraz Twoje własne."
+msgstr "Built-in exercises and your own."
+
+msgid "Ćwiczenie"
+msgstr "Exercise"
+
+msgid "Ćwiczenie o tej nazwie już istnieje."
+msgstr "An exercise with this name already exists."
+
+msgid "Ściąganie drążka wyciągu"
+msgstr "Lat pulldown"
+
+msgid "Śr"
+msgstr "Wed"
+
+msgid "Środa"
+msgstr "Wednesday"
+
+msgid "Źródło"
+msgstr "Source"
+
+msgid "— bez planu —"
+msgstr "— no plan —"
+
+msgid "— wybierz ćwiczenie —"
+msgstr "— choose an exercise —"
+

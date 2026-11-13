@@ -1,36 +1,36 @@
 {% extends "base.html" %}
-{% block title %}Treningi{% endblock %}
+{% block title %}{{ _('Treningi') }}{% endblock %}
 {% block content %}
 <div class="page-head">
-  <div><h1>Dziennik treningów</h1><p class="subtitle">{{ total }} zapisanych treningów.</p></div>
-  <a class="btn" href="{{ url_for('workouts.create') }}">+ Nowy trening</a>
+  <div><h1>{{ _('Dziennik treningów') }}</h1><p class="subtitle">{{ ngettext('%(num)s zapisany trening.', '%(num)s zapisanych treningów.', total) }}</p></div>
+  <a class="btn" href="{{ url_for('workouts.create') }}">+ {{ _('Nowy trening') }}</a>
 </div>
 {% if workouts %}
 <div class="card">
   <div class="table-wrap"><table>
-    <thead><tr><th>Data</th><th>Dzień planu</th><th>Ćwiczenia</th><th class="num">Serie</th><th class="num">Objętość</th><th></th></tr></thead>
+    <thead><tr><th>{{ _('Data') }}</th><th>{{ _('Dzień planu') }}</th><th>{{ _('Ćwiczenia') }}</th><th class="num">{{ _('Serie') }}</th><th class="num">{{ _('Objętość') }}</th><th></th></tr></thead>
     <tbody>
     {% for w in workouts %}
     <tr>
-      <td class="nowrap"><a href="{{ url_for('workouts.detail', workout_id=w.id) }}"><strong>{{ w.date.strftime('%d.%m.%Y') }}</strong></a></td>
+      <td class="nowrap"><a href="{{ url_for('workouts.detail', workout_id=w.id) }}"><strong>{{ w.date|day }}</strong></a></td>
       <td>{{ w.plan_day.name if w.plan_day else '–' }}</td>
-      <td>{{ w.entries|map(attribute='exercise.name')|join(', ') }}</td>
+      <td>{{ w.entries|map(attribute='exercise.display_name')|join(', ') }}</td>
       <td class="num">{{ w.total_sets }}</td>
       <td class="num nowrap">{{ '{:,.0f}'.format(w.total_volume).replace(',', ' ') }} kg</td>
-      <td class="num">{% if pr_counts.get(w.id) %}<span class="badge badge-accent" title="Rekordy z tego treningu">PR × {{ pr_counts[w.id] }}</span>{% endif %}</td>
+      <td class="num">{% if pr_counts.get(w.id) %}<span class="badge badge-accent" title="{{ _('Rekordy z tego treningu') }}">PR × {{ pr_counts[w.id] }}</span>{% endif %}</td>
     </tr>
     {% endfor %}
     </tbody>
   </table></div>
 </div>
 {% if pages > 1 %}
-<nav class="pagination" aria-label="Strony">
-  {% if page > 1 %}<a class="btn btn-secondary btn-sm" href="{{ url_for('workouts.index', page=page - 1) }}">← Nowsze</a>{% endif %}
-  <span class="muted small">Strona {{ page }} z {{ pages }}</span>
-  {% if page < pages %}<a class="btn btn-secondary btn-sm" href="{{ url_for('workouts.index', page=page + 1) }}">Starsze →</a>{% endif %}
+<nav class="pagination" aria-label="{{ _('Strony') }}">
+  {% if page > 1 %}<a class="btn btn-secondary btn-sm" href="{{ url_for('workouts.index', page=page - 1) }}">← {{ _('Nowsze') }}</a>{% endif %}
+  <span class="muted small">{{ _('Strona %(page)s z %(pages)s', page=page, pages=pages) }}</span>
+  {% if page < pages %}<a class="btn btn-secondary btn-sm" href="{{ url_for('workouts.index', page=page + 1) }}">{{ _('Starsze') }} →</a>{% endif %}
 </nav>
 {% endif %}
 {% else %}
-<div class="card empty"><p>Nie masz jeszcze żadnych treningów.</p><a class="btn" href="{{ url_for('workouts.create') }}">Zapisz pierwszy trening</a></div>
+<div class="card empty"><p>{{ _('Nie masz jeszcze żadnych treningów.') }}</p><a class="btn" href="{{ url_for('workouts.create') }}">{{ _('Zapisz pierwszy trening') }}</a></div>
 {% endif %}
 {% endblock %}

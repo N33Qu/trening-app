@@ -11,7 +11,7 @@
       {{ field(form.weight_kg, type="number", step="0.1", inputmode="decimal") }}
       {{ field(form.body_fat_pct, type="number", step="0.1", inputmode="decimal") }}
     </div>
-    <h3 class="mt">Obwody (opcjonalnie)</h3>
+    <h3 class="mt">{{ _('Obwody (opcjonalnie)') }}</h3>
     <div class="form-row">
       {{ field(form.waist_cm, type="number", step="0.1", inputmode="decimal") }}
       {{ field(form.chest_cm, type="number", step="0.1", inputmode="decimal") }}
@@ -19,7 +19,7 @@
       {{ field(form.thigh_cm, type="number", step="0.1", inputmode="decimal") }}
     </div>
     {{ field(form.notes) }}
-    <div class="form-actions">{{ form.submit(class_="btn") }}<a class="btn btn-ghost" href="{{ url_for('body.index') }}">Anuluj</a></div>
+    <div class="form-actions">{{ form.submit(class_="btn") }}<a class="btn btn-ghost" href="{{ url_for('body.index') }}">{{ _('Anuluj') }}</a></div>
   </form>
 </div>
 {% endblock %}

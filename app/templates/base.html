@@ -1,6 +1,6 @@
 {% from "_macros.html" import icon %}
 <!doctype html>
-<html lang="pl" data-theme="light">
+<html lang="{{ current_lang }}" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,32 +12,39 @@
 </head>
 <body>
   <header class="site-header">
-    <nav class="nav container" aria-label="Główna nawigacja">
+    <nav class="nav container" aria-label="{{ _('Główna nawigacja') }}">
       <a class="brand" href="{{ url_for('stats.dashboard') }}"><span class="brand-mark">{{ icon("dumbbell") }}</span>Trening</a>
       {% if current_user.is_authenticated %}
       {% set ep = request.endpoint or "" %}
       <ul class="nav-links">
-        <li><a href="{{ url_for('stats.dashboard') }}" class="{{ 'active' if ep == 'stats.dashboard' }}">Pulpit</a></li>
-        <li><a href="{{ url_for('workouts.index') }}" class="{{ 'active' if ep.startswith('workouts.') }}">Treningi</a></li>
-        <li><a href="{{ url_for('plans.index') }}" class="{{ 'active' if ep.startswith('plans.') }}">Plany</a></li>
-        <li><a href="{{ url_for('exercises.index') }}" class="{{ 'active' if ep.startswith('exercises.') }}">Ćwiczenia</a></li>
-        <li><a href="{{ url_for('records.index') }}" class="{{ 'active' if ep.startswith('records.') }}">Rekordy</a></li>
-        <li><a href="{{ url_for('body.index') }}" class="{{ 'active' if ep.startswith('body.') }}">Ciało</a></li>
-        <li><a href="{{ url_for('stats.index') }}" class="{{ 'active' if ep == 'stats.index' }}">Statystyki</a></li>
+        <li><a href="{{ url_for('stats.dashboard') }}" class="{{ 'active' if ep == 'stats.dashboard' }}">{{ _('Pulpit') }}</a></li>
+        <li><a href="{{ url_for('workouts.index') }}" class="{{ 'active' if ep.startswith('workouts.') }}">{{ _('Treningi') }}</a></li>
+        <li><a href="{{ url_for('plans.index') }}" class="{{ 'active' if ep.startswith('plans.') }}">{{ _('Plany') }}</a></li>
+        <li><a href="{{ url_for('exercises.index') }}" class="{{ 'active' if ep.startswith('exercises.') }}">{{ _('Ćwiczenia') }}</a></li>
+        <li><a href="{{ url_for('records.index') }}" class="{{ 'active' if ep.startswith('records.') }}">{{ _('Rekordy') }}</a></li>
+        <li><a href="{{ url_for('body.index') }}" class="{{ 'active' if ep.startswith('body.') }}">{{ _('Ciało') }}</a></li>
+        <li><a href="{{ url_for('stats.index') }}" class="{{ 'active' if ep == 'stats.index' }}">{{ _('Statystyki') }}</a></li>
       </ul>
       {% endif %}
       <div class="nav-actions">
-        <button type="button" class="icon-btn theme-toggle" data-theme-toggle aria-label="Przełącz motyw jasny/ciemny" title="Przełącz motyw">{{ icon("moon") }}{{ icon("sun") }}</button>
+        <form method="post" action="{{ url_for('i18n.set_language') }}" class="lang-switch" aria-label="{{ _('Język') }}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="next" value="{{ request.full_path if request.query_string else request.path }}">
+          {% for code in languages %}
+          <button type="submit" name="lang" value="{{ code }}" lang="{{ code }}"{% if code == current_lang %} class="active" aria-pressed="true"{% else %} aria-pressed="false"{% endif %} title="{{ 'Polski' if code == 'pl' else 'English' }}">{{ code|upper }}</button>
+          {% endfor %}
+        </form>
+        <button type="button" class="icon-btn theme-toggle" data-theme-toggle aria-label="{{ _('Przełącz motyw jasny/ciemny') }}" title="{{ _('Przełącz motyw') }}">{{ icon("moon") }}{{ icon("sun") }}</button>
         {% if current_user.is_authenticated %}
         <span class="nav-user">{{ current_user.username }}</span>
         <form method="post" action="{{ url_for('auth.logout') }}" class="inline-form">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-          <button type="submit" class="icon-btn" aria-label="Wyloguj" title="Wyloguj">{{ icon("logout") }}</button>
+          <button type="submit" class="icon-btn" aria-label="{{ _('Wyloguj') }}" title="{{ _('Wyloguj') }}">{{ icon("logout") }}</button>
         </form>
-        <button type="button" class="icon-btn nav-toggle" data-nav-toggle aria-label="Menu" aria-expanded="false">{{ icon("menu") }}</button>
+        <button type="button" class="icon-btn nav-toggle" data-nav-toggle aria-label="{{ _('Menu') }}" aria-expanded="false">{{ icon("menu") }}</button>
         {% else %}
-        <a class="btn btn-ghost btn-sm" href="{{ url_for('auth.login') }}">Zaloguj</a>
-        <a class="btn btn-sm" href="{{ url_for('auth.register') }}">Załóż konto</a>
+        <a class="btn btn-ghost btn-sm" href="{{ url_for('auth.login') }}">{{ _('Zaloguj') }}</a>
+        <a class="btn btn-sm" href="{{ url_for('auth.register') }}">{{ _('Załóż konto') }}</a>
         {% endif %}
       </div>
     </nav>
@@ -60,8 +67,8 @@
 
   <footer class="site-footer">
     <div class="container">
-      <span>Trening – planowanie i monitorowanie treningu siłowego</span>
-      <span>wersja <span class="version">{{ app_version }}</span></span>
+      <span>{{ _('Trening – planowanie i monitorowanie treningu siłowego') }}</span>
+      <span>{{ _('wersja') }} <span class="version">{{ app_version }}</span></span>
     </div>
   </footer>
   <script src="{{ url_for('static', filename='js/app.js') }}?v={{ app_version }}"></script>

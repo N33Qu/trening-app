@@ -1,22 +1,22 @@
 {% extends "base.html" %}
 {% from "_macros.html" import icon %}
-{% block title %}Witaj{% endblock %}
+{% block title %}{{ _('Witaj') }}{% endblock %}
 {% block content %}
 <section class="hero">
   <div>
-    <h1>Planuj. Trenuj. <em>Bij rekordy.</em></h1>
-    <p class="lead">Trening to prosty dziennik siłowni: plany tygodniowe, zapis serii i ciężarów, automatyczne wykrywanie rekordów osobistych oraz wykresy postępów i masy ciała.</p>
+    <h1>{{ _('Planuj. Trenuj.') }} <em>{{ _('Bij rekordy.') }}</em></h1>
+    <p class="lead">{{ _('Trening to prosty dziennik siłowni: plany tygodniowe, zapis serii i ciężarów, automatyczne wykrywanie rekordów osobistych oraz wykresy postępów i masy ciała.') }}</p>
     <div class="actions">
-      <a class="btn" href="{{ url_for('auth.register') }}">Załóż darmowe konto</a>
-      <a class="btn btn-secondary" href="{{ url_for('auth.login') }}">Mam już konto</a>
+      <a class="btn" href="{{ url_for('auth.register') }}">{{ _('Załóż darmowe konto') }}</a>
+      <a class="btn btn-secondary" href="{{ url_for('auth.login') }}">{{ _('Mam już konto') }}</a>
     </div>
   </div>
   <div class="hero-art">{{ icon("dumbbell") }}</div>
 </section>
 <section class="features">
-  <div class="card feature"><h3>Plany treningowe</h3><p>Dni tygodnia, ćwiczenia i docelowe serie × powtórzenia × ciężar.</p></div>
-  <div class="card feature"><h3>Dziennik treningów</h3><p>Serie siłowe i cardio – dystans oraz czas. Szybki zapis w formacie 5x100.</p></div>
-  <div class="card feature"><h3>Rekordy osobiste</h3><p>Maksymalny ciężar i szacowany 1RM (wzór Epleya) wykrywane automatycznie.</p></div>
-  <div class="card feature"><h3>Statystyki</h3><p>Progresja ciężarów, masa ciała, liczba treningów w tygodniu i realizacja planu.</p></div>
+  <div class="card feature"><h3>{{ _('Plany treningowe') }}</h3><p>{{ _('Dni tygodnia, ćwiczenia i docelowe serie × powtórzenia × ciężar.') }}</p></div>
+  <div class="card feature"><h3>{{ _('Dziennik treningów') }}</h3><p>{{ _('Serie siłowe i cardio – dystans oraz czas. Szybki zapis w formacie 5x100.') }}</p></div>
+  <div class="card feature"><h3>{{ _('Rekordy osobiste') }}</h3><p>{{ _('Maksymalny ciężar i szacowany 1RM (wzór Epleya) wykrywane automatycznie.') }}</p></div>
+  <div class="card feature"><h3>{{ _('Statystyki') }}</h3><p>{{ _('Progresja ciężarów, masa ciała, liczba treningów w tygodniu i realizacja planu.') }}</p></div>
 </section>
 {% endblock %}

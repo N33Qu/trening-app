@@ -26,7 +26,7 @@ def index():
         current = slot[pr.kind]
         if current is None or pr.value >= current.value:
             slot[pr.kind] = pr
-    summary = sorted(best.values(), key=lambda s: s["exercise"].name)
+    summary = sorted(best.values(), key=lambda s: s["exercise"].display_name.lower())
     recent = list(reversed(rows))[:10]
     return render_template(
         "records/list.html", summary=summary, recent=recent, PR_MAX_WEIGHT=PR_MAX_WEIGHT, PR_E1RM=PR_E1RM

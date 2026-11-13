@@ -1,6 +1,7 @@
 from datetime import date
 
 from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask_babel import gettext
 from flask_login import current_user, login_required
 from sqlalchemy import func, select
 
@@ -28,9 +29,9 @@ def _blank_entry():
 def _prepare(form):
     choices, exercises = exercise_choices(current_user.id)
     for sub in form.entries:
-        sub.exercise_id.choices = [(0, "— wybierz ćwiczenie —"), *choices]
+        sub.exercise_id.choices = [(0, gettext("— wybierz ćwiczenie —")), *choices]
     days = user_plan_days(current_user.id)
-    form.plan_day_id.choices = [(0, "— bez planu —")] + [
+    form.plan_day_id.choices = [(0, gettext("— bez planu —"))] + [
         (d.id, f"{d.plan.name}: {d.name}") for d in days
     ]
     return exercises
@@ -46,26 +47,26 @@ def _apply(form, workout, exercises):
         has_data = bool(sets) or sub.distance_km.data is not None or sub.duration_min.data is not None
         if ex_id == 0:
             if has_data:
-                sub.exercise_id.errors.append("Wybierz ćwiczenie.")
+                sub.exercise_id.errors.append(gettext("Wybierz ćwiczenie."))
                 ok = False
             continue
         exercise = exercises.get(ex_id)
         if exercise is None:
-            sub.exercise_id.errors.append("Nieznane ćwiczenie.")
+            sub.exercise_id.errors.append(gettext("Nieznane ćwiczenie."))
             ok = False
             continue
         if exercise.is_cardio:
             if sub.distance_km.data is None and sub.duration_min.data is None and not sets:
-                sub.distance_km.errors.append("Podaj dystans lub czas.")
+                sub.distance_km.errors.append(gettext("Podaj dystans lub czas."))
                 ok = False
                 continue
         elif not sets:
-            sub.sets.errors.append("Podaj serie, np. 5x100.")
+            sub.sets.errors.append(gettext("Podaj serie, np. 5x100."))
             ok = False
             continue
         rows.append((exercise, sets, sub.distance_km.data, sub.duration_min.data))
     if ok and not rows:
-        form.entries[0].exercise_id.errors.append("Dodaj co najmniej jedno ćwiczenie.")
+        form.entries[0].exercise_id.errors.append(gettext("Dodaj co najmniej jedno ćwiczenie."))
         ok = False
     if not ok:
         return False
@@ -93,7 +94,8 @@ def _apply(form, workout, exercises):
 
 def _flash_records(records):
     for rec in records:
-        flash(f"Nowy rekord! {rec.exercise_name} – {PR_LABELS[rec.kind]}: {rec.value:g} kg", "record")
+        flash(gettext("Nowy rekord! %(exercise)s – %(kind)s: %(value)s kg", exercise=rec.exercise_name,
+                      kind=PR_LABELS[rec.kind], value=f"{rec.value:g}"), "record")
 
 
 def _form_page(form, title, workout=None):
@@ -151,12 +153,12 @@ def create():
             db.session.flush()
             records = detect_personal_records(workout)
             db.session.commit()
-            flash("Zapisano trening.", "success")
+            flash(gettext("Zapisano trening."), "success")
             _flash_records(records)
             return redirect(url_for("workouts.detail", workout_id=workout.id))
         db.session.rollback()
         exercises = _prepare(form)
-    return _form_page(form, "Nowy trening")
+    return _form_page(form, gettext("Nowy trening"))
 
 
 @bp.get("/<int:workout_id>")
@@ -193,12 +195,12 @@ def edit(workout_id):
             db.session.flush()
             records = detect_personal_records(workout)
             db.session.commit()
-            flash("Zapisano zmiany.", "success")
+            flash(gettext("Zapisano zmiany."), "success")
             _flash_records(records)
             return redirect(url_for("workouts.detail", workout_id=workout.id))
         db.session.rollback()
         exercises = _prepare(form)
-    return _form_page(form, "Edytuj trening", workout=workout)
+    return _form_page(form, gettext("Edytuj trening"), workout=workout)
 
 
 @bp.post("/<int:workout_id>/delete")
@@ -208,5 +210,5 @@ def delete(workout_id):
     if DeleteForm().validate_on_submit():
         db.session.delete(workout)
         db.session.commit()
-        flash("Usunięto trening.", "info")
+        flash(gettext("Usunięto trening."), "info")
     return redirect(url_for("workouts.index"))

@@ -40,7 +40,8 @@ COPY --from=builder /opt/venv /opt/venv
 WORKDIR /app
 COPY wsgi.py gunicorn.conf.py ./
 COPY app ./app
-RUN chmod -R u=rwX,go=rX /app
+RUN pybabel compile -d app/translations \
+ && chmod -R u=rwX,go=rX /app
 
 USER 10001:10001
 EXPOSE 8000
