@@ -66,7 +66,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
       - name: Trivy image scan (SARIF, report)
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.33.1
         with:
           image-ref: ${{ env.IMAGE }}:sha-${{ env.SHORT_SHA }}
           format: sarif
@@ -83,7 +83,7 @@ jobs:
           sarif_file: trivy-image.sarif
           category: trivy-image
       - name: Trivy image gate (fail on CRITICAL)
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.33.1
         with:
           image-ref: ${{ env.IMAGE }}:sha-${{ env.SHORT_SHA }}
           format: table
@@ -94,7 +94,7 @@ jobs:
           TRIVY_USERNAME: ${{ github.actor }}
           TRIVY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
       - name: Trivy config scan of helm/ (report only)
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@v0.33.1
         with:
           scan-type: config
           scan-ref: helm/
