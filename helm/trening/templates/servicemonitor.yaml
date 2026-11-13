@@ -1,0 +1,47 @@
+{{- if .Values.monitoring.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: trening-app
+  labels:
+    release: {{ .Values.monitoring.releaseLabel }}
+    {{- include "trening.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: trening-app
+  endpoints:
+    - port: http
+      path: /metrics
+      interval: {{ .Values.monitoring.interval }}
+---
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: trening-app
+  labels:
+    release: {{ .Values.monitoring.releaseLabel }}
+    {{- include "trening.labels" . | nindent 4 }}
+spec:
+  groups:
+    - name: trening.rules
+      rules:
+        - alert: TreningAppDown
+          expr: (sum(up{namespace="{{ .Release.Namespace }}", service="trening-app"}) or vector(0)) == 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "Aplikacja trening-app niedostepna"
+            description: "Brak dzialajacych instancji trening-app od ponad 1 minuty."
+        - alert: TreningHighErrorRate
+          expr: |
+            sum(rate(flask_http_request_total{namespace="{{ .Release.Namespace }}", status=~"5.."}[5m]))
+              / sum(rate(flask_http_request_total{namespace="{{ .Release.Namespace }}"}[5m])) > 0.05
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: "Wysoki odsetek bledow 5xx"
+            description: "Ponad 5% zapytan konczy sie bledem 5xx przez 5 minut."
+{{- end }}

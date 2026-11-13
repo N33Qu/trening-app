@@ -1,0 +1,70 @@
+nameOverride: ""
+
+image:
+  repository: ghcr.io/n33qu/trening-app
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+existingSecret: trening-secrets
+
+config:
+  APP_ENV: production
+  LOG_LEVEL: INFO
+  SEED_DEMO: "true"
+  GUNICORN_WORKERS: "2"
+
+replicaCount: 2
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+
+service:
+  port: 80
+  targetPort: 8000
+
+ingress:
+  enabled: true
+  className: nginx
+  host: trening.local
+  tlsSecret: trening-tls
+  clusterIssuer: trening-ca-issuer
+
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 6
+  targetCPUUtilizationPercentage: 60
+  scaleDownStabilizationSeconds: 120
+
+pdb:
+  enabled: true
+  minAvailable: 1
+
+postgres:
+  image: postgres:16-alpine
+  db: trening
+  user: trening
+  storage: 1Gi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 512Mi
+
+monitoring:
+  enabled: true
+  releaseLabel: kube-prometheus-stack
+  interval: 15s
+  namespace: monitoring
+
+networkPolicy:
+  enabled: true
+  ingressNamespace: ingress-nginx
+  monitoringNamespace: monitoring
