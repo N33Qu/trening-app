@@ -1,11 +1,18 @@
 import http from 'k6/http';
 import { check, sleep } from 'k6';
 
+// Uzycie: k6 run -e HOSTS_IP=127.0.0.1:8443 infra/loadtest/k6.js
+// (HOSTS_IP mapuje trening.local na adres port-forwardu; bez zmiennej uzywany jest DNS/hosts)
+// VUS - liczba wirtualnych uzytkownikow (domyslnie 50)
+const VUS = parseInt(__ENV.VUS || '50', 10);
+const HOST = __ENV.HOST || 'trening.local';
+
 export const options = {
   insecureSkipTLSVerify: true,
+  hosts: __ENV.HOSTS_IP ? { [HOST]: __ENV.HOSTS_IP } : {},
   stages: [
-    { duration: '1m', target: 50 },
-    { duration: '3m', target: 50 },
+    { duration: '1m', target: VUS },
+    { duration: '3m', target: VUS },
     { duration: '30s', target: 0 },
   ],
   thresholds: {
@@ -14,7 +21,7 @@ export const options = {
   },
 };
 
-const BASE = __ENV.BASE_URL || 'https://trening.local';
+const BASE = __ENV.BASE_URL || `https://${HOST}`;
 
 export default function () {
   const r1 = http.get(`${BASE}/`);

@@ -1,0 +1,30 @@
+$ up{namespace="trening"}
+trening-app trening-app-6b7b545dcb-dd45x 1
+trening-app trening-app-6b7b545dcb-4xd9h 1
+trening-app trening-app-6b7b545dcb-9bdbl 1
+trening-app trening-app-6b7b545dcb-7gshf 1
+trening-app trening-app-6b7b545dcb-5dbh4 1
+trening-app trening-app-6b7b545dcb-h7jls 1
+$ sum(flask_http_request_total)
+   101970
+$ trening_users_total
+  trening-app-6b7b545dcb-dd45x 5
+  trening-app-6b7b545dcb-4xd9h 5
+  trening-app-6b7b545dcb-9bdbl 5
+$ trening_workouts_total
+  trening-app-6b7b545dcb-dd45x 31
+  trening-app-6b7b545dcb-4xd9h 31
+  trening-app-6b7b545dcb-9bdbl 31
+$ trening_personal_records_total
+  trening-app-6b7b545dcb-dd45x 2
+  trening-app-6b7b545dcb-4xd9h 0
+  trening-app-6b7b545dcb-9bdbl 0
+$ prometheus targets (trening)
+serviceMonitor/trening/trening-app/0 trening-app-6b7b545dcb-h7jls up
+serviceMonitor/trening/trening-app/0 trening-app-6b7b545dcb-4xd9h up
+serviceMonitor/trening/trening-app/0 trening-app-6b7b545dcb-dd45x up
+serviceMonitor/trening/trening-app/0 trening-app-6b7b545dcb-9bdbl up
+serviceMonitor/trening/trening-app/0 trening-app-6b7b545dcb-7gshf up
+serviceMonitor/trening/trening-app/0 trening-app-6b7b545dcb-5dbh4 up
+$ rules
+TreningAppDown inactive for= 60 (sum(up{namespace="trening",service="trening-app"}) or vector(0)) == 0

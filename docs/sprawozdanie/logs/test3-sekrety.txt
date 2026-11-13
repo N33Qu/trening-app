@@ -1,0 +1,66 @@
+$ git grep -niE "(password|passwd|secret_key|api[_-]?key|token)\s*[:=]\s*[\"']?[A-Za-z0-9+/_-]{8,}" -- . ":!docs"
+(brak trafien)
+
+$ git grep -n "demo1234" (haslo konta demo — publiczne, dane demonstracyjne)
+app/__init__.py:139:        """Create demo account (demo / demo1234) with sample data."""
+app/seed.py:28:DEMO_PASSWORD = "demo1234"
+app/templates/auth/login.html:16:    <p class="demo-hint">Konto demonstracyjne: <span class="mono">demo</span> / <span c
+tests/test_seed_and_stats.py:60:    resp = login(client, "demo", "demo1234")
+
+$ git grep -n "kind: Secret" -- helm argocd infra
+(brak - Secret nie jest w repo)
+
+$ kubectl get secret trening-secrets -o yaml  (wartosci zredagowane)
+apiVersion: v1
+data:
+  DATABASE_URL: <base64-REDACTED>
+  POSTGRES_PASSWORD: <base64-REDACTED>
+  SECRET_KEY: <base64-REDACTED>
+kind: Secret
+metadata:
+  name: trening-secrets
+  namespace: trening
+type: Opaque
+
+$ kubectl get deploy trening-app -o yaml | grep -A4 secretRef / valueFrom
+50:        - secretRef:
+51:            name: trening-secrets
+
+$ docker history / inspect obrazu (env)
+["PATH=/opt/venv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+"LANG=C.UTF-8"
+"GPG_KEY=7169605F...  (publiczny identyfikator klucza Pythona z obrazu bazowego, nie sekret)"
+"PYTHON_VERSION=3.12.16"
+"PYTHON_SHA256=b5796915dc45ff745cfb4e990a7e7c93d6f546328a102ce31448d69ebc37575c"
+"PYTHONDONTWRITEBYTECODE=1"
+"PYTHONUNBUFFERED=1"
+"APP_ENV=production"
+"APP_VERSION=sha-554c46a"
+"PROMETHEUS_MULTIPROC_DIR=/tmp/prom"
+"GUNICORN_WORKERS=2"]
+User=10001:10001 Entrypoint=[] Cmd=[gunicorn -c gunicorn.conf.py wsgi:app]
+--- docker history (CREATED BY, skrocone)
+CMD ["gunicorn" "-c" "gunicorn.conf.py" "wsgi:app"]
+EXPOSE [8000/tcp]
+USER 10001:10001
+RUN |1 APP_VERSION=sha-554c46a /bin/sh -c chmod -R u=rwX,go=rX /app # buildkit
+COPY app ./app # buildkit
+COPY wsgi.py gunicorn.conf.py ./ # buildkit
+WORKDIR /app
+COPY /opt/venv /opt/venv # buildkit
+RUN |1 APP_VERSION=sha-554c46a /bin/sh -c apt-get update  && apt-get upgrade -y --no-install-recommends  && rm -rf /var/lib/apt/lists/*  && 
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PATH=/opt/venv/bin:/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/
+LABEL org.opencontainers.image.title=trening-app org.opencontainers.image.description=Trening – planowanie i monitorowanie treningu siłow
+ARG APP_VERSION=sha-554c46a
+CMD ["python3"]
+RUN /bin/sh -c set -eux;  for src in idle3 pip3 pydoc3 python3 python3-config; do   dst="$(echo "$src" | tr -d 3)";   [ -s "/usr/local/bin/$
+RUN /bin/sh -c set -eux;   savedAptMark="$(apt-mark showmanual)";  apt-get update;  apt-get install -y --no-install-recommends   dpkg-dev   
+ENV PYTHON_SHA256=b5796915dc45ff745cfb4e990a7e7c93d6f546328a102ce31448d69ebc37575c
+ENV PYTHON_VERSION=3.12.16
+ENV GPG_KEY=7169605F...  (publiczny identyfikator klucza Pythona z obrazu bazowego, nie sekret)
+RUN /bin/sh -c set -eux;  apt-get update;  apt-get install -y --no-install-recommends   ca-certificates   netbase   tzdata  ;  apt-get dist-
+ENV LANG=C.UTF-8
+ENV PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+# debian.sh --arch 'arm64' out/ 'trixie' '@1793827419'
+--- szukanie sekretow w env/history:
+0
