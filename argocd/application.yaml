@@ -1,0 +1,37 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: trening
+  namespace: argocd
+spec:
+  description: Trening app
+  sourceRepos:
+    - https://github.com/N33Qu/trening-app.git
+  destinations:
+    - server: https://kubernetes.default.svc
+      namespace: trening
+  clusterResourceWhitelist: []
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: trening
+  namespace: argocd
+spec:
+  project: trening
+  source:
+    repoURL: https://github.com/N33Qu/trening-app.git
+    targetRevision: main
+    path: helm/trening
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: trening
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=false

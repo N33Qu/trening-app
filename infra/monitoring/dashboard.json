@@ -1,0 +1,31 @@
+{
+  "title": "Trening App",
+  "uid": "trening-app",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "10s",
+  "time": {"from": "now-30m", "to": "now"},
+  "panels": [
+    {"id": 1, "type": "timeseries", "title": "Request rate (req/s)", "gridPos": {"x": 0, "y": 0, "w": 8, "h": 8},
+     "targets": [{"expr": "sum(rate(flask_http_request_total{namespace=\"trening\"}[1m]))", "legendFormat": "req/s"}]},
+    {"id": 2, "type": "timeseries", "title": "Latency p95 (s)", "gridPos": {"x": 8, "y": 0, "w": 8, "h": 8},
+     "targets": [{"expr": "histogram_quantile(0.95, sum(rate(flask_http_request_duration_seconds_bucket{namespace=\"trening\"}[1m])) by (le))", "legendFormat": "p95"}]},
+    {"id": 3, "type": "timeseries", "title": "5xx rate (req/s)", "gridPos": {"x": 16, "y": 0, "w": 8, "h": 8},
+     "targets": [{"expr": "sum(rate(flask_http_request_total{namespace=\"trening\",status=~\"5..\"}[1m])) or vector(0)", "legendFormat": "5xx"}]},
+    {"id": 4, "type": "timeseries", "title": "Pod replicas", "gridPos": {"x": 0, "y": 8, "w": 8, "h": 8},
+     "targets": [
+       {"expr": "kube_deployment_status_replicas_available{namespace=\"trening\",deployment=\"trening-app\"}", "legendFormat": "available"},
+       {"expr": "kube_horizontalpodautoscaler_status_desired_replicas{namespace=\"trening\",horizontalpodautoscaler=\"trening-app\"}", "legendFormat": "desired (HPA)"}]},
+    {"id": 5, "type": "timeseries", "title": "CPU usage per pod (cores)", "gridPos": {"x": 8, "y": 8, "w": 8, "h": 8},
+     "targets": [{"expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"trening\",pod=~\"trening-app-.*\",container=\"app\"}[1m])) by (pod)", "legendFormat": "{{pod}}"}]},
+    {"id": 6, "type": "timeseries", "title": "Memory per pod", "gridPos": {"x": 16, "y": 8, "w": 8, "h": 8},
+     "fieldConfig": {"defaults": {"unit": "bytes"}, "overrides": []},
+     "targets": [{"expr": "sum(container_memory_working_set_bytes{namespace=\"trening\",pod=~\"trening-app-.*\",container=\"app\"}) by (pod)", "legendFormat": "{{pod}}"}]},
+    {"id": 7, "type": "stat", "title": "Users", "gridPos": {"x": 0, "y": 16, "w": 8, "h": 5},
+     "targets": [{"expr": "max(trening_users_total)"}]},
+    {"id": 8, "type": "stat", "title": "Workouts", "gridPos": {"x": 8, "y": 16, "w": 8, "h": 5},
+     "targets": [{"expr": "max(trening_workouts_total)"}]},
+    {"id": 9, "type": "stat", "title": "Personal records", "gridPos": {"x": 16, "y": 16, "w": 8, "h": 5},
+     "targets": [{"expr": "sum(trening_personal_records_total)"}]}
+  ]
+}
