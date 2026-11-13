@@ -2,7 +2,7 @@ nameOverride: ""
 
 image:
   repository: ghcr.io/n33qu/trening-app
-  tag: "latest"
+  tag: "sha-130fc55"
   pullPolicy: IfNotPresent
 
 existingSecret: trening-secrets
