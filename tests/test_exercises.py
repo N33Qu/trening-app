@@ -7,9 +7,8 @@ from .conftest import create_workout
 
 
 def test_catalogue_seeded(auth_client, app):
-    html = auth_client.get("/exercises/").get_data(as_text=True)
-    assert "Przysiad ze sztangą" in html
-    assert "Bieganie" in html
+    assert "Przysiad ze sztangą" in auth_client.get("/exercises/?q=przysiad").get_data(as_text=True)
+    assert "Bieganie" in auth_client.get("/exercises/?q=bieganie").get_data(as_text=True)
     with app.app_context():
         cats = set(db.session.execute(select(Exercise.category)).scalars())
         assert cats == {"strength", "cardio"}

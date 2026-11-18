@@ -11,7 +11,9 @@ Zespół: **Mikołaj Stasz**, **Ewelina Sałata**.
 ## Funkcje aplikacji
 
 - konta użytkowników (rejestracja, logowanie, hasła przechowywane jako skrót scrypt),
-- katalog ćwiczeń (wbudowane + własne), plany treningowe z dniami i ćwiczeniami,
+- biblioteka ok. 150 ćwiczeń ze zdjęciami, opisem techniki (PL/EN), mapą zaangażowanych mięśni,
+  wyszukiwarką i filtrami (partia mięśniowa, sprzęt, poziom) oraz własne ćwiczenia użytkownika,
+- plany treningowe z dniami i ćwiczeniami,
 - dziennik treningów (serie `powt. x kg`, kardio: dystans i czas),
 - automatyczne wykrywanie rekordów osobistych (max ciężar, szacowane 1RM) z komunikatem „Nowy rekord!”,
 - pomiary ciała (masa, tkanka tłuszczowa, obwody) z importem,
@@ -20,6 +22,33 @@ Zespół: **Mikołaj Stasz**, **Ewelina Sałata**.
   domyślnie język z przeglądarki, a gdy nie jest obsługiwany – polski),
 - pełna izolacja danych między użytkownikami (cudzy zasób = 404),
 - konto demonstracyjne: `demo` / `demo1234` (dane przykładowe, `SEED_DEMO=true`).
+
+## Baza ćwiczeń
+
+Biblioteka ćwiczeń (zdjęcia pozycji wyjściowej i końcowej, opisy, partie mięśniowe, sprzęt, poziom)
+pochodzi z projektu [Free Exercise DB](https://github.com/yuhonas/free-exercise-db) udostępnionego
+na licencji [Unlicense](https://github.com/yuhonas/free-exercise-db/blob/main/LICENSE) (domena publiczna).
+Z ok. 870 ćwiczeń wybrano 154 najpopularniejsze (sztanga, hantle, wyciągi, maszyny, masa ciała,
+kettlebell, gumy, cardio, rozciąganie) i dodano pływanie; nazwy, partie mięśniowe i opisy wykonania
+przetłumaczono na polski. Mapa mięśni (przód/tył sylwetki) to własna grafika SVG rysowana w szablonie.
+
+- `scripts/exercises_curated.json` – lista wybranych ćwiczeń (identyfikatory z Free Exercise DB),
+  polskie nazwy i opisy, dodatkowe ćwiczenia spoza zbioru,
+- `scripts/import_exercises.py` – pobiera `dist/exercises.json` i zdjęcia z repozytorium źródłowego,
+  konwertuje zdjęcia do WebP (maks. 640 px szerokości, jakość 75) i zapisuje
+  `app/data/exercises.json` oraz `app/static/exercises/<slug>/{0,1}.webp` (łącznie ok. 6 MB).
+
+```bash
+pip install -r requirements-dev.txt          # Pillow
+python scripts/import_exercises.py           # opcjonalnie --cache DIR --quality 75 --width 640
+```
+
+Ćwiczenia z biblioteki są zapisywane w tabeli `exercises` jako ćwiczenia globalne powiązane z danymi
+przez kolumnę `slug`. Przy starcie (pod blokadą doradczą PostgreSQL) aplikacja dodaje brakującą kolumnę
+i indeks do istniejącej bazy (`ALTER TABLE … ADD COLUMN IF NOT EXISTS`, `CREATE UNIQUE INDEX IF NOT EXISTS`),
+a następnie idempotentnie uzupełnia katalog: dotychczasowe ćwiczenia wbudowane są dopasowywane po nazwie
+i zachowują swoje identyfikatory (treningi, plany i rekordy pozostają powiązane), ćwiczenia użytkowników
+nie są modyfikowane.
 
 ## Architektura
 
@@ -48,6 +77,8 @@ Zespół: **Mikołaj Stasz**, **Ewelina Sałata**.
 
 ```
 app/                 aplikacja Flask (blueprints, modele, szablony, statyki)
+app/data/            dane biblioteki ćwiczeń (exercises.json); zdjęcia w app/static/exercises/
+scripts/             import_exercises.py – budowa biblioteki ćwiczeń z Free Exercise DB
 tests/               testy pytest (jednostkowe i integracyjne, SQLite)
 Dockerfile           obraz multi-stage, użytkownik non-root (uid 10001), gunicorn
 helm/trening/        chart Helm: app, PostgreSQL, Ingress+TLS, HPA, PDB, NetworkPolicy, monitoring

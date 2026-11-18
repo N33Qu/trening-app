@@ -98,13 +98,16 @@ def test_error_pages_translated(auth_client):
 def test_catalogue_exercises_translated_custom_kept(app, auth_client):
     auth_client.post("/exercises/new", data={"name": "Wyciskanie Smith", "category": "strength", "muscle_group": "x"})
     set_lang(auth_client, "en")
-    html = auth_client.get("/exercises/").get_data(as_text=True)
+    html = auth_client.get("/exercises/?q=squat").get_data(as_text=True)
     assert "Barbell back squat" in html
     assert "Przysiad ze sztangą" not in html
+    assert "quadriceps" in html
+    html = auth_client.get("/exercises/").get_data(as_text=True)
     assert "Wyciskanie Smith" in html
     assert "strength" in html
     html = auth_client.get("/workouts/new").get_data(as_text=True)
-    assert "Barbell back squat (strength)" in html
+    assert "Barbell back squat</option>" in html
+    assert 'label="Quadriceps"' in html
     assert "— choose an exercise —" in html
 
 
