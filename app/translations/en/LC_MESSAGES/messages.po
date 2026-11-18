@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: trening VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-13 12:17+0100\n"
+"POT-Creation-Date: 2026-11-18 13:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -80,8 +80,8 @@ msgstr "Cancel"
 msgid "Aplikacja zaimportuje pomiary masy ciała (%(mass)s) i tkanki tłuszczowej (%(fat)s)."
 msgstr "The app will import body mass (%(mass)s) and body fat (%(fat)s) measurements."
 
-msgid "Bieganie"
-msgstr "Running"
+msgid "Biblioteka ćwiczeń"
+msgstr "Exercise library"
 
 msgid "Bij rekordy."
 msgstr "Break records."
@@ -116,11 +116,17 @@ msgstr "No records yet. Log a strength workout with weights and records will app
 msgid "Brak własnych ćwiczeń."
 msgstr "No custom exercises."
 
+msgid "Brak ćwiczeń spełniających kryteria."
+msgstr "No exercises match these filters."
+
 msgid "Brak ćwiczeń – dodaj pierwsze poniżej."
 msgstr "No exercises – add the first one below."
 
 msgid "Błąd serwera"
 msgstr "Server error"
+
+msgid "Cardio"
+msgstr "Cardio"
 
 msgid "Ciało"
 msgstr "Body"
@@ -170,6 +176,9 @@ msgstr "Weekdays, exercises and target sets × reps × weight."
 
 msgid "Dodaj co najmniej jedno ćwiczenie."
 msgstr "Add at least one exercise."
+
+msgid "Dodaj do treningu"
+msgstr "Add to workout"
 
 msgid "Dodaj dzień"
 msgstr "Add day"
@@ -231,9 +240,6 @@ msgstr "Edit workout"
 msgid "Edytuj ćwiczenie"
 msgstr "Edit exercise"
 
-msgid "Ergometr wioślarski"
-msgstr "Rowing machine"
-
 #, python-format
 msgid "Field cannot be longer than %(max)d character."
 msgid_plural "Field cannot be longer than %(max)d characters."
@@ -254,6 +260,9 @@ msgstr ""
 msgid "Field must be equal to %(other_name)s."
 msgstr ""
 
+msgid "Filtruj"
+msgstr "Filter"
+
 msgid "Formularz wygasł lub zawiera błędy. Odśwież stronę i spróbuj ponownie."
 msgstr "The form has expired or contains errors. Refresh the page and try again."
 
@@ -263,6 +272,9 @@ msgstr "Feature planned for the next version."
 msgid "Główna nawigacja"
 msgstr "Main navigation"
 
+msgid "Główne:"
+msgstr "Primary:"
+
 msgid "Hasła nie są identyczne."
 msgstr "Passwords do not match."
 
@@ -271,9 +283,6 @@ msgstr "Password"
 
 msgid "Hasło musi mieć co najmniej 8 znaków."
 msgstr "Password must be at least 8 characters long."
-
-msgid "Hip thrust"
-msgstr "Hip thrust"
 
 msgid "Historia"
 msgstr "History"
@@ -287,6 +296,12 @@ msgstr "Personal record history."
 msgid "Import z Apple Health"
 msgstr "Import from Apple Health"
 
+msgid "Informacje"
+msgstr "Details"
+
+msgid "Inne"
+msgstr "Other"
+
 msgid "Invalid Choice: could not coerce."
 msgstr ""
 
@@ -298,12 +313,6 @@ msgstr "How it will work"
 
 msgid "Język"
 msgstr "Language"
-
-msgid "Katalog wbudowany"
-msgstr "Built-in catalogue"
-
-msgid "Katalog ćwiczeń"
-msgstr "Exercise catalogue"
 
 msgid "Kategoria"
 msgstr "Category"
@@ -357,8 +366,8 @@ msgstr "Max weight and estimated 1RM (Epley formula) detected automatically."
 msgid "Mam już konto"
 msgstr "I already have an account"
 
-msgid "Martwy ciąg"
-msgstr "Deadlift"
+msgid "Mapa mięśni"
+msgstr "Muscle map"
 
 msgid "Masa"
 msgstr "Weight"
@@ -374,6 +383,9 @@ msgstr "Body weight, circumferences and body fat."
 
 msgid "Masz już konto?"
 msgstr "Already have an account?"
+
+msgid "Mechanika"
+msgstr "Mechanics"
 
 msgid "Menu"
 msgstr "Menu"
@@ -391,6 +403,9 @@ msgstr "Delete for sure?"
 msgid "Najnowsze rekordy"
 msgstr "Latest records"
 
+msgid "Następna"
+msgstr "Next"
+
 msgid "Nazwa"
 msgstr "Name"
 
@@ -405,6 +420,9 @@ msgstr "Sun"
 
 msgid "Nie masz jeszcze planu treningowego."
 msgstr "You don't have a training plan yet."
+
+msgid "Nie masz jeszcze zapisanych serii tego ćwiczenia."
+msgstr "You have not logged this exercise yet."
 
 msgid "Nie masz jeszcze żadnych treningów."
 msgstr "You don't have any workouts yet."
@@ -519,6 +537,9 @@ msgstr "Circumferences (optional)"
 msgid "Opis"
 msgstr "Description"
 
+msgid "Opisy techniki, zdjęcia i zaangażowane mięśnie."
+msgstr "Technique, photos and the muscles involved."
+
 msgid "Ostatni pomiar"
 msgstr "Latest measurement"
 
@@ -533,9 +554,6 @@ msgstr "Recent workouts"
 
 msgid "Otwórz"
 msgstr "Open"
-
-msgid "Partia"
-msgstr "Muscle group"
 
 msgid "Partia mięśniowa"
 msgstr "Muscle group"
@@ -564,11 +582,11 @@ msgstr "Enter distance or time."
 msgid "Podaj serie, np. 5x100."
 msgstr "Enter sets, e.g. 5x100."
 
-msgid "Podciąganie na drążku"
-msgstr "Pull-ups"
-
 msgid "Pokaż"
 msgstr "Show"
+
+msgid "Pokaż wszystkie"
+msgstr "Show all"
 
 msgid "Pomiar ciała"
 msgstr "Body measurement"
@@ -576,11 +594,8 @@ msgstr "Body measurement"
 msgid "Pomiary ciała"
 msgstr "Body measurements"
 
-msgid "Pompki"
-msgstr "Push-ups"
-
-msgid "Pompki na poręczach (dipy)"
-msgstr "Parallel bar dips"
+msgid "Pomocnicze:"
+msgstr "Secondary:"
 
 msgid "Pon"
 msgstr "Mon"
@@ -594,11 +609,23 @@ msgstr "Correct the training day details."
 msgid "Popraw dane ćwiczenia (serie 1–20, powtórzenia 1–100)."
 msgstr "Correct the exercise details (sets 1–20, reps 1–100)."
 
+msgid "Poprzednia"
+msgstr "Previous"
+
 msgid "Powtórz hasło"
 msgstr "Repeat password"
 
 msgid "Powtórzenia"
 msgstr "Reps"
+
+msgid "Poziom"
+msgstr "Level"
+
+msgid "Pozycja końcowa"
+msgstr "End position"
+
+msgid "Pozycja wyjściowa"
+msgstr "Start position"
 
 msgid "Profil → Eksportuj wszystkie dane zdrowotne"
 msgstr "Profile → Export All Health Data"
@@ -615,9 +642,6 @@ msgstr "Weight progression, estimated 1RM and training consistency."
 msgid "Progresja ćwiczenia"
 msgstr "Exercise progression"
 
-msgid "Prostowanie ramion na wyciągu"
-msgstr "Cable triceps pushdown"
-
 msgid "Przełącz motyw"
 msgstr "Toggle theme"
 
@@ -628,17 +652,14 @@ msgstr "Toggle light/dark theme"
 msgid "Prześlesz tutaj plik %(zip)s (lub %(xml)s)."
 msgstr "You will upload the %(zip)s file (or %(xml)s) here."
 
-msgid "Przysiad ze sztangą"
-msgstr "Barbell back squat"
+msgid "Przód"
+msgstr "Front"
 
 msgid "Pt"
 msgstr "Fri"
 
 msgid "Pulpit"
 msgstr "Dashboard"
-
-msgid "Pływanie"
-msgstr "Swimming"
 
 msgid "Ramię"
 msgstr "Arm"
@@ -670,11 +691,8 @@ msgstr "Records will be marked with the \"Apple Health\" source and re-importing
 msgid "Rodzaj"
 msgstr "Type"
 
-msgid "Rower"
-msgstr "Cycling"
-
-msgid "Rumuński martwy ciąg"
-msgstr "Romanian deadlift"
+msgid "Rozciąganie i mobilność"
+msgstr "Stretching and mobility"
 
 msgid "Samopoczucie, technika, uwagi…"
 msgstr "How you felt, technique, remarks…"
@@ -695,8 +713,8 @@ msgstr "Strength sets and cardio – distance and time. Quick entry in the 5x100
 msgid "Serie wpisuj jako %(fmt)s oddzielone przecinkami, np. %(example)s."
 msgstr "Enter sets as %(fmt)s separated by commas, e.g. %(example)s."
 
-msgid "Skakanka"
-msgstr "Jump rope"
+msgid "Siła"
+msgstr "Force"
 
 #, python-format
 msgid "Skrót %(short)s oznacza 3 serie po 5 powtórzeń ze 100 kg. Ćwiczenia z masą ciała: %(bw)s."
@@ -707,6 +725,9 @@ msgstr "Sat"
 
 msgid "Sobota"
 msgstr "Saturday"
+
+msgid "Sprzęt"
+msgstr "Equipment"
 
 msgid "Starsze"
 msgstr "Older"
@@ -735,6 +756,9 @@ msgstr "Estimated 1RM (Epley)"
 
 msgid "Szacowany 1RM (kg)"
 msgstr "Estimated 1RM (kg)"
+
+msgid "Szukaj"
+msgstr "Search"
 
 msgid "Talia"
 msgstr "Waist"
@@ -798,8 +822,14 @@ msgstr "Workouts"
 msgid "Treningi w tygodniu"
 msgstr "Workouts per week"
 
+msgid "Twoja historia"
+msgstr "Your history"
+
 msgid "Twoje podsumowanie treningowe."
 msgstr "Your training summary."
+
+msgid "Tył"
+msgstr "Back"
 
 msgid "Tł."
 msgstr "Fat"
@@ -809,9 +839,6 @@ msgstr "Thigh"
 
 msgid "Udo (cm)"
 msgstr "Thigh (cm)"
-
-msgid "Uginanie ramion ze sztangą"
-msgstr "Barbell biceps curl"
 
 msgid "Usunięto dzień."
 msgstr "Day deleted."
@@ -872,9 +899,6 @@ msgstr "Create plan"
 msgid "W aplikacji Zdrowie na iPhonie wybierzesz %(path)s."
 msgstr "In the Health app on your iPhone you will choose %(path)s."
 
-msgid "Wiosłowanie sztangą"
-msgstr "Barbell row"
-
 msgid "Witaj"
 msgstr "Welcome"
 
@@ -912,23 +936,17 @@ msgstr "Tuesday"
 msgid "Wybierz ćwiczenie."
 msgstr "Choose an exercise."
 
-msgid "Wyciskanie hantli na skosie"
-msgstr "Incline dumbbell press"
+msgid "Wyczyść"
+msgstr "Clear"
 
-msgid "Wyciskanie sztangi leżąc"
-msgstr "Barbell bench press"
-
-msgid "Wyciskanie żołnierskie"
-msgstr "Overhead press"
+msgid "Wykonanie"
+msgstr "How to do it"
 
 msgid "Wykres masy ciała"
 msgstr "Body weight chart"
 
 msgid "Wykres progresji"
 msgstr "Progression chart"
-
-msgid "Wykroki z hantlami"
-msgstr "Dumbbell lunges"
 
 msgid ""
 "Wykrywane automatycznie przy zapisie treningu: najcięższy ciężar w serii oraz szacowany 1RM wg wzoru Epleya (ciężar ×"
@@ -946,11 +964,11 @@ msgstr "Sign out"
 msgid "Wynik"
 msgstr "Result"
 
-msgid "Wznosy bokiem z hantlami"
-msgstr "Dumbbell lateral raises"
-
 msgid "Własne ćwiczenie"
 msgstr "Custom exercise"
+
+msgid "Zaangażowane mięśnie"
+msgstr "Muscles worked"
 
 msgid "Zaloguj"
 msgstr "Sign in"
@@ -1006,6 +1024,10 @@ msgstr "Sign up"
 msgid "Zbyt wiele nieudanych prób logowania. Spróbuj ponownie za kilka minut."
 msgstr "Too many failed sign-in attempts. Try again in a few minutes."
 
+#, python-format
+msgid "Zdjęcia i opisy ćwiczeń: %(link)s (domena publiczna)."
+msgstr "Exercise photos and descriptions: %(link)s (public domain)."
+
 msgid "aktywny"
 msgstr "active"
 
@@ -1015,8 +1037,23 @@ msgstr "shoulders"
 msgid "biceps"
 msgstr "biceps"
 
+msgid "brzuch"
+msgstr "abdominals"
+
 msgid "cardio"
 msgstr "cardio"
+
+msgid "czworoboczne (kaptury)"
+msgstr "traps"
+
+msgid "czworogłowe uda"
+msgstr "quadriceps"
+
+msgid "dolna część pleców"
+msgstr "lower back"
+
+msgid "dowolny"
+msgstr "any"
 
 msgid "dwugłowe uda"
 msgstr "hamstrings"
@@ -1024,20 +1061,41 @@ msgstr "hamstrings"
 msgid "eksport.zip"
 msgstr "export.zip"
 
-msgid "klatka"
+msgid "gumy oporowe"
+msgstr "resistance bands"
+
+msgid "główne"
+msgstr "primary"
+
+msgid "hantle"
+msgstr "dumbbells"
+
+msgid "inne"
+msgstr "other"
+
+msgid "izolowane"
+msgstr "isolation"
+
+msgid "kettlebell"
+msgstr "kettlebell"
+
+msgid "klatka piersiowa"
 msgstr "chest"
 
-msgid "klatka / triceps"
-msgstr "chest / triceps"
+msgid "masa ciała"
+msgstr "body weight"
+
+msgid "maszyna"
+msgstr "machine"
 
 msgid "max"
 msgstr "max"
 
+msgid "najszersze grzbietu"
+msgstr "lats"
+
 msgid "nieaktywny"
 msgstr "inactive"
-
-msgid "nogi"
-msgstr "legs"
 
 msgid "np. 5x100, 5x100, 3x5x90"
 msgstr "e.g. 5x100, 5x100, 3x5x90"
@@ -1054,14 +1112,32 @@ msgstr "e.g. Machine chest press"
 msgid "np. klatka"
 msgstr "e.g. chest"
 
+msgid "np. przysiad, bench press"
+msgstr "e.g. squat, bench press"
+
+msgid "odwodziciele ud"
+msgstr "abductors"
+
 msgid "ostatnie 12 tygodni"
 msgstr "last 12 weeks"
 
-msgid "plecy"
-msgstr "back"
+msgid "piłka gimnastyczna"
+msgstr "exercise ball"
 
-msgid "plecy / nogi"
-msgstr "back / legs"
+msgid "piłka lekarska"
+msgstr "medicine ball"
+
+msgid "plyometria"
+msgstr "plyometrics"
+
+msgid "początkujący"
+msgstr "beginner"
+
+msgid "podnoszenie ciężarów"
+msgstr "Olympic weightlifting"
+
+msgid "pomocnicze"
+msgstr "secondary"
 
 msgid "powtórzenia x ciężar"
 msgstr "reps x weight"
@@ -1072,11 +1148,42 @@ msgstr "reps × weight"
 msgid "pośladki"
 msgstr "glutes"
 
+msgid "przedramiona"
+msgstr "forearms"
+
+msgid "przyciąganie"
+msgstr "pull"
+
+msgid "przywodziciele ud"
+msgstr "adductors"
+
+msgid "rozciąganie"
+msgstr "stretching"
+
 msgid "ręcznie"
 msgstr "manual"
 
 msgid "siłowe"
 msgstr "strength"
+
+msgid "statyczne"
+msgstr "static"
+
+#, python-format
+msgid "strona %(page)s z %(pages)s"
+msgstr "page %(page)s of %(pages)s"
+
+msgid "strongman"
+msgstr "strongman"
+
+msgid "sztanga"
+msgstr "barbell"
+
+msgid "sztanga łamana"
+msgstr "EZ curl bar"
+
+msgid "szyja"
+msgstr "neck"
 
 msgid "tkanki tłuszczowej"
 msgstr "body fat"
@@ -1089,11 +1196,32 @@ msgstr[1] "workouts"
 msgid "triceps"
 msgstr "triceps"
 
+msgid "trójbój siłowy"
+msgstr "powerlifting"
+
+msgid "wałek do rolowania"
+msgstr "foam roller"
+
 msgid "wersja"
 msgstr "version"
 
+msgid "wielostawowe"
+msgstr "compound"
+
 msgid "wkrótce"
 msgstr "coming soon"
+
+msgid "wszystkie"
+msgstr "all"
+
+msgid "wyciąg"
+msgstr "cable"
+
+msgid "wypychanie"
+msgstr "push"
+
+msgid "zaawansowany"
+msgstr "advanced"
 
 msgid "zobacz"
 msgstr "view"
@@ -1104,23 +1232,26 @@ msgstr "Exercises"
 msgid "Ćwiczenia cardio zapisujesz jako dystans i czas."
 msgstr "Cardio exercises are logged as distance and time."
 
-msgid "Ćwiczenia wbudowane oraz Twoje własne."
-msgstr "Built-in exercises and your own."
-
 msgid "Ćwiczenie"
 msgstr "Exercise"
 
 msgid "Ćwiczenie o tej nazwie już istnieje."
 msgstr "An exercise with this name already exists."
 
-msgid "Ściąganie drążka wyciągu"
-msgstr "Lat pulldown"
+msgid "łydki"
+msgstr "calves"
 
 msgid "Śr"
 msgstr "Wed"
 
 msgid "Środa"
 msgstr "Wednesday"
+
+msgid "średniozaawansowany"
+msgstr "intermediate"
+
+msgid "środek pleców"
+msgstr "middle back"
 
 msgid "Źródło"
 msgstr "Source"

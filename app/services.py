@@ -6,6 +6,7 @@ from flask_babel import gettext
 from flask_login import current_user
 from sqlalchemy import func, or_, select
 
+from . import library
 from .extensions import db
 from .models import (
     PR_E1RM,
@@ -128,9 +129,28 @@ def visible_exercise(exercise_id, user_id):
     ).scalar_one_or_none()
 
 
+def exercise_group(exercise):
+    """Group label for select boxes: own exercises, cardio, stretching or the primary muscle."""
+    if not exercise.is_global:
+        return 0, gettext("Moje ćwiczenia")
+    if exercise.is_cardio:
+        return 98, gettext("Cardio")
+    entry = exercise.library
+    if entry is None or not entry.primary:
+        return 100, gettext("Inne")
+    if entry.data.get("kind") == "stretching":
+        return 99, gettext("Rozciąganie i mobilność")
+    muscle = entry.primary[0]
+    return 1 + library.MUSCLE_ORDER.index(muscle), str(library.muscle_label(muscle)).capitalize()
+
+
 def exercise_choices(user_id):
+    """Choices grouped into optgroups (dict: label -> [(id, name)]) and an id -> Exercise map."""
     exercises = db.session.execute(visible_exercises_query(user_id)).scalars().all()
-    return [(e.id, f"{e.display_name} ({e.category_label})") for e in exercises], {e.id: e for e in exercises}
+    groups = {}
+    for e in sorted(exercises, key=lambda x: (exercise_group(x), x.display_name.lower())):
+        groups.setdefault(exercise_group(e)[1], []).append((e.id, e.display_name))
+    return groups, {e.id: e for e in exercises}
 
 
 def user_plan_days(user_id):

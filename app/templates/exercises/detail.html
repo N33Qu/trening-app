@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% from "_macros.html" import kg, icon %}
+{% from "exercises/_muscle_map.html" import muscle_map %}
+{% block title %}{{ exercise.display_name }}{% endblock %}
+{% block content %}
+<p class="breadcrumb small"><a href="{{ url_for('exercises.index') }}">← {{ _('Biblioteka ćwiczeń') }}</a></p>
+<div class="page-head">
+  <div>
+    <h1>{{ exercise.display_name }}</h1>
+    <div class="chips">
+      {% for label in entry.primary_labels %}<span class="chip chip-accent">{{ label }}</span>{% endfor %}
+      {% for label in entry.secondary_labels %}<span class="chip chip-soft">{{ label }}</span>{% endfor %}
+    </div>
+  </div>
+  <a class="btn" href="{{ url_for('workouts.create', exercise=exercise.id) }}">+ {{ _('Dodaj do treningu') }}</a>
+</div>
+
+<div class="exercise-detail">
+  <div class="card exercise-media">
+    {% if entry.images %}
+    <figure class="movement{% if entry.images|length > 1 %} has-motion{% endif %}">
+      <div class="movement-frames">
+        {% for img in entry.images %}
+        <img class="frame frame-{{ loop.index0 }}" src="{{ url_for('static', filename=img) }}" width="{{ entry.data.image_size[0] }}" height="{{ entry.data.image_size[1] }}" alt="{{ _('Pozycja wyjściowa') if loop.first else _('Pozycja końcowa') }}: {{ exercise.display_name }}"{% if not loop.first %} loading="lazy"{% endif %}>
+        {% endfor %}
+      </div>
+      {% if entry.images|length > 1 %}<figcaption class="muted small"><span>{{ _('Pozycja wyjściowa') }}</span><span aria-hidden="true">→</span><span>{{ _('Pozycja końcowa') }}</span></figcaption>{% endif %}
+    </figure>
+    {% else %}
+    <div class="exercise-thumb exercise-thumb-lg"><span class="thumb-placeholder">{{ icon("dumbbell") }}</span></div>
+    {% endif %}
+  </div>
+
+  <div class="card exercise-muscles">
+    <div class="card-head"><h2>{{ _('Zaangażowane mięśnie') }}</h2></div>
+    {{ muscle_map(entry) }}
+    <ul class="map-legend small">
+      <li><span class="swatch swatch-primary" aria-hidden="true"></span>{{ _('główne') }}</li>
+      <li><span class="swatch swatch-secondary" aria-hidden="true"></span>{{ _('pomocnicze') }}</li>
+    </ul>
+  </div>
+
+  <div class="card exercise-steps">
+    <div class="card-head"><h2>{{ _('Wykonanie') }}</h2></div>
+    <ol class="steps">
+      {% for step in entry.instructions %}<li>{{ step }}</li>{% endfor %}
+    </ol>
+  </div>
+
+  <div class="exercise-side">
+    <div class="card">
+      <div class="card-head"><h2>{{ _('Informacje') }}</h2></div>
+      <dl class="facts">
+        <div><dt>{{ _('Poziom') }}</dt><dd>{{ entry.label('level') }}</dd></div>
+        <div><dt>{{ _('Sprzęt') }}</dt><dd>{{ entry.label('equipment') }}</dd></div>
+        <div><dt>{{ _('Rodzaj') }}</dt><dd>{{ entry.label('kind') }}</dd></div>
+        {% if entry.data.force %}<div><dt>{{ _('Siła') }}</dt><dd>{{ entry.label('force') }}</dd></div>{% endif %}
+        {% if entry.data.mechanic %}<div><dt>{{ _('Mechanika') }}</dt><dd>{{ entry.label('mechanic') }}</dd></div>{% endif %}
+      </dl>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><h2>{{ _('Twoja historia') }}</h2>{% if sessions %}<span class="badge">{{ ngettext('%(num)s sesja', '%(num)s sesji', sessions) }}</span>{% endif %}</div>
+      {% if history %}
+      {% if best[PR_MAX_WEIGHT] or best[PR_E1RM] %}
+      <div class="pr-pair">
+        {% if best[PR_MAX_WEIGHT] %}<div><div class="muted small">{{ best[PR_MAX_WEIGHT].kind_label }}</div><div class="pr-value">{{ kg(best[PR_MAX_WEIGHT].value) }} kg</div></div>{% endif %}
+        {% if best[PR_E1RM] %}<div><div class="muted small">{{ best[PR_E1RM].kind_label }}</div><div class="pr-value">{{ kg(best[PR_E1RM].value) }} kg</div></div>{% endif %}
+      </div>
+      {% endif %}
+      <ul class="history-list">
+        {% for item, wdate in history %}
+        <li>
+          <a href="{{ url_for('workouts.detail', workout_id=item.workout_id) }}" class="nowrap">{{ wdate|day }}</a>
+          {% if item.sets %}<span class="set-chips">{% for s in item.sets %}<span class="set-chip">{{ s.reps }}×{{ kg(s.weight_kg) }}</span>{% endfor %}</span>
+          {% else %}<span class="muted small">{% if item.distance_km %}{{ '%g'|format(item.distance_km) }} km{% endif %}{% if item.distance_km and item.duration_min %} · {% endif %}{% if item.duration_min %}{{ '%g'|format(item.duration_min) }} min{% endif %}</span>{% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="actions mt">
+        <a class="btn btn-secondary btn-sm" href="{{ url_for('stats.index', exercise=exercise.id) }}">{{ _('Wykres progresji') }}</a>
+        {% if not exercise.is_cardio %}<a class="btn btn-ghost btn-sm" href="{{ url_for('records.history', exercise_id=exercise.id) }}">{{ _('Historia rekordów') }}</a>{% endif %}
+      </div>
+      {% else %}
+      <p class="muted">{{ _('Nie masz jeszcze zapisanych serii tego ćwiczenia.') }}</p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<p class="library-credit muted small">{{ _('Zdjęcia i opisy ćwiczeń: %(link)s (domena publiczna).', link='<a href="https://github.com/yuhonas/free-exercise-db" rel="noopener">Free Exercise DB</a>'|safe) }}</p>
+{% endblock %}

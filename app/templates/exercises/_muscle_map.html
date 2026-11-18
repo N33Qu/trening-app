@@ -1,0 +1,49 @@
+{#- Stylised front/back body map. Each muscle group is drawn for the left half and
+    mirrored (matrix(-1 0 0 1 200 0)) for the right half of the figure. -#}
+{% macro muscle_map(entry) -%}
+{%- set primary = entry.primary -%}
+{%- set secondary = entry.secondary -%}
+{%- macro m(group, d) -%}
+<g class="m{% if group in primary %} is-primary{% elif group in secondary %} is-secondary{% endif %}" data-muscle="{{ group }}"><path d="{{ d }}"/><path d="{{ d }}" transform="matrix(-1 0 0 1 200 0)"/></g>
+{%- endmacro -%}
+{%- set body = "M92 60 Q91 70 90 76 Q80 82 66 84 Q54 86 50 96 Q47 106 47 118 Q44 136 44 150 L42 162 Q38 180 36 200 L35 222 Q31 232 32 244 Q34 252 40 253 Q46 250 48 240 L51 222 Q54 204 57 186 L61 162 Q65 150 66 138 L68 120 Q70 136 70 150 Q71 172 72 196 Q68 208 66 222 Q64 242 66 262 Q68 290 72 312 L74 330 Q70 346 70 362 Q72 384 77 402 L79 410 Q72 418 74 424 L96 426 Q97 418 95 410 L93 402 Q96 380 95 360 Q95 344 94 330 Q96 310 98 290 Q99 262 100 238 L100 60 Z" -%}
+<svg class="muscle-map" viewBox="0 0 430 460" role="img" aria-labelledby="mm-title mm-desc" xmlns="http://www.w3.org/2000/svg">
+  <title id="mm-title">{{ _('Mapa mięśni') }}</title>
+  <desc id="mm-desc">{{ _('Główne:') }} {{ entry.primary_labels|join(', ') or '–' }}. {{ _('Pomocnicze:') }} {{ entry.secondary_labels|join(', ') or '–' }}.</desc>
+  <g class="figure figure-front">
+    <ellipse class="body" cx="100" cy="36" rx="20" ry="25"/>
+    <path class="body" d="{{ body }}"/><path class="body" d="{{ body }}" transform="matrix(-1 0 0 1 200 0)"/>
+    {{ m("neck", "M91 64 Q94 72 95 80 L100 82 L100 66 Z") }}
+    {{ m("traps", "M90 72 Q92 78 94 81 L74 87 L67 85 Q80 81 90 72 Z") }}
+    {{ m("shoulders", "M66 86 Q53 87 50 100 Q48 111 52 120 L60 113 Q64 98 72 89 Z") }}
+    {{ m("chest", "M74 89 L99 91 L99 127 Q86 134 74 128 Q67 122 64 113 Q67 98 74 89 Z") }}
+    {{ m("biceps", "M52 123 L61 115 Q66 125 64 140 Q62 153 59 160 L46 158 Q45 140 52 123 Z") }}
+    {{ m("forearms", "M45 163 L59 163 Q58 180 55 196 Q53 210 50 220 L38 220 Q37 200 40 183 Q42 171 45 163 Z") }}
+    {{ m("abdominals", "M83 133 Q91 136 99 135 L99 208 Q91 211 86 205 Q82 180 83 133 Z M71 128 L81 133 Q80 176 84 205 L75 196 Q73 160 71 128 Z") }}
+    {{ m("abductors", "M67 222 L77 225 Q73 234 70 250 Q66 238 67 222 Z") }}
+    {{ m("adductors", "M89 230 L99 237 L98 276 Q95 254 89 230 Z") }}
+    {{ m("quadriceps", "M71 236 L78 226 Q84 228 87 231 Q93 246 95 264 Q96 292 92 320 L82 322 Q75 314 72 296 Q69 266 71 236 Z") }}
+    {{ m("calves", "M74 335 Q70 352 72 372 Q75 392 79 404 L84 404 Q82 380 82 360 Q80 344 77 335 Z M92 336 Q95 352 93 372 L90 400 L88 400 Q87 370 90 350 Z") }}
+    <path class="detail" d="M99 152 H84 M99 172 H84 M99 190 H85 M101 152 H116 M101 172 H116 M101 190 H115"/>
+  </g>
+  <g class="figure figure-back" transform="translate(230 0)">
+    <ellipse class="body" cx="100" cy="36" rx="20" ry="25"/>
+    <path class="body" d="{{ body }}"/><path class="body" d="{{ body }}" transform="matrix(-1 0 0 1 200 0)"/>
+    {{ m("neck", "M91 62 L100 64 L100 76 L93 77 Q92 70 91 62 Z") }}
+    {{ m("traps", "M91 68 L100 66 L100 146 Q96 130 92 118 Q86 104 74 93 L67 86 Q81 82 91 68 Z") }}
+    {{ m("shoulders", "M66 87 Q53 87 50 100 Q48 111 52 120 L62 113 Q65 99 73 93 Z") }}
+    {{ m("middle back", "M75 95 Q86 105 92 120 L96 141 L82 141 Q76 125 71 112 Q71 101 75 95 Z") }}
+    {{ m("lats", "M69 118 Q76 128 81 143 L96 145 Q96 160 92 172 Q84 186 76 196 Q73 172 71 150 Q69 132 69 118 Z") }}
+    {{ m("lower back", "M92 173 Q96 161 97 146 L99 146 L99 212 L84 212 Q80 204 77 197 Q85 187 92 173 Z") }}
+    {{ m("triceps", "M52 123 L62 115 Q66 125 64 140 Q62 153 59 160 L46 158 Q45 140 52 123 Z") }}
+    {{ m("forearms", "M45 163 L59 163 Q58 180 55 196 Q53 210 50 220 L38 220 Q37 200 40 183 Q42 171 45 163 Z") }}
+    {{ m("abductors", "M71 200 Q78 206 86 210 Q76 215 68 227 Q66 212 71 200 Z") }}
+    {{ m("glutes", "M68 228 Q76 216 86 211 L99 213 L99 252 Q92 258 82 256 Q70 250 68 228 Z") }}
+    {{ m("adductors", "M91 259 Q95 266 96 281 L99 286 L99 258 Q96 259 91 259 Z") }}
+    {{ m("hamstrings", "M69 258 Q80 261 90 259 Q95 268 95 282 Q96 302 92 322 L82 322 Q76 316 72 300 Q68 280 69 258 Z") }}
+    {{ m("calves", "M74 335 Q68 352 72 372 Q76 384 82 387 Q88 385 92 371 Q95 352 92 335 Q84 331 74 335 Z") }}
+  </g>
+  <text class="label" x="100" y="452" text-anchor="middle">{{ _('Przód') }}</text>
+  <text class="label" x="330" y="452" text-anchor="middle">{{ _('Tył') }}</text>
+</svg>
+{%- endmacro %}

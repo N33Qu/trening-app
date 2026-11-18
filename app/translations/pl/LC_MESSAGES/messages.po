@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: trening VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-13 12:17+0100\n"
+"POT-Creation-Date: 2026-11-18 13:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: pl\n"
@@ -87,7 +87,7 @@ msgstr ""
 msgid "Aplikacja zaimportuje pomiary masy ciała (%(mass)s) i tkanki tłuszczowej (%(fat)s)."
 msgstr ""
 
-msgid "Bieganie"
+msgid "Biblioteka ćwiczeń"
 msgstr ""
 
 msgid "Bij rekordy."
@@ -123,10 +123,16 @@ msgstr ""
 msgid "Brak własnych ćwiczeń."
 msgstr ""
 
+msgid "Brak ćwiczeń spełniających kryteria."
+msgstr ""
+
 msgid "Brak ćwiczeń – dodaj pierwsze poniżej."
 msgstr ""
 
 msgid "Błąd serwera"
+msgstr ""
+
+msgid "Cardio"
 msgstr ""
 
 msgid "Ciało"
@@ -176,6 +182,9 @@ msgid "Dni tygodnia, ćwiczenia i docelowe serie × powtórzenia × ciężar."
 msgstr ""
 
 msgid "Dodaj co najmniej jedno ćwiczenie."
+msgstr ""
+
+msgid "Dodaj do treningu"
 msgstr ""
 
 msgid "Dodaj dzień"
@@ -238,9 +247,6 @@ msgstr ""
 msgid "Edytuj ćwiczenie"
 msgstr ""
 
-msgid "Ergometr wioślarski"
-msgstr ""
-
 #, python-format
 msgid "Field cannot be longer than %(max)d character."
 msgid_plural "Field cannot be longer than %(max)d characters."
@@ -263,6 +269,9 @@ msgstr "Pole musi mieć od %(min)d do %(max)d znaków."
 msgid "Field must be equal to %(other_name)s."
 msgstr "Wartość musi być równa polu %(other_name)s."
 
+msgid "Filtruj"
+msgstr ""
+
 msgid "Formularz wygasł lub zawiera błędy. Odśwież stronę i spróbuj ponownie."
 msgstr ""
 
@@ -272,6 +281,9 @@ msgstr ""
 msgid "Główna nawigacja"
 msgstr ""
 
+msgid "Główne:"
+msgstr ""
+
 msgid "Hasła nie są identyczne."
 msgstr ""
 
@@ -279,9 +291,6 @@ msgid "Hasło"
 msgstr ""
 
 msgid "Hasło musi mieć co najmniej 8 znaków."
-msgstr ""
-
-msgid "Hip thrust"
 msgstr ""
 
 msgid "Historia"
@@ -296,6 +305,12 @@ msgstr ""
 msgid "Import z Apple Health"
 msgstr ""
 
+msgid "Informacje"
+msgstr ""
+
+msgid "Inne"
+msgstr ""
+
 msgid "Invalid Choice: could not coerce."
 msgstr "Nieprawidłowy wybór."
 
@@ -306,12 +321,6 @@ msgid "Jak to będzie działać"
 msgstr ""
 
 msgid "Język"
-msgstr ""
-
-msgid "Katalog wbudowany"
-msgstr ""
-
-msgid "Katalog ćwiczeń"
 msgstr ""
 
 msgid "Kategoria"
@@ -366,7 +375,7 @@ msgstr ""
 msgid "Mam już konto"
 msgstr ""
 
-msgid "Martwy ciąg"
+msgid "Mapa mięśni"
 msgstr ""
 
 msgid "Masa"
@@ -382,6 +391,9 @@ msgid "Masa ciała, obwody i poziom tkanki tłuszczowej."
 msgstr ""
 
 msgid "Masz już konto?"
+msgstr ""
+
+msgid "Mechanika"
 msgstr ""
 
 msgid "Menu"
@@ -400,6 +412,9 @@ msgstr ""
 msgid "Najnowsze rekordy"
 msgstr ""
 
+msgid "Następna"
+msgstr ""
+
 msgid "Nazwa"
 msgstr ""
 
@@ -413,6 +428,9 @@ msgid "Nd"
 msgstr ""
 
 msgid "Nie masz jeszcze planu treningowego."
+msgstr ""
+
+msgid "Nie masz jeszcze zapisanych serii tego ćwiczenia."
 msgstr ""
 
 msgid "Nie masz jeszcze żadnych treningów."
@@ -528,6 +546,9 @@ msgstr ""
 msgid "Opis"
 msgstr ""
 
+msgid "Opisy techniki, zdjęcia i zaangażowane mięśnie."
+msgstr ""
+
 msgid "Ostatni pomiar"
 msgstr ""
 
@@ -541,9 +562,6 @@ msgid "Ostatnie treningi"
 msgstr ""
 
 msgid "Otwórz"
-msgstr ""
-
-msgid "Partia"
 msgstr ""
 
 msgid "Partia mięśniowa"
@@ -573,10 +591,10 @@ msgstr ""
 msgid "Podaj serie, np. 5x100."
 msgstr ""
 
-msgid "Podciąganie na drążku"
+msgid "Pokaż"
 msgstr ""
 
-msgid "Pokaż"
+msgid "Pokaż wszystkie"
 msgstr ""
 
 msgid "Pomiar ciała"
@@ -585,10 +603,7 @@ msgstr ""
 msgid "Pomiary ciała"
 msgstr ""
 
-msgid "Pompki"
-msgstr ""
-
-msgid "Pompki na poręczach (dipy)"
+msgid "Pomocnicze:"
 msgstr ""
 
 msgid "Pon"
@@ -603,10 +618,22 @@ msgstr ""
 msgid "Popraw dane ćwiczenia (serie 1–20, powtórzenia 1–100)."
 msgstr ""
 
+msgid "Poprzednia"
+msgstr ""
+
 msgid "Powtórz hasło"
 msgstr ""
 
 msgid "Powtórzenia"
+msgstr ""
+
+msgid "Poziom"
+msgstr ""
+
+msgid "Pozycja końcowa"
+msgstr ""
+
+msgid "Pozycja wyjściowa"
 msgstr ""
 
 msgid "Profil → Eksportuj wszystkie dane zdrowotne"
@@ -624,9 +651,6 @@ msgstr ""
 msgid "Progresja ćwiczenia"
 msgstr ""
 
-msgid "Prostowanie ramion na wyciągu"
-msgstr ""
-
 msgid "Przełącz motyw"
 msgstr ""
 
@@ -637,16 +661,13 @@ msgstr ""
 msgid "Prześlesz tutaj plik %(zip)s (lub %(xml)s)."
 msgstr ""
 
-msgid "Przysiad ze sztangą"
+msgid "Przód"
 msgstr ""
 
 msgid "Pt"
 msgstr ""
 
 msgid "Pulpit"
-msgstr ""
-
-msgid "Pływanie"
 msgstr ""
 
 msgid "Ramię"
@@ -679,10 +700,7 @@ msgstr ""
 msgid "Rodzaj"
 msgstr ""
 
-msgid "Rower"
-msgstr ""
-
-msgid "Rumuński martwy ciąg"
+msgid "Rozciąganie i mobilność"
 msgstr ""
 
 msgid "Samopoczucie, technika, uwagi…"
@@ -704,7 +722,7 @@ msgstr ""
 msgid "Serie wpisuj jako %(fmt)s oddzielone przecinkami, np. %(example)s."
 msgstr ""
 
-msgid "Skakanka"
+msgid "Siła"
 msgstr ""
 
 #, python-format
@@ -715,6 +733,9 @@ msgid "Sob"
 msgstr ""
 
 msgid "Sobota"
+msgstr ""
+
+msgid "Sprzęt"
 msgstr ""
 
 msgid "Starsze"
@@ -743,6 +764,9 @@ msgid "Szacowany 1RM (Epley)"
 msgstr ""
 
 msgid "Szacowany 1RM (kg)"
+msgstr ""
+
+msgid "Szukaj"
 msgstr ""
 
 msgid "Talia"
@@ -805,7 +829,13 @@ msgstr ""
 msgid "Treningi w tygodniu"
 msgstr ""
 
+msgid "Twoja historia"
+msgstr ""
+
 msgid "Twoje podsumowanie treningowe."
+msgstr ""
+
+msgid "Tył"
 msgstr ""
 
 msgid "Tł."
@@ -815,9 +845,6 @@ msgid "Udo"
 msgstr ""
 
 msgid "Udo (cm)"
-msgstr ""
-
-msgid "Uginanie ramion ze sztangą"
 msgstr ""
 
 msgid "Usunięto dzień."
@@ -879,9 +906,6 @@ msgstr ""
 msgid "W aplikacji Zdrowie na iPhonie wybierzesz %(path)s."
 msgstr ""
 
-msgid "Wiosłowanie sztangą"
-msgstr ""
-
 msgid "Witaj"
 msgstr ""
 
@@ -919,22 +943,16 @@ msgstr ""
 msgid "Wybierz ćwiczenie."
 msgstr ""
 
-msgid "Wyciskanie hantli na skosie"
+msgid "Wyczyść"
 msgstr ""
 
-msgid "Wyciskanie sztangi leżąc"
-msgstr ""
-
-msgid "Wyciskanie żołnierskie"
+msgid "Wykonanie"
 msgstr ""
 
 msgid "Wykres masy ciała"
 msgstr ""
 
 msgid "Wykres progresji"
-msgstr ""
-
-msgid "Wykroki z hantlami"
 msgstr ""
 
 msgid ""
@@ -951,10 +969,10 @@ msgstr ""
 msgid "Wynik"
 msgstr ""
 
-msgid "Wznosy bokiem z hantlami"
+msgid "Własne ćwiczenie"
 msgstr ""
 
-msgid "Własne ćwiczenie"
+msgid "Zaangażowane mięśnie"
 msgstr ""
 
 msgid "Zaloguj"
@@ -1011,6 +1029,10 @@ msgstr ""
 msgid "Zbyt wiele nieudanych prób logowania. Spróbuj ponownie za kilka minut."
 msgstr ""
 
+#, python-format
+msgid "Zdjęcia i opisy ćwiczeń: %(link)s (domena publiczna)."
+msgstr ""
+
 msgid "aktywny"
 msgstr ""
 
@@ -1020,7 +1042,22 @@ msgstr ""
 msgid "biceps"
 msgstr ""
 
+msgid "brzuch"
+msgstr ""
+
 msgid "cardio"
+msgstr ""
+
+msgid "czworoboczne (kaptury)"
+msgstr ""
+
+msgid "czworogłowe uda"
+msgstr ""
+
+msgid "dolna część pleców"
+msgstr ""
+
+msgid "dowolny"
 msgstr ""
 
 msgid "dwugłowe uda"
@@ -1029,19 +1066,40 @@ msgstr ""
 msgid "eksport.zip"
 msgstr ""
 
-msgid "klatka"
+msgid "gumy oporowe"
 msgstr ""
 
-msgid "klatka / triceps"
+msgid "główne"
+msgstr ""
+
+msgid "hantle"
+msgstr ""
+
+msgid "inne"
+msgstr ""
+
+msgid "izolowane"
+msgstr ""
+
+msgid "kettlebell"
+msgstr ""
+
+msgid "klatka piersiowa"
+msgstr ""
+
+msgid "masa ciała"
+msgstr ""
+
+msgid "maszyna"
 msgstr ""
 
 msgid "max"
 msgstr ""
 
-msgid "nieaktywny"
+msgid "najszersze grzbietu"
 msgstr ""
 
-msgid "nogi"
+msgid "nieaktywny"
 msgstr ""
 
 msgid "np. 5x100, 5x100, 3x5x90"
@@ -1059,13 +1117,31 @@ msgstr ""
 msgid "np. klatka"
 msgstr ""
 
+msgid "np. przysiad, bench press"
+msgstr ""
+
+msgid "odwodziciele ud"
+msgstr ""
+
 msgid "ostatnie 12 tygodni"
 msgstr ""
 
-msgid "plecy"
+msgid "piłka gimnastyczna"
 msgstr ""
 
-msgid "plecy / nogi"
+msgid "piłka lekarska"
+msgstr ""
+
+msgid "plyometria"
+msgstr ""
+
+msgid "początkujący"
+msgstr ""
+
+msgid "podnoszenie ciężarów"
+msgstr ""
+
+msgid "pomocnicze"
 msgstr ""
 
 msgid "powtórzenia x ciężar"
@@ -1077,10 +1153,41 @@ msgstr ""
 msgid "pośladki"
 msgstr ""
 
+msgid "przedramiona"
+msgstr ""
+
+msgid "przyciąganie"
+msgstr ""
+
+msgid "przywodziciele ud"
+msgstr ""
+
+msgid "rozciąganie"
+msgstr ""
+
 msgid "ręcznie"
 msgstr ""
 
 msgid "siłowe"
+msgstr ""
+
+msgid "statyczne"
+msgstr ""
+
+#, python-format
+msgid "strona %(page)s z %(pages)s"
+msgstr ""
+
+msgid "strongman"
+msgstr ""
+
+msgid "sztanga"
+msgstr ""
+
+msgid "sztanga łamana"
+msgstr ""
+
+msgid "szyja"
 msgstr ""
 
 msgid "tkanki tłuszczowej"
@@ -1095,10 +1202,31 @@ msgstr[2] "treningów"
 msgid "triceps"
 msgstr ""
 
+msgid "trójbój siłowy"
+msgstr ""
+
+msgid "wałek do rolowania"
+msgstr ""
+
 msgid "wersja"
 msgstr ""
 
+msgid "wielostawowe"
+msgstr ""
+
 msgid "wkrótce"
+msgstr ""
+
+msgid "wszystkie"
+msgstr ""
+
+msgid "wyciąg"
+msgstr ""
+
+msgid "wypychanie"
+msgstr ""
+
+msgid "zaawansowany"
 msgstr ""
 
 msgid "zobacz"
@@ -1110,22 +1238,25 @@ msgstr ""
 msgid "Ćwiczenia cardio zapisujesz jako dystans i czas."
 msgstr ""
 
-msgid "Ćwiczenia wbudowane oraz Twoje własne."
-msgstr ""
-
 msgid "Ćwiczenie"
 msgstr ""
 
 msgid "Ćwiczenie o tej nazwie już istnieje."
 msgstr ""
 
-msgid "Ściąganie drążka wyciągu"
+msgid "łydki"
 msgstr ""
 
 msgid "Śr"
 msgstr ""
 
 msgid "Środa"
+msgstr ""
+
+msgid "średniozaawansowany"
+msgstr ""
+
+msgid "środek pleców"
 msgstr ""
 
 msgid "Źródło"

@@ -7,6 +7,7 @@ from sqlalchemy import CheckConstraint, ForeignKey, Index, String, UniqueConstra
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from werkzeug.security import check_password_hash, generate_password_hash
 
+from . import library as exercise_library
 from .extensions import db
 
 CATEGORY_STRENGTH = "strength"
@@ -51,6 +52,7 @@ class Exercise(db.Model):
     __table_args__ = (
         UniqueConstraint("user_id", "name", name="uq_exercise_user_name"),
         CheckConstraint("category IN ('strength', 'cardio')", name="ck_exercise_category"),
+        Index("uq_exercises_slug", "slug", unique=True),
     )
 
     id: Mapped[int] = mapped_column(primary_key=True)
@@ -58,6 +60,12 @@ class Exercise(db.Model):
     category: Mapped[str] = mapped_column(String(16), default=CATEGORY_STRENGTH)
     muscle_group: Mapped[str | None] = mapped_column(String(60))
     user_id: Mapped[int | None] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"), index=True)
+    # Link to the curated library entry (app/data/exercises.json); NULL for user exercises.
+    slug: Mapped[str | None] = mapped_column(String(80))
+
+    @property
+    def library(self):
+        return exercise_library.get(self.slug) if self.is_global else None
 
     @property
     def is_global(self):
@@ -70,10 +78,16 @@ class Exercise(db.Model):
     @property
     def display_name(self):
         """Catalogue exercises are translated; user-created ones are shown as typed."""
+        entry = self.library
+        if entry:
+            return entry.name
         return gettext(self.name) if self.is_global else self.name
 
     @property
     def display_muscle_group(self):
+        entry = self.library
+        if entry:
+            return ", ".join(str(label) for label in entry.primary_labels)
         if self.muscle_group and self.is_global:
             return gettext(self.muscle_group)
         return self.muscle_group

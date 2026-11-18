@@ -162,7 +162,7 @@ def _register_cli(app):
 
 
 def bootstrap_database(app):
-    from .seed import advisory_lock, seed_catalogue, seed_demo
+    from .seed import advisory_lock, seed_catalogue, seed_demo, upgrade_schema
 
     retries = max(1, app.config["DB_CONNECT_RETRIES"])
     for attempt in range(1, retries + 1):
@@ -178,6 +178,7 @@ def bootstrap_database(app):
 
     with advisory_lock():
         db.create_all()
+        upgrade_schema()
         seed_catalogue()
         if app.config["SEED_DEMO"]:
             seed_demo()

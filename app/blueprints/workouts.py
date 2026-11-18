@@ -14,6 +14,7 @@ from ..services import (
     owned_or_404,
     plan_day_or_404,
     user_plan_days,
+    visible_exercise,
 )
 
 bp = Blueprint("workouts", __name__, url_prefix="/workouts")
@@ -29,7 +30,7 @@ def _blank_entry():
 def _prepare(form):
     choices, exercises = exercise_choices(current_user.id)
     for sub in form.entries:
-        sub.exercise_id.choices = [(0, gettext("— wybierz ćwiczenie —")), *choices]
+        sub.exercise_id.choices = {None: [(0, gettext("— wybierz ćwiczenie —"))], **choices}
     days = user_plan_days(current_user.id)
     form.plan_day_id.choices = [(0, gettext("— bez planu —"))] + [
         (d.id, f"{d.plan.name}: {d.name}") for d in days
@@ -141,6 +142,9 @@ def create():
                 weight = f"{pe.target_weight:g}" if pe.target_weight else "0"
                 sets = "" if pe.exercise.is_cardio else f"{pe.target_sets}x{pe.target_reps}x{weight}"
                 data["entries"].append({**_blank_entry(), "exercise_id": pe.exercise_id, "sets": sets})
+        preselect = request.args.get("exercise", type=int)
+        if preselect and not data["entries"] and visible_exercise(preselect, current_user.id):
+            data["entries"].append({**_blank_entry(), "exercise_id": preselect})
         data["entries"].extend([_blank_entry()] * EMPTY_ROWS)
         form = WorkoutForm(data=data)
     else:

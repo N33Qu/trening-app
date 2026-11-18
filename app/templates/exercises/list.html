@@ -1,42 +1,106 @@
 {% extends "base.html" %}
-{% from "_macros.html" import delete_button %}
+{% from "_macros.html" import delete_button, icon %}
 {% block title %}{{ _('Ćwiczenia') }}{% endblock %}
+{% macro page_url(p) -%}{{ url_for('exercises.index', page=p, **active_filters) }}{%- endmacro %}
 {% block content %}
 <div class="page-head">
-  <div><h1>{{ _('Katalog ćwiczeń') }}</h1><p class="subtitle">{{ _('Ćwiczenia wbudowane oraz Twoje własne.') }}</p></div>
+  <div><h1>{{ _('Biblioteka ćwiczeń') }}</h1><p class="subtitle">{{ _('Opisy techniki, zdjęcia i zaangażowane mięśnie.') }}</p></div>
   <a class="btn" href="{{ url_for('exercises.create') }}">+ {{ _('Własne ćwiczenie') }}</a>
 </div>
-<div class="grid grid-2">
-  <div class="card">
-    <div class="card-head"><h2>{{ _('Moje ćwiczenia') }}</h2><span class="badge">{{ own_exercises|length }}</span></div>
-    {% if own_exercises %}
-    <div class="table-wrap"><table>
-      <thead><tr><th>{{ _('Nazwa') }}</th><th>{{ _('Kategoria') }}</th><th></th></tr></thead>
-      <tbody>
-      {% for e in own_exercises %}
-      <tr>
-        <td>{{ e.name }}{% if e.muscle_group %}<br><span class="muted small">{{ e.muscle_group }}</span>{% endif %}</td>
-        <td><span class="badge {{ 'badge-info' if e.is_cardio else 'badge-accent' }}">{{ e.category_label }}</span></td>
-        <td class="num nowrap">
+
+<form method="get" action="{{ url_for('exercises.index') }}" class="card library-filters" role="search">
+  <div class="field field-search">
+    <label for="q">{{ _('Szukaj') }}</label>
+    <input type="search" id="q" name="q" value="{{ filters.q }}" placeholder="{{ _('np. przysiad, bench press') }}" maxlength="80">
+  </div>
+  <div class="field">
+    <label for="muscle">{{ _('Partia mięśniowa') }}</label>
+    <select id="muscle" name="muscle" data-autosubmit>
+      <option value="">{{ _('wszystkie') }}</option>
+      {% for key, label in muscles %}<option value="{{ key }}"{% if filters.muscle == key %} selected{% endif %}>{{ label }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="field">
+    <label for="equipment">{{ _('Sprzęt') }}</label>
+    <select id="equipment" name="equipment" data-autosubmit>
+      <option value="">{{ _('dowolny') }}</option>
+      {% for key, label in equipment %}<option value="{{ key }}"{% if filters.equipment == key %} selected{% endif %}>{{ label }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="field">
+    <label for="level">{{ _('Poziom') }}</label>
+    <select id="level" name="level" data-autosubmit>
+      <option value="">{{ _('dowolny') }}</option>
+      {% for key, label in levels %}<option value="{{ key }}"{% if filters.level == key %} selected{% endif %}>{{ label }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="filter-actions">
+    <button type="submit" class="btn btn-secondary">{{ _('Filtruj') }}</button>
+    {% if active_filters %}<a class="btn btn-ghost" href="{{ url_for('exercises.index') }}">{{ _('Wyczyść') }}</a>{% endif %}
+  </div>
+</form>
+
+<p class="muted small library-count">{{ ngettext('%(num)s ćwiczenie', '%(num)s ćwiczeń', total) }}{% if pages > 1 %} · {{ _('strona %(page)s z %(pages)s', page=page, pages=pages) }}{% endif %}</p>
+
+{% if exercises %}
+<ul class="exercise-grid">
+  {% for e in exercises %}
+  {% set entry = e.library %}
+  <li class="exercise-card">
+    <a href="{{ url_for('exercises.detail', slug=e.slug) if entry else url_for('stats.index', exercise=e.id) }}" class="exercise-card-link">
+      <div class="exercise-thumb">
+        {% if entry and entry.thumbnail %}
+        <img src="{{ url_for('static', filename=entry.thumbnail) }}" alt="" loading="lazy" decoding="async" width="{{ entry.data.image_size[0] }}" height="{{ entry.data.image_size[1] }}">
+        {% else %}
+        <span class="thumb-placeholder">{{ icon("dumbbell") }}</span>
+        {% endif %}
+      </div>
+      <div class="exercise-card-body">
+        <h2 class="exercise-name">{{ e.display_name }}</h2>
+        {% if entry %}
+        <div class="chips">{% for label in entry.primary_labels %}<span class="chip chip-accent">{{ label }}</span>{% endfor %}</div>
+        <div class="meta small">{{ entry.label('equipment') }} · {{ entry.label('level') }}</div>
+        {% else %}
+        <div class="meta small">{{ e.category_label }}</div>
+        {% endif %}
+      </div>
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% if pages > 1 %}
+<nav class="pagination" aria-label="{{ _('Strony') }}">
+  {% if page > 1 %}<a class="btn btn-secondary btn-sm" href="{{ page_url(page - 1) }}" rel="prev">← {{ _('Poprzednia') }}</a>{% endif %}
+  {% for p in range(1, pages + 1) %}
+  {% if p == page %}<span class="btn btn-sm" aria-current="page">{{ p }}</span>{% else %}<a class="btn btn-ghost btn-sm" href="{{ page_url(p) }}">{{ p }}</a>{% endif %}
+  {% endfor %}
+  {% if page < pages %}<a class="btn btn-secondary btn-sm" href="{{ page_url(page + 1) }}" rel="next">{{ _('Następna') }} →</a>{% endif %}
+</nav>
+{% endif %}
+{% else %}
+<div class="card empty"><p>{{ _('Brak ćwiczeń spełniających kryteria.') }}</p><a class="btn btn-secondary" href="{{ url_for('exercises.index') }}">{{ _('Pokaż wszystkie') }}</a></div>
+{% endif %}
+
+<section class="mt-lg">
+  <div class="card-head"><h2>{{ _('Moje ćwiczenia') }}</h2><span class="badge">{{ own_exercises|length }}</span></div>
+  {% if own_exercises %}
+  <ul class="exercise-grid exercise-grid-compact">
+    {% for e in own_exercises %}
+    <li class="exercise-card exercise-card-own">
+      <div class="exercise-thumb"><span class="thumb-placeholder">{{ icon("dumbbell") }}</span></div>
+      <div class="exercise-card-body">
+        <h3 class="exercise-name"><a href="{{ url_for('stats.index', exercise=e.id) }}">{{ e.name }}</a></h3>
+        <div class="meta small"><span class="badge {{ 'badge-info' if e.is_cardio else 'badge-accent' }}">{{ e.category_label }}</span>{% if e.muscle_group %} {{ e.muscle_group }}{% endif %}</div>
+        <div class="actions mt">
           <a class="btn btn-secondary btn-sm" href="{{ url_for('exercises.edit', exercise_id=e.id) }}">{{ _('Edytuj') }}</a>
           {{ delete_button(url_for('exercises.delete', exercise_id=e.id), delete_form, _("Usuń"), _("Usunąć ćwiczenie?")) }}
-        </td>
-      </tr>
-      {% endfor %}
-      </tbody>
-    </table></div>
-    {% else %}<div class="empty"><p>{{ _('Brak własnych ćwiczeń.') }}</p></div>{% endif %}
-  </div>
-  <div class="card">
-    <div class="card-head"><h2>{{ _('Katalog wbudowany') }}</h2><span class="badge">{{ global_exercises|length }}</span></div>
-    <div class="table-wrap"><table>
-      <thead><tr><th>{{ _('Nazwa') }}</th><th>{{ _('Partia') }}</th><th>{{ _('Kategoria') }}</th></tr></thead>
-      <tbody>
-      {% for e in global_exercises %}
-      <tr><td><a href="{{ url_for('stats.index', exercise=e.id) }}">{{ e.display_name }}</a></td><td class="muted small">{{ e.display_muscle_group or '–' }}</td><td><span class="badge {{ 'badge-info' if e.is_cardio else 'badge-accent' }}">{{ e.category_label }}</span></td></tr>
-      {% endfor %}
-      </tbody>
-    </table></div>
-  </div>
-</div>
+        </div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}<div class="card empty"><p>{{ _('Brak własnych ćwiczeń.') }}</p></div>{% endif %}
+</section>
+
+<p class="library-credit muted small">{{ _('Zdjęcia i opisy ćwiczeń: %(link)s (domena publiczna).', link='<a href="https://github.com/yuhonas/free-exercise-db" rel="noopener">Free Exercise DB</a>'|safe) }}</p>
 {% endblock %}

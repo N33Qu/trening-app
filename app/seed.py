@@ -3,13 +3,12 @@ import random
 from contextlib import contextmanager
 from datetime import date, timedelta
 
-from sqlalchemy import select, text
+from sqlalchemy import inspect, select, text
 from sqlalchemy.exc import IntegrityError
 
+from . import library
 from .extensions import db
-from .i18n import N_
 from .models import (
-    CATEGORY_CARDIO,
     CATEGORY_STRENGTH,
     BodyMeasurement,
     Exercise,
@@ -28,30 +27,6 @@ ADVISORY_LOCK_KEY = 72_810_001
 DEMO_USERNAME = "demo"
 DEMO_PASSWORD = "demo1234"
 
-CATALOGUE = [
-    (N_("Przysiad ze sztangą"), CATEGORY_STRENGTH, N_("nogi")),
-    (N_("Wyciskanie sztangi leżąc"), CATEGORY_STRENGTH, N_("klatka")),
-    (N_("Martwy ciąg"), CATEGORY_STRENGTH, N_("plecy / nogi")),
-    (N_("Wyciskanie żołnierskie"), CATEGORY_STRENGTH, N_("barki")),
-    (N_("Podciąganie na drążku"), CATEGORY_STRENGTH, N_("plecy")),
-    (N_("Wiosłowanie sztangą"), CATEGORY_STRENGTH, N_("plecy")),
-    (N_("Wyciskanie hantli na skosie"), CATEGORY_STRENGTH, N_("klatka")),
-    (N_("Pompki na poręczach (dipy)"), CATEGORY_STRENGTH, N_("klatka / triceps")),
-    (N_("Rumuński martwy ciąg"), CATEGORY_STRENGTH, N_("dwugłowe uda")),
-    (N_("Wykroki z hantlami"), CATEGORY_STRENGTH, N_("nogi")),
-    (N_("Hip thrust"), CATEGORY_STRENGTH, N_("pośladki")),
-    (N_("Uginanie ramion ze sztangą"), CATEGORY_STRENGTH, N_("biceps")),
-    (N_("Prostowanie ramion na wyciągu"), CATEGORY_STRENGTH, N_("triceps")),
-    (N_("Ściąganie drążka wyciągu"), CATEGORY_STRENGTH, N_("plecy")),
-    (N_("Wznosy bokiem z hantlami"), CATEGORY_STRENGTH, N_("barki")),
-    (N_("Pompki"), CATEGORY_STRENGTH, N_("klatka")),
-    (N_("Bieganie"), CATEGORY_CARDIO, None),
-    (N_("Rower"), CATEGORY_CARDIO, None),
-    (N_("Ergometr wioślarski"), CATEGORY_CARDIO, None),
-    (N_("Pływanie"), CATEGORY_CARDIO, None),
-    (N_("Skakanka"), CATEGORY_CARDIO, None),
-]
-
 
 @contextmanager
 def advisory_lock():
@@ -69,21 +44,59 @@ def advisory_lock():
             conn.commit()
 
 
+def upgrade_schema():
+    """Idempotent additions for databases created by an older db.create_all().
+
+    create_all() never alters existing tables, so columns added to models later
+    are added here. Runs under the advisory lock at startup.
+    """
+    columns = {c["name"] for c in inspect(db.engine).get_columns("exercises")}
+    with db.engine.begin() as conn:
+        if "slug" not in columns:
+            if_not_exists = " IF NOT EXISTS" if db.engine.dialect.name == "postgresql" else ""
+            conn.execute(text(f"ALTER TABLE exercises ADD COLUMN{if_not_exists} slug VARCHAR(80)"))
+            log.info("schema upgrade: added exercises.slug")
+        conn.execute(text("CREATE UNIQUE INDEX IF NOT EXISTS uq_exercises_slug ON exercises (slug)"))
+
+
 def seed_catalogue():
-    existing = set(
-        db.session.execute(select(Exercise.name).where(Exercise.user_id.is_(None))).scalars()
-    )
-    added = 0
-    for name, category, group in CATALOGUE:
-        if name not in existing:
-            db.session.add(Exercise(name=name, category=category, muscle_group=group, user_id=None))
-            added += 1
-    if added:
+    """Upsert the curated library into global exercises. Returns the number of changed rows.
+
+    Existing catalogue rows are matched by slug, then by their original Polish name,
+    so their ids (referenced by workouts, plans and records) stay the same.
+    User exercises (user_id set) are never touched.
+    """
+    rows = db.session.execute(select(Exercise).where(Exercise.user_id.is_(None))).scalars().all()
+    by_slug = {e.slug: e for e in rows if e.slug}
+    by_name = {e.name: e for e in rows if not e.slug}
+    changed = 0
+    for entry in library.entries():
+        data = entry.data
+        values = {
+            "slug": entry.slug,
+            "name": data.get("legacy_name") or data["name_pl"],
+            "category": data["category"],
+            "muscle_group": data["primary"][0] if data["primary"] else None,
+        }
+        exercise = by_slug.get(entry.slug) or by_name.get(values["name"]) or by_name.get(data["name_pl"])
+        if exercise is None:
+            db.session.add(Exercise(user_id=None, **values))
+            changed += 1
+            continue
+        by_name.pop(exercise.name, None)
+        if any(getattr(exercise, k) != v for k, v in values.items()):
+            for k, v in values.items():
+                setattr(exercise, k, v)
+            changed += 1
+    if changed:
         try:
             db.session.commit()
         except IntegrityError:
             db.session.rollback()
-    return added
+            log.info("exercise catalogue updated concurrently by another instance")
+            return 0
+        log.info("exercise catalogue: %d rows inserted or updated", changed)
+    return changed
 
 
 def _exercise(name):
