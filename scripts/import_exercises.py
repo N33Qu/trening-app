@@ -2,10 +2,10 @@
 
 Source: https://github.com/yuhonas/free-exercise-db
 
-The curated subset, Polish names and Polish instructions live in
+Every dataset exercise is imported; the Polish names and Polish instructions live in
 scripts/exercises_curated.json. The script downloads the dataset JSON and the
 start/end photos of every curated exercise, converts the photos to WebP
-(max 640 px wide) and writes:
+(max 480 px wide, quality 70) and writes:
 
     app/data/exercises.json            library metadata (PL + EN)
     app/static/exercises/<slug>/0.webp start position
@@ -13,7 +13,7 @@ start/end photos of every curated exercise, converts the photos to WebP
 
 Usage (requires Pillow from requirements-dev.txt):
 
-    python scripts/import_exercises.py [--cache DIR] [--quality 75] [--width 640]
+    python scripts/import_exercises.py [--cache DIR] [--quality 70] [--width 480]
 """
 
 import argparse
@@ -100,12 +100,16 @@ def build_entry(src, cur):
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     parser.add_argument("--cache", type=Path, default=ROOT / ".cache" / "free-exercise-db")
-    parser.add_argument("--quality", type=int, default=75)
-    parser.add_argument("--width", type=int, default=640)
+    parser.add_argument("--quality", type=int, default=70)
+    parser.add_argument("--width", type=int, default=480)
     args = parser.parse_args(argv)
 
     curated = json.loads(CURATED.read_text(encoding="utf-8"))
     dataset = {x["id"]: x for x in json.loads(fetch(DATASET_URL, args.cache))}
+
+    missing = set(dataset) - {cur["source"] for cur in curated["exercises"]}
+    if missing:
+        raise SystemExit(f"no Polish text for: {', '.join(sorted(missing))}")
 
     if IMAGES_OUT.exists():
         shutil.rmtree(IMAGES_OUT)

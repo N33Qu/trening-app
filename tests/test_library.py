@@ -25,7 +25,7 @@ def _global_count():
 
 def test_library_data_is_complete():
     entries = library.entries()
-    assert 120 <= len(entries) <= 160
+    assert len(entries) >= 876
     slugs = [e.slug for e in entries]
     assert len(slugs) == len(set(slugs))
     for e in entries:
@@ -39,9 +39,9 @@ def test_library_data_is_complete():
         for img in d["images"]:
             assert (STATIC / img).is_file(), img
     with_images = [e for e in entries if e.images]
-    assert len(with_images) >= len(entries) - 2
+    assert len(with_images) >= len(entries) - 4
     total = sum((STATIC / img).stat().st_size for e in entries for img in e.images)
-    assert total < 15 * 1024 * 1024
+    assert total < 35 * 1024 * 1024
 
 
 def test_every_muscle_group_used_and_drawn(auth_client):
@@ -70,6 +70,22 @@ def test_seed_never_touches_user_exercises(auth_client, app):
         assert seed_catalogue() == 0
         own = db.session.execute(select(Exercise).where(Exercise.user_id.is_not(None))).scalar_one()
         assert (own.name, own.category, own.muscle_group, own.slug) == ("Moje martwe", "cardio", "plecy", None)
+
+
+def test_seed_survives_custom_exercise_with_library_name(app, auth_client):
+    with app.app_context():
+        superman = db.session.execute(select(Exercise).where(Exercise.slug == "superman")).scalar_one()
+        name = superman.name
+        user_id = db.session.execute(select(func.min(Exercise.user_id))).scalar() or db.session.execute(
+            text("SELECT id FROM users LIMIT 1")).scalar()
+        db.session.delete(superman)
+        db.session.add(Exercise(user_id=user_id, name=name, category="strength", muscle_group="plecy"))
+        db.session.commit()
+        assert seed_catalogue() == 1
+        rows = db.session.execute(select(Exercise).where(Exercise.name == name)).scalars().all()
+        assert sorted(r.user_id is None for r in rows) == [False, True]
+        assert next(r for r in rows if r.user_id is not None).muscle_group == "plecy"
+        assert seed_catalogue() == 0
 
 
 def test_seed_repairs_changed_catalogue_rows(app):
@@ -160,7 +176,7 @@ def test_library_lists_and_paginates(auth_client):
     assert set(_card_names(page2)).isdisjoint(_card_names(html))
     last = auth_client.get("/exercises/?page=999")
     assert last.status_code == 200
-    assert 'aria-current="page">7<' in last.get_data(as_text=True)
+    assert 'aria-current="page">37<' in last.get_data(as_text=True)
 
 
 def test_library_search_polish_and_english(auth_client):
