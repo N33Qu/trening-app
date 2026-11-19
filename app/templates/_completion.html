@@ -1,21 +1,23 @@
+{% from "_macros.html" import icon %}
 <div class="card">
   <div class="card-head">
     <h2>{{ _('Realizacja planu – ten tydzień') }}</h2>
-    <span class="muted small">{{ completion.start|day_short }}–{{ completion.end|day_short }}</span>
+    <span class="muted small nowrap">{{ completion.start|day_short }}–{{ completion.end|day_short }}</span>
   </div>
   {% if completion.total %}
-  <div class="progress-label"><strong>{{ completion.percent }}%</strong><span class="muted">{{ _('%(done)s z %(total)s dni', done=completion.done, total=completion.total) }}</span></div>
-  <div class="progress" role="progressbar" aria-valuenow="{{ completion.percent }}" aria-valuemin="0" aria-valuemax="100"><span style="width: {{ completion.percent }}%"></span></div>
+  <div class="progress-label"><strong>{{ completion.percent }}%</strong><span class="muted small">{{ _('%(done)s z %(total)s dni', done=completion.done, total=completion.total) }}</span></div>
+  <div class="progress" role="progressbar" aria-valuenow="{{ completion.percent }}" aria-valuemin="0" aria-valuemax="100" aria-label="{{ _('Realizacja planu – ten tydzień') }}"><span style="width: {{ completion.percent }}%"></span></div>
   <ul class="day-list">
     {% for item in completion["items"] %}
     <li class="{{ 'done' if item.done else ('missed' if item.past else '') }}">
-      <span class="status">{{ '✓' if item.done else ('!' if item.past else '') }}</span>
-      <span class="grow">{{ item.day.name }} <span class="muted small">· {{ item.day.plan.name }}</span></span>
+      <span class="status">{% if item.done %}{{ icon("check") }}{% elif item.past %}{{ icon("close") }}{% endif %}</span>
+      <span class="grow">{{ item.day.name }}<span class="day-plan">{{ item.day.plan.name }}</span></span>
+      {% if item.done %}<span class="visually-hidden">{{ _('zrobione') }}</span>{% elif item.past %}<span class="badge">{{ _('pominięty') }}</span>{% endif %}
       {% if not item.done %}<a class="btn btn-sm btn-secondary" href="{{ url_for('workouts.create', plan_day=item.day.id) }}">{{ _('Zapisz') }}</a>{% endif %}
     </li>
     {% endfor %}
   </ul>
   {% else %}
-  <div class="empty"><p>{{ _('Brak aktywnego planu z dniami treningowymi.') }}</p><a class="btn btn-sm" href="{{ url_for('plans.create') }}">{{ _('Utwórz plan') }}</a></div>
+  <div class="empty"><span class="empty-icon">{{ icon("calendar") }}</span><p>{{ _('Brak aktywnego planu z dniami treningowymi.') }}</p><a class="btn btn-sm" href="{{ url_for('plans.create') }}">{{ _('Utwórz plan') }}</a></div>
   {% endif %}
 </div>

@@ -5,25 +5,29 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <title>{% block title %}Trening{% endblock %} · Trening</title>
+  <meta name="description" content="{{ _('BodyCommit – dziennik treningu siłowego: plany, serie, rekordy osobiste i postępy.') }}">
+  <meta name="theme-color" content="#f5f5f7" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0c0c0e" media="(prefers-color-scheme: dark)">
+  <title>{% block title %}BodyCommit{% endblock %} · BodyCommit</title>
   <script nonce="{{ csp_nonce }}">(function(){var t=null;try{t=localStorage.getItem("theme");}catch(e){}if(t!=="dark"&&t!=="light"){t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);})();</script>
   <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v={{ app_version }}">
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}"{% if current_user.is_authenticated %} data-picker-url="{{ url_for('exercises.picker_data') }}" data-picker-i18n="{{ {'placeholder': _('Szukaj ćwiczenia…'), 'all': _('Wszystkie'), 'none': _('Brak pasujących ćwiczeń.'), 'more': _('Wpisz więcej liter, aby zawęzić listę.'), 'mine': _('Moje ćwiczenia')}|tojson|forceescape }}"{% endif %}>
+  <a class="skip-link" href="#main">{{ _('Przejdź do treści') }}</a>
   <header class="site-header">
-    <nav class="nav container" aria-label="{{ _('Główna nawigacja') }}">
-      <a class="brand" href="{{ url_for('stats.dashboard') }}"><span class="brand-mark">{{ icon("dumbbell") }}</span>Trening</a>
+    <nav class="nav container{% if not current_user.is_authenticated %} nav-guest{% endif %}" aria-label="{{ _('Główna nawigacja') }}">
+      <a class="brand" href="{{ url_for('stats.dashboard') }}" aria-label="BodyCommit – {{ _('strona główna') }}"><span class="brand-mark">{{ icon("logo") }}</span><span class="brand-word">Body<b>Commit</b></span></a>
       {% if current_user.is_authenticated %}
       {% set ep = request.endpoint or "" %}
-      <ul class="nav-links">
-        <li><a href="{{ url_for('stats.dashboard') }}" class="{{ 'active' if ep == 'stats.dashboard' }}">{{ _('Pulpit') }}</a></li>
-        <li><a href="{{ url_for('workouts.index') }}" class="{{ 'active' if ep.startswith('workouts.') }}">{{ _('Treningi') }}</a></li>
-        <li><a href="{{ url_for('plans.index') }}" class="{{ 'active' if ep.startswith('plans.') }}">{{ _('Plany') }}</a></li>
-        <li><a href="{{ url_for('exercises.index') }}" class="{{ 'active' if ep.startswith('exercises.') }}">{{ _('Ćwiczenia') }}</a></li>
-        <li><a href="{{ url_for('records.index') }}" class="{{ 'active' if ep.startswith('records.') }}">{{ _('Rekordy') }}</a></li>
-        <li><a href="{{ url_for('body.index') }}" class="{{ 'active' if ep.startswith('body.') }}">{{ _('Ciało') }}</a></li>
-        <li><a href="{{ url_for('stats.index') }}" class="{{ 'active' if ep == 'stats.index' }}">{{ _('Statystyki') }}</a></li>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="{{ url_for('stats.dashboard') }}" class="{{ 'active' if ep == 'stats.dashboard' }}"{% if ep == 'stats.dashboard' %} aria-current="page"{% endif %}>{{ icon("home") }}{{ _('Pulpit') }}</a></li>
+        <li><a href="{{ url_for('workouts.index') }}" class="{{ 'active' if ep.startswith('workouts.') }}"{% if ep.startswith('workouts.') %} aria-current="page"{% endif %}>{{ icon("log") }}{{ _('Treningi') }}</a></li>
+        <li><a href="{{ url_for('plans.index') }}" class="{{ 'active' if ep.startswith('plans.') }}"{% if ep.startswith('plans.') %} aria-current="page"{% endif %}>{{ icon("calendar") }}{{ _('Plany') }}</a></li>
+        <li><a href="{{ url_for('exercises.index') }}" class="{{ 'active' if ep.startswith('exercises.') }}"{% if ep.startswith('exercises.') %} aria-current="page"{% endif %}>{{ icon("book") }}{{ _('Ćwiczenia') }}</a></li>
+        <li><a href="{{ url_for('records.index') }}" class="{{ 'active' if ep.startswith('records.') }}"{% if ep.startswith('records.') %} aria-current="page"{% endif %}>{{ icon("trophy") }}{{ _('Rekordy') }}</a></li>
+        <li><a href="{{ url_for('body.index') }}" class="{{ 'active' if ep.startswith('body.') }}"{% if ep.startswith('body.') %} aria-current="page"{% endif %}>{{ icon("body") }}{{ _('Ciało') }}</a></li>
+        <li><a href="{{ url_for('stats.index') }}" class="{{ 'active' if ep == 'stats.index' }}"{% if ep == 'stats.index' %} aria-current="page"{% endif %}>{{ icon("chart") }}{{ _('Statystyki') }}</a></li>
       </ul>
       {% endif %}
       <div class="nav-actions">
@@ -36,27 +40,28 @@
         </form>
         <button type="button" class="icon-btn theme-toggle" data-theme-toggle aria-label="{{ _('Przełącz motyw jasny/ciemny') }}" title="{{ _('Przełącz motyw') }}">{{ icon("moon") }}{{ icon("sun") }}</button>
         {% if current_user.is_authenticated %}
-        <span class="nav-user">{{ current_user.username }}</span>
+        <span class="nav-user" title="{{ _('Zalogowano jako') }} {{ current_user.username }}"><span class="avatar" aria-hidden="true">{{ current_user.username[:1]|upper }}</span><span class="nav-user-name">{{ current_user.username }}</span></span>
         <form method="post" action="{{ url_for('auth.logout') }}" class="inline-form">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
           <button type="submit" class="icon-btn" aria-label="{{ _('Wyloguj') }}" title="{{ _('Wyloguj') }}">{{ icon("logout") }}</button>
         </form>
-        <button type="button" class="icon-btn nav-toggle" data-nav-toggle aria-label="{{ _('Menu') }}" aria-expanded="false">{{ icon("menu") }}</button>
+        <button type="button" class="icon-btn nav-toggle" data-nav-toggle aria-label="{{ _('Menu') }}" aria-expanded="false" aria-controls="nav-links">{{ icon("menu", "icon-open") }}{{ icon("close", "icon-shut") }}</button>
         {% else %}
         <a class="btn btn-ghost btn-sm" href="{{ url_for('auth.login') }}">{{ _('Zaloguj') }}</a>
-        <a class="btn btn-sm" href="{{ url_for('auth.register') }}">{{ _('Załóż konto') }}</a>
+        <a class="btn btn-sm nav-register" href="{{ url_for('auth.register') }}">{{ _('Załóż konto') }}</a>
         {% endif %}
       </div>
     </nav>
   </header>
 
-  <main class="container" id="main">
+  <main class="container" id="main" tabindex="-1">
     {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
       <div class="flashes" role="status">
         {% for category, message in messages %}
-        <div class="flash flash-{{ category if category in ['success', 'error', 'info', 'record'] else 'info' }}">
-          {% if category == "record" %}{{ icon("trophy") }}{% endif %}{{ message }}
+        {% set cat = category if category in ['success', 'error', 'info', 'record'] else 'info' %}
+        <div class="flash flash-{{ cat }}">
+          {{ icon({'success': 'check', 'error': 'alert', 'info': 'info', 'record': 'trophy'}[cat]) }}<span>{{ message }}</span>
         </div>
         {% endfor %}
       </div>
@@ -67,7 +72,7 @@
 
   <footer class="site-footer">
     <div class="container">
-      <span>{{ _('Trening – planowanie i monitorowanie treningu siłowego') }}</span>
+      <span class="footer-brand"><span class="brand-mark brand-mark-sm">{{ icon("logo") }}</span><span><b>BodyCommit</b> · {{ _('Każdy trening to commit.') }}</span></span>
       <span>{{ _('wersja') }} <span class="version">{{ app_version }}</span></span>
     </div>
   </footer>

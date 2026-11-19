@@ -1,22 +1,58 @@
 {% extends "base.html" %}
 {% from "_macros.html" import icon %}
 {% block title %}{{ _('Witaj') }}{% endblock %}
+{% block body_class %}landing{% endblock %}
 {% block content %}
-<section class="hero">
-  <div>
-    <h1>{{ _('Planuj. Trenuj.') }} <em>{{ _('Bij rekordy.') }}</em></h1>
-    <p class="lead">{{ _('Trening to prosty dziennik siłowni: plany tygodniowe, zapis serii i ciężarów, automatyczne wykrywanie rekordów osobistych oraz wykresy postępów i masy ciała.') }}</p>
+<section class="hero" aria-labelledby="hero-title">
+  <div data-enter>
+    <h1 id="hero-title">{{ _('Dziennik treningu siłowego.') }} <span class="hl">{{ _('Planuj. Trenuj.') }} {{ _('Bij rekordy.') }}</span></h1>
+    <p class="lead">{{ _('BodyCommit zapisuje serie w formacie %(fmt)s, sam wykrywa rekordy osobiste i rysuje wykresy postępów oraz masy ciała.', fmt='<strong>5x100</strong>'|safe) }}</p>
     <div class="actions">
-      <a class="btn" href="{{ url_for('auth.register') }}">{{ _('Załóż darmowe konto') }}</a>
-      <a class="btn btn-secondary" href="{{ url_for('auth.login') }}">{{ _('Mam już konto') }}</a>
+      <a class="btn btn-lg" href="{{ url_for('auth.register') }}">{{ _('Załóż darmowe konto') }}{{ icon("arrow-right") }}</a>
+      <a class="btn btn-secondary btn-lg" href="{{ url_for('auth.login') }}">{{ _('Zaloguj się') }}</a>
+    </div>
+    <ul class="hero-facts">
+      {% if library_count %}<li><b>{{ library_count }}</b><span>{{ _('ćwiczeń ze zdjęciami i mapą mięśni') }}</span></li>{% endif %}
+      <li><b>1RM</b><span>{{ _('liczony wzorem Epleya') }}</span></li>
+      <li><b>PL / EN</b><span>{{ _('dwie wersje językowe') }}</span></li>
+    </ul>
+  </div>
+
+  <div class="app-frame" data-enter="2" aria-label="{{ _('Przykładowy dziennik treningów') }}" role="img">
+    <div class="app-frame-bar" aria-hidden="true"><span class="brand-mark brand-mark-sm">{{ icon("logo") }}</span><b>BodyCommit</b><span>· {{ _('Dziennik treningów') }}</span><span class="push">demo</span></div>
+    <div class="app-frame-body" aria-hidden="true">
+      <ol class="demo-log">
+        <li class="has-pr"><span class="when">{{ _('Śr – nogi') }}</span><span class="what">{{ _('Przysiad ze sztangą, Wykroki z hantlami') }}</span><span class="vol">4 158 kg<small>{{ _('8 serii') }}</small></span></li>
+        <li><span class="when">{{ _('Pon – klatka i barki') }}</span><span class="what">{{ _('Wyciskanie sztangi leżąc, Wyciskanie żołnierskie') }}</span><span class="vol">3 665 kg<small>{{ _('11 serii') }}</small></span></li>
+        <li><span class="when">{{ _('Pt – plecy') }}</span><span class="what">{{ _('Martwy ciąg, Podciąganie na drążku') }}</span><span class="vol">4 702 kg<small>{{ _('14 serii') }}</small></span></li>
+      </ol>
+      <div class="demo-sets"><span class="set-chip">5 × 130</span><span class="set-chip">5 × 135</span><span class="set-chip">5 × 137.5</span></div>
+      <div class="demo-pr">{{ icon("trophy") }}<span>{{ _('Nowy rekord: przysiad ze sztangą') }}</span><b>137.5 kg</b></div>
     </div>
   </div>
-  <div class="hero-art">{{ icon("dumbbell") }}</div>
 </section>
-<section class="features">
-  <div class="card feature"><h3>{{ _('Plany treningowe') }}</h3><p>{{ _('Dni tygodnia, ćwiczenia i docelowe serie × powtórzenia × ciężar.') }}</p></div>
-  <div class="card feature"><h3>{{ _('Dziennik treningów') }}</h3><p>{{ _('Serie siłowe i cardio – dystans oraz czas. Szybki zapis w formacie 5x100.') }}</p></div>
-  <div class="card feature"><h3>{{ _('Rekordy osobiste') }}</h3><p>{{ _('Maksymalny ciężar i szacowany 1RM (wzór Epleya) wykrywane automatycznie.') }}</p></div>
-  <div class="card feature"><h3>{{ _('Statystyki') }}</h3><p>{{ _('Progresja ciężarów, masa ciała, liczba treningów w tygodniu i realizacja planu.') }}</p></div>
+
+<section class="statement" aria-labelledby="statement-title">
+  <div>
+    <h2 id="statement-title">{{ _('Każdy trening to %(word)s.', word='<span>commit</span>'|safe) }}</h2>
+    <p class="mt">{{ _('Zapisany trening trafia do historii z datą, seriami i objętością. Z tej historii BodyCommit liczy rekordy, realizację planu tygodnia i trendy.') }}</p>
+  </div>
+  <ul class="features">
+    <li class="feature"><span class="icon-tile">{{ icon("calendar") }}</span><h3>{{ _('Plany treningowe') }}</h3><p>{{ _('Dni tygodnia, ćwiczenia i docelowe serie × powtórzenia × ciężar.') }}</p></li>
+    <li class="feature"><span class="icon-tile">{{ icon("log") }}</span><h3>{{ _('Dziennik treningów') }}</h3><p>{{ _('Serie siłowe i cardio – dystans oraz czas. Szybki zapis w formacie 5x100.') }}</p></li>
+    <li class="feature"><span class="icon-tile">{{ icon("trophy") }}</span><h3>{{ _('Rekordy osobiste') }}</h3><p>{{ _('Maksymalny ciężar i szacowany 1RM (wzór Epleya) wykrywane automatycznie.') }}</p></li>
+    <li class="feature"><span class="icon-tile">{{ icon("chart") }}</span><h3>{{ _('Statystyki') }}</h3><p>{{ _('Progresja ciężarów, masa ciała, liczba treningów w tygodniu i realizacja planu.') }}</p></li>
+  </ul>
+</section>
+
+<section class="close-cta" aria-labelledby="close-title">
+  <div>
+    <h2 id="close-title">{{ _('Konto demonstracyjne z danymi z 12 tygodni') }}</h2>
+    <p>{{ _('Login %(user)s, hasło %(pw)s – albo załóż własne konto.', user='<b>demo</b>'|safe, pw='<b>demo1234</b>'|safe) }}</p>
+  </div>
+  <div class="actions">
+    <a class="btn btn-lg" href="{{ url_for('auth.register') }}">{{ _('Załóż darmowe konto') }}</a>
+    <a class="btn btn-secondary btn-lg" href="{{ url_for('auth.login') }}">{{ _('Zaloguj się') }}</a>
+  </div>
 </section>
 {% endblock %}

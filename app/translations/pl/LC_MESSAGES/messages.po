@@ -1,9 +1,9 @@
-# Trening – Polish translations.
+# BodyCommit – Polish translations.
 msgid ""
 msgstr ""
 "Project-Id-Version: trening VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-18 13:23+0100\n"
+"POT-Creation-Date: 2026-11-19 08:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: pl\n"
@@ -74,7 +74,16 @@ msgstr[2] "%(num)s ćwiczeń"
 msgid "%(volume)s kg objętości"
 msgstr ""
 
+msgid "11 serii"
+msgstr ""
+
+msgid "14 serii"
+msgstr ""
+
 msgid "3–32 znaki: litery, cyfry, _ . -"
+msgstr ""
+
+msgid "8 serii"
 msgstr ""
 
 msgid "Aktywne plany liczą się do realizacji tygodnia."
@@ -93,6 +102,13 @@ msgstr ""
 msgid "Bij rekordy."
 msgstr ""
 
+#, python-format
+msgid "BodyCommit zapisuje serie w formacie %(fmt)s, sam wykrywa rekordy osobiste i rysuje wykresy postępów oraz masy ciała."
+msgstr ""
+
+msgid "BodyCommit – dziennik treningu siłowego: plany, serie, rekordy osobiste i postępy."
+msgstr ""
+
 msgid "Brak aktywnego planu z dniami treningowymi."
 msgstr ""
 
@@ -100,6 +116,9 @@ msgid "Brak danych do wykresów – zapisz kilka treningów."
 msgstr ""
 
 msgid "Brak dostępu"
+msgstr ""
+
+msgid "Brak pasujących ćwiczeń."
 msgstr ""
 
 msgid "Brak pomiarów masy ciała."
@@ -223,6 +242,9 @@ msgstr ""
 msgid "Dziennik"
 msgstr ""
 
+msgid "Dziennik treningu siłowego."
+msgstr ""
+
 msgid "Dziennik treningów"
 msgstr ""
 
@@ -326,10 +348,20 @@ msgstr ""
 msgid "Kategoria"
 msgstr ""
 
+#, python-format
+msgid "Każdy trening to %(word)s."
+msgstr ""
+
+msgid "Każdy trening to commit."
+msgstr ""
+
 msgid "Klatka"
 msgstr ""
 
 msgid "Klatka (cm)"
+msgstr ""
+
+msgid "Konto demonstracyjne z danymi z 12 tygodni"
 msgstr ""
 
 msgid "Konto demonstracyjne:"
@@ -348,6 +380,10 @@ msgid "Liczba treningów w tygodniu"
 msgstr ""
 
 msgid "Login"
+msgstr ""
+
+#, python-format
+msgid "Login %(user)s, hasło %(pw)s – albo załóż własne konto."
 msgstr ""
 
 msgid "Login musi mieć od 3 do 32 znaków."
@@ -372,10 +408,10 @@ msgstr ""
 msgid "Maksymalny ciężar i szacowany 1RM (wzór Epleya) wykrywane automatycznie."
 msgstr ""
 
-msgid "Mam już konto"
+msgid "Mapa mięśni"
 msgstr ""
 
-msgid "Mapa mięśni"
+msgid "Martwy ciąg, Podciąganie na drążku"
 msgstr ""
 
 msgid "Masa"
@@ -516,6 +552,9 @@ msgstr ""
 msgid "Nowy rekord! %(exercise)s – %(kind)s: %(value)s kg"
 msgstr ""
 
+msgid "Nowy rekord: przysiad ze sztangą"
+msgstr ""
+
 msgid "Nowy trening"
 msgstr ""
 
@@ -591,6 +630,9 @@ msgstr ""
 msgid "Podaj serie, np. 5x100."
 msgstr ""
 
+msgid "Podsumowanie"
+msgstr ""
+
 msgid "Pokaż"
 msgstr ""
 
@@ -607,6 +649,9 @@ msgid "Pomocnicze:"
 msgstr ""
 
 msgid "Pon"
+msgstr ""
+
+msgid "Pon – klatka i barki"
 msgstr ""
 
 msgid "Poniedziałek"
@@ -651,6 +696,9 @@ msgstr ""
 msgid "Progresja ćwiczenia"
 msgstr ""
 
+msgid "Przejdź do treści"
+msgstr ""
+
 msgid "Przełącz motyw"
 msgstr ""
 
@@ -661,10 +709,19 @@ msgstr ""
 msgid "Prześlesz tutaj plik %(zip)s (lub %(xml)s)."
 msgstr ""
 
+msgid "Przykładowy dziennik treningów"
+msgstr ""
+
+msgid "Przysiad ze sztangą, Wykroki z hantlami"
+msgstr ""
+
 msgid "Przód"
 msgstr ""
 
 msgid "Pt"
+msgstr ""
+
+msgid "Pt – plecy"
 msgstr ""
 
 msgid "Pulpit"
@@ -769,6 +826,9 @@ msgstr ""
 msgid "Szukaj"
 msgstr ""
 
+msgid "Szukaj ćwiczenia…"
+msgstr ""
+
 msgid "Talia"
 msgstr ""
 
@@ -813,14 +873,6 @@ msgstr ""
 
 #, python-format
 msgid "Trening %(date)s"
-msgstr ""
-
-msgid ""
-"Trening to prosty dziennik siłowni: plany tygodniowe, zapis serii i ciężarów, automatyczne wykrywanie rekordów "
-"osobistych oraz wykresy postępów i masy ciała."
-msgstr ""
-
-msgid "Trening – planowanie i monitorowanie treningu siłowego"
 msgstr ""
 
 msgid "Treningi"
@@ -913,6 +965,9 @@ msgstr ""
 msgid "Witaj, %(name)s!"
 msgstr ""
 
+msgid "Wpisz więcej liter, aby zawęzić listę."
+msgstr ""
+
 msgid "Wróć"
 msgstr ""
 
@@ -941,6 +996,9 @@ msgid "Wtorek"
 msgstr ""
 
 msgid "Wybierz ćwiczenie."
+msgstr ""
+
+msgid "Wyciskanie sztangi leżąc, Wyciskanie żołnierskie"
 msgstr ""
 
 msgid "Wyczyść"
@@ -975,6 +1033,9 @@ msgstr ""
 msgid "Zaangażowane mięśnie"
 msgstr ""
 
+msgid "Zalogowano jako"
+msgstr ""
+
 msgid "Zaloguj"
 msgstr ""
 
@@ -997,6 +1058,11 @@ msgid "Zapisano trening."
 msgstr ""
 
 msgid "Zapisano zmiany."
+msgstr ""
+
+msgid ""
+"Zapisany trening trafia do historii z datą, seriami i objętością. Z tej historii BodyCommit liczy rekordy, realizację"
+" planu tygodnia i trendy."
 msgstr ""
 
 msgid "Zapisz"
@@ -1060,6 +1126,9 @@ msgstr ""
 msgid "dowolny"
 msgstr ""
 
+msgid "dwie wersje językowe"
+msgstr ""
+
 msgid "dwugłowe uda"
 msgstr ""
 
@@ -1085,6 +1154,9 @@ msgid "kettlebell"
 msgstr ""
 
 msgid "klatka piersiowa"
+msgstr ""
+
+msgid "liczony wzorem Epleya"
 msgstr ""
 
 msgid "masa ciała"
@@ -1141,6 +1213,9 @@ msgstr ""
 msgid "podnoszenie ciężarów"
 msgstr ""
 
+msgid "pominięty"
+msgstr ""
+
 msgid "pomocnicze"
 msgstr ""
 
@@ -1176,6 +1251,9 @@ msgstr ""
 
 #, python-format
 msgid "strona %(page)s z %(pages)s"
+msgstr ""
+
+msgid "strona główna"
 msgstr ""
 
 msgid "strongman"
@@ -1232,6 +1310,9 @@ msgstr ""
 msgid "zobacz"
 msgstr ""
 
+msgid "zrobione"
+msgstr ""
+
 msgid "Ćwiczenia"
 msgstr ""
 
@@ -1244,10 +1325,16 @@ msgstr ""
 msgid "Ćwiczenie o tej nazwie już istnieje."
 msgstr ""
 
+msgid "ćwiczeń ze zdjęciami i mapą mięśni"
+msgstr ""
+
 msgid "łydki"
 msgstr ""
 
 msgid "Śr"
+msgstr ""
+
+msgid "Śr – nogi"
 msgstr ""
 
 msgid "Środa"

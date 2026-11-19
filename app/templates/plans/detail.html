@@ -1,7 +1,8 @@
 {% extends "base.html" %}
-{% from "_macros.html" import delete_button, kg %}
+{% from "_macros.html" import delete_button, kg, icon %}
 {% block title %}{{ plan.name }}{% endblock %}
 {% block content %}
+<p class="breadcrumb"><a class="back-link" href="{{ url_for('plans.index') }}">{{ icon("arrow-left") }}{{ _('Wszystkie plany') }}</a></p>
 <div class="page-head">
   <div>
     <h1>{{ plan.name }}</h1>
@@ -12,7 +13,7 @@
     {% if plan.description %}<p class="subtitle">{{ plan.description }}</p>{% endif %}
   </div>
   <div class="actions">
-    <a class="btn btn-secondary" href="{{ url_for('plans.edit', plan_id=plan.id) }}">{{ _('Edytuj') }}</a>
+    <a class="btn btn-secondary" href="{{ url_for('plans.edit', plan_id=plan.id) }}">{{ icon("edit") }}{{ _('Edytuj') }}</a>
     {{ delete_button(url_for('plans.delete', plan_id=plan.id), delete_form, _("Usuń plan"), _("Usunąć plan wraz ze wszystkimi dniami?")) }}
   </div>
 </div>
@@ -28,17 +29,17 @@
     <ul>
       {% for pe in day.exercises %}
       <li>
-        <span>{{ pe.exercise.display_name }}<br><span class="target">{{ pe.target_sets }} × {{ pe.target_reps }}{% if pe.target_weight %} × {{ kg(pe.target_weight) }} kg{% endif %}</span></span>
+        <span>{{ pe.exercise.display_name }}<span class="target">{{ pe.target_sets }} × {{ pe.target_reps }}{% if pe.target_weight %} × {{ kg(pe.target_weight) }} kg{% endif %}</span></span>
         {{ delete_button(url_for('plans.delete_exercise', item_id=pe.id), delete_form, "×", _("Usunąć ćwiczenie z dnia?")) }}
       </li>
       {% endfor %}
     </ul>
     {% else %}<p class="muted small">{{ _('Brak ćwiczeń – dodaj pierwsze poniżej.') }}</p>{% endif %}
     <details class="add-box">
-      <summary>+ {{ _('Dodaj ćwiczenie') }}</summary>
+      <summary>{{ icon("plus") }}{{ _('Dodaj ćwiczenie') }}</summary>
       <form method="post" action="{{ url_for('plans.add_exercise', day_id=day.id) }}">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <div class="field">{{ exercise_form.exercise_id.label(for="ex-" ~ day.id) }}{{ exercise_form.exercise_id(id="ex-" ~ day.id) }}</div>
+        <div class="field">{{ exercise_form.exercise_id.label(for="ex-" ~ day.id) }}{{ exercise_form.exercise_id(id="ex-" ~ day.id, **{"data-exercise-picker": "1"}) }}</div>
         <div class="form-row">
           <div class="field">{{ exercise_form.target_sets.label(for="ts-" ~ day.id) }}{{ exercise_form.target_sets(id="ts-" ~ day.id, type="number", min=1, max=20) }}</div>
           <div class="field">{{ exercise_form.target_reps.label(for="tr-" ~ day.id) }}{{ exercise_form.target_reps(id="tr-" ~ day.id, type="number", min=1, max=100) }}</div>
@@ -47,19 +48,18 @@
         {{ exercise_form.submit(class_="btn btn-sm", id="add-ex-" ~ day.id) }}
       </form>
     </details>
-    <div class="mt"><a class="btn btn-secondary btn-sm btn-block" href="{{ url_for('workouts.create', plan_day=day.id) }}">{{ _('Zapisz trening z tego dnia') }}</a></div>
+    <div class="mt"><a class="btn btn-sm btn-block" href="{{ url_for('workouts.create', plan_day=day.id) }}">{{ icon("plus") }}{{ _('Zapisz trening z tego dnia') }}</a></div>
   </div>
   {% endfor %}
 
-  <div class="card">
+  <div class="card card-new">
     <h3>{{ _('Nowy dzień treningowy') }}</h3>
     <form method="post" action="{{ url_for('plans.add_day', plan_id=plan.id) }}">
       {{ day_form.hidden_tag() }}
       <div class="field">{{ day_form.weekday.label() }}{{ day_form.weekday() }}</div>
       <div class="field">{{ day_form.name.label() }}{{ day_form.name() }}</div>
-      {{ day_form.submit(class_="btn") }}
+      {{ day_form.submit(class_="btn btn-secondary") }}
     </form>
   </div>
 </div>
-<p class="mt"><a href="{{ url_for('plans.index') }}">← {{ _('Wszystkie plany') }}</a></p>
 {% endblock %}

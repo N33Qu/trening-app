@@ -5,6 +5,7 @@ from flask import Blueprint, render_template, request
 from flask_login import current_user, login_required
 from sqlalchemy import func, select
 
+from .. import library
 from ..extensions import db
 from ..models import (
     BodyMeasurement,
@@ -114,7 +115,7 @@ def default_exercise(user_id, exercises):
 @bp.get("/")
 def dashboard():
     if not current_user.is_authenticated:
-        return render_template("landing.html")
+        return render_template("landing.html", library_count=len(library.entries()))
     uid = current_user.id
     today = date.today()
     ws = week_start(today)
@@ -132,6 +133,10 @@ def dashboard():
     recent = db.session.execute(
         select(Workout).where(Workout.user_id == uid).order_by(Workout.date.desc(), Workout.id.desc()).limit(5)
     ).scalars().all()
+    pr_workouts = set(db.session.execute(
+        select(PersonalRecord.workout_id)
+        .where(PersonalRecord.user_id == uid, PersonalRecord.workout_id.in_([w.id for w in recent]))
+    ).scalars().all())
     recent_records = db.session.execute(
         select(PersonalRecord).where(PersonalRecord.user_id == uid)
         .order_by(PersonalRecord.achieved_on.desc(), PersonalRecord.id.desc()).limit(5)
@@ -144,6 +149,7 @@ def dashboard():
         total_records=total_records,
         last_body=last_body,
         recent=recent,
+        pr_workouts=pr_workouts,
         recent_records=recent_records,
         completion=plan_completion(uid, today),
         charts=charts,

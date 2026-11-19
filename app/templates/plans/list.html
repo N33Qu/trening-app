@@ -1,9 +1,10 @@
 {% extends "base.html" %}
+{% from "_macros.html" import icon %}
 {% block title %}{{ _('Plany') }}{% endblock %}
 {% block content %}
 <div class="page-head">
   <div><h1>{{ _('Plany treningowe') }}</h1><p class="subtitle">{{ _('Aktywne plany liczą się do realizacji tygodnia.') }}</p></div>
-  <a class="btn" href="{{ url_for('plans.create') }}">+ {{ _('Nowy plan') }}</a>
+  <a class="btn" href="{{ url_for('plans.create') }}">{{ icon("plus") }}{{ _('Nowy plan') }}</a>
 </div>
 {% if plans %}
 <div class="list-cards">
@@ -14,15 +15,15 @@
       <div class="meta">
         {% if plan.is_active %}<span class="badge badge-success">{{ _('aktywny') }}</span>{% else %}<span class="badge">{{ _('nieaktywny') }}</span>{% endif %}
         <span>{{ ngettext('%(num)s dzień', '%(num)s dni', plan.days|length) }}</span>
-        {% for d in plan.days %}<span class="badge badge-accent">{{ d.weekday_short }}</span>{% endfor %}
+        {% if plan.days %}<span class="sep" aria-hidden="true">·</span><span>{{ plan.days|map(attribute='weekday_short')|join(', ') }}</span>{% endif %}
       </div>
       {% if plan.description %}<p class="muted small mt">{{ plan.description }}</p>{% endif %}
     </div>
-    <a class="btn btn-secondary btn-sm" href="{{ url_for('plans.detail', plan_id=plan.id) }}">{{ _('Otwórz') }}</a>
+    <a class="btn btn-secondary btn-sm" href="{{ url_for('plans.detail', plan_id=plan.id) }}">{{ _('Otwórz') }}{{ icon("arrow-right") }}</a>
   </div>
   {% endfor %}
 </div>
 {% else %}
-<div class="card empty"><p>{{ _('Nie masz jeszcze planu treningowego.') }}</p><a class="btn" href="{{ url_for('plans.create') }}">{{ _('Utwórz pierwszy plan') }}</a></div>
+<div class="card empty"><span class="empty-icon">{{ icon("calendar") }}</span><p>{{ _('Nie masz jeszcze planu treningowego.') }}</p><a class="btn" href="{{ url_for('plans.create') }}">{{ _('Utwórz pierwszy plan') }}</a></div>
 {% endif %}
 {% endblock %}

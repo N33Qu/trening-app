@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_macros.html" import field %}
+{% from "_macros.html" import field, icon %}
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
 <div class="page-head"><h1>{{ title }}</h1></div>
@@ -11,12 +11,12 @@
   </div>
   {{ field(form.notes, rows=2, placeholder=_("Samopoczucie, technika, uwagi…")) }}
 
-  <h2 class="mt">{{ _('Ćwiczenia') }}</h2>
-  <div class="format-hint">
+  <h2 class="form-section">{{ _('Ćwiczenia') }}</h2>
+  <div class="format-hint">{{ icon("info") }}<div>
     {{ _('Serie wpisuj jako %(fmt)s oddzielone przecinkami, np. %(example)s.', fmt='<code>%s</code>'|format(_('powtórzenia x ciężar'))|safe, example='<code>5x100, 5x100, 3x105</code>'|safe) }}
     {{ _('Skrót %(short)s oznacza 3 serie po 5 powtórzeń ze 100 kg. Ćwiczenia z masą ciała: %(bw)s.', short='<code>3x5x100</code>'|safe, bw='<code>10, 8, 8</code>'|safe) }}
     {{ _('Dla cardio podaj dystans i/lub czas.') }}
-  </div>
+  </div></div>
   <div class="entries" data-entries data-cardio="{{ cardio_ids|list|tojson|forceescape }}">
     {% for sub in form.entries %}
     <div class="entry-row">
@@ -40,11 +40,11 @@
         {{ sub.duration_min(type="number", step="0.1", min="0", inputmode="decimal") }}
         {% if sub.duration_min.errors %}<ul class="errors">{% for e in sub.duration_min.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
       </div>
-      <button type="button" class="btn btn-ghost btn-sm remove-row" data-remove-row aria-label="{{ _('Usuń wiersz') }}">✕</button>
+      <button type="button" class="btn btn-ghost btn-sm remove-row" data-remove-row aria-label="{{ _('Usuń wiersz') }}" title="{{ _('Usuń wiersz') }}">{{ icon("trash") }}</button>
     </div>
     {% endfor %}
   </div>
-  <button type="button" class="btn btn-secondary btn-sm mt" data-add-row>+ {{ _('Dodaj ćwiczenie') }}</button>
+  <button type="button" class="btn btn-secondary btn-sm mt" data-add-row>{{ icon("plus") }}{{ _('Dodaj ćwiczenie') }}</button>
 
   <div class="form-actions">
     {{ form.submit(class_="btn") }}

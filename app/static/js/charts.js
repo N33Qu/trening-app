@@ -30,26 +30,40 @@
     return p[2] + "." + p[1];
   }
 
+  var reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   function lineDataset(label, values, color, fill) {
     return {
-      label: label, data: values, borderColor: color, backgroundColor: fill ? alpha(color, 0.15) : color,
-      fill: !!fill, tension: 0.3, pointRadius: 3, pointHoverRadius: 6, borderWidth: 2.5, spanGaps: true
+      label: label, data: values, borderColor: color, backgroundColor: fill ? alpha(color, 0.14) : color,
+      fill: !!fill, tension: 0.32, pointRadius: 0, pointHitRadius: 12, pointHoverRadius: 5,
+      pointBackgroundColor: color, pointHoverBorderColor: css("--surface"), pointHoverBorderWidth: 2,
+      borderWidth: 2.5, spanGaps: true
     };
   }
 
+  function solo(cfg) { cfg.options.plugins.legend.display = false; return cfg; }
+
   function baseOptions(unit) {
-    var text = css("--text-muted");
-    var grid = css("--border");
+    var text = css("--chart-text");
+    var grid = css("--chart-grid");
+    var font = css("--font-ui") || "system-ui";
     return {
-      responsive: true, maintainAspectRatio: false, animation: { duration: 400 },
+      responsive: true, maintainAspectRatio: false,
+      animation: reduced ? false : { duration: 500, easing: "easeOutQuart" },
       interaction: { mode: "index", intersect: false },
+      layout: { padding: { top: 4 } },
       plugins: {
-        legend: { labels: { color: text, boxWidth: 12, usePointStyle: true } },
-        tooltip: { callbacks: { label: function (ctx) { return ctx.dataset.label + ": " + ctx.parsed.y + (unit ? " " + unit : ""); } } }
+        legend: { labels: { color: text, boxWidth: 10, boxHeight: 10, usePointStyle: true, font: { family: font, size: 12 } } },
+        tooltip: {
+          backgroundColor: css("--chart-tip-bg"), titleColor: css("--chart-tip-ink"), bodyColor: css("--chart-tip-ink"),
+          borderColor: "transparent", padding: 10, cornerRadius: 6, displayColors: false,
+          titleFont: { family: font, size: 12, weight: "600" }, bodyFont: { family: font, size: 13, weight: "700" },
+          callbacks: { label: function (ctx) { return ctx.dataset.label + ": " + ctx.parsed.y + (unit ? " " + unit : ""); } }
+        }
       },
       scales: {
-        x: { ticks: { color: text, maxRotation: 0, autoSkip: true }, grid: { color: grid, display: false } },
-        y: { ticks: { color: text }, grid: { color: grid }, beginAtZero: false }
+        x: { ticks: { color: text, maxRotation: 0, autoSkip: true, font: { family: font, size: 11 } }, grid: { display: false }, border: { color: grid } },
+        y: { ticks: { color: text, font: { family: font, size: 11 }, padding: 6 }, grid: { color: grid }, border: { display: false }, beginAtZero: false }
       }
     };
   }
@@ -61,36 +75,36 @@
       opts.scales.y.beginAtZero = true;
       opts.scales.y.ticks.stepSize = 1;
       opts.plugins.legend.display = false;
-      return { type: "bar", data: { labels: d.labels.map(fmtDate), datasets: [{ label: t.workouts || "Treningi", data: d.values, backgroundColor: css("--accent"), borderRadius: 6, maxBarThickness: 36 }] }, options: opts };
+      return { type: "bar", data: { labels: d.labels.map(fmtDate), datasets: [{ label: t.workouts || "Treningi", data: d.values, backgroundColor: d.values.map(function (_, i) { return i === d.values.length - 1 ? css("--chart-hi") : css("--chart-bar"); }), borderRadius: 6, borderSkipped: false, maxBarThickness: 24 }] }, options: opts };
     },
     bodyWeight: function () {
       var d = data.bodyWeight; if (!d || !d.values.length) { return null; }
       var opts = baseOptions("kg");
       opts.plugins.legend.display = false;
-      return { type: "line", data: { labels: d.labels.map(fmtDate), datasets: [lineDataset(t.bodyWeight || "Masa ciała", d.values, css("--info"), true)] }, options: opts };
+      return { type: "line", data: { labels: d.labels.map(fmtDate), datasets: [lineDataset(t.bodyWeight || "Masa ciała", d.values, css("--chart-2"), true)] }, options: opts };
     },
     progress: function () {
       var d = data.progress; if (!d || !d.labels.length) { return null; }
       var labels = d.labels.map(fmtDate);
       if (data.cardio) {
-        return { type: "line", data: { labels: labels, datasets: [lineDataset(t.distance || "Dystans (km)", d.distance, css("--accent"), true)] }, options: baseOptions("km") };
+        return solo({ type: "line", data: { labels: labels, datasets: [lineDataset(t.distance || "Dystans (km)", d.distance, css("--chart-1"), true)] }, options: baseOptions("km") });
       }
-      return { type: "line", data: { labels: labels, datasets: [lineDataset(t.maxWeight || "Maks. ciężar (kg)", d.max_weight, css("--accent"), true)] }, options: baseOptions("kg") };
+      return solo({ type: "line", data: { labels: labels, datasets: [lineDataset(t.maxWeight || "Maks. ciężar (kg)", d.max_weight, css("--chart-1"), true)] }, options: baseOptions("kg") });
     },
     e1rm: function () {
       var d = data.progress; if (!d || !d.labels.length) { return null; }
       var labels = d.labels.map(fmtDate);
       if (data.cardio) {
-        return { type: "line", data: { labels: labels, datasets: [lineDataset(t.duration || "Czas (min)", d.duration, css("--info"), false)] }, options: baseOptions("min") };
+        return solo({ type: "line", data: { labels: labels, datasets: [lineDataset(t.duration || "Czas (min)", d.duration, css("--chart-2"), false)] }, options: baseOptions("min") });
       }
-      return { type: "line", data: { labels: labels, datasets: [lineDataset(t.e1rm || "Szacowany 1RM (kg)", d.e1rm, css("--success"), false)] }, options: baseOptions("kg") };
+      return solo({ type: "line", data: { labels: labels, datasets: [lineDataset(t.e1rm || "Szacowany 1RM (kg)", d.e1rm, css("--chart-2"), false)] }, options: baseOptions("kg") });
     },
     volume: function () {
       var d = data.progress; if (!d || !d.labels.length || data.cardio) { return null; }
       var opts = baseOptions("kg");
       opts.scales.y.beginAtZero = true;
       opts.plugins.legend.display = false;
-      return { type: "bar", data: { labels: d.labels.map(fmtDate), datasets: [{ label: t.volume || "Objętość", data: d.volume, backgroundColor: alpha(css("--accent"), 0.7), borderRadius: 5, maxBarThickness: 28 }] }, options: opts };
+      return { type: "bar", data: { labels: d.labels.map(fmtDate), datasets: [{ label: t.volume || "Objętość", data: d.volume, backgroundColor: alpha(css("--chart-2"), 0.8), hoverBackgroundColor: css("--chart-2"), borderRadius: 6, borderSkipped: false, maxBarThickness: 24 }] }, options: opts };
     }
   };
 
@@ -104,7 +118,8 @@
     });
   }
 
-  Chart.defaults.font.family = css("--font") || "system-ui";
+  Chart.defaults.font.family = css("--font-ui") || "system-ui";
+  Chart.defaults.locale = t.lang === "pl" ? "pl-PL" : (t.lang || "en");
   render();
   document.addEventListener("themechange", render);
 })();

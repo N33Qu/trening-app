@@ -1,23 +1,24 @@
 {% extends "base.html" %}
+{% from "_macros.html" import icon %}
 {% block title %}{{ _('Treningi') }}{% endblock %}
 {% block content %}
 <div class="page-head">
   <div><h1>{{ _('Dziennik treningów') }}</h1><p class="subtitle">{{ ngettext('%(num)s zapisany trening.', '%(num)s zapisanych treningów.', total) }}</p></div>
-  <a class="btn" href="{{ url_for('workouts.create') }}">+ {{ _('Nowy trening') }}</a>
+  <a class="btn" href="{{ url_for('workouts.create') }}">{{ icon("plus") }}{{ _('Nowy trening') }}</a>
 </div>
 {% if workouts %}
 <div class="card">
-  <div class="table-wrap"><table>
+  <div class="table-wrap"><table class="log-table">
     <thead><tr><th>{{ _('Data') }}</th><th>{{ _('Dzień planu') }}</th><th>{{ _('Ćwiczenia') }}</th><th class="num">{{ _('Serie') }}</th><th class="num">{{ _('Objętość') }}</th><th></th></tr></thead>
     <tbody>
     {% for w in workouts %}
-    <tr>
-      <td class="nowrap"><a href="{{ url_for('workouts.detail', workout_id=w.id) }}"><strong>{{ w.date|day }}</strong></a></td>
-      <td>{{ w.plan_day.name if w.plan_day else '–' }}</td>
-      <td>{{ w.entries|map(attribute='exercise.display_name')|join(', ') }}</td>
-      <td class="num">{{ w.total_sets }}</td>
-      <td class="num nowrap">{{ '{:,.0f}'.format(w.total_volume).replace(',', ' ') }} kg</td>
-      <td class="num">{% if pr_counts.get(w.id) %}<span class="badge badge-accent" title="{{ _('Rekordy z tego treningu') }}">PR × {{ pr_counts[w.id] }}</span>{% endif %}</td>
+    <tr{% if pr_counts.get(w.id) %} class="has-pr"{% endif %}>
+      <td class="commit-cell"><a href="{{ url_for('workouts.detail', workout_id=w.id) }}">{{ w.date|day }}</a></td>
+      <td class="col-plan">{{ w.plan_day.name if w.plan_day else '–' }}</td>
+      <td class="cell-ex">{{ w.entries|map(attribute='exercise.display_name')|join(', ') }}</td>
+      <td class="num col-sets"><span class="d-only">{{ w.total_sets }}</span><span class="m-only">{{ ngettext('%(num)s seria', '%(num)s serii', w.total_sets) }}</span></td>
+      <td class="num nowrap col-vol">{{ '{:,.0f}'.format(w.total_volume).replace(',', ' ') }} kg</td>
+      <td class="num col-pr">{% if pr_counts.get(w.id) %}<span class="pr-note" title="{{ _('Rekordy z tego treningu') }}">{{ icon("trophy") }}{{ pr_counts[w.id] }}</span>{% endif %}</td>
     </tr>
     {% endfor %}
     </tbody>
@@ -25,12 +26,12 @@
 </div>
 {% if pages > 1 %}
 <nav class="pagination" aria-label="{{ _('Strony') }}">
-  {% if page > 1 %}<a class="btn btn-secondary btn-sm" href="{{ url_for('workouts.index', page=page - 1) }}">← {{ _('Nowsze') }}</a>{% endif %}
+  {% if page > 1 %}<a class="btn btn-secondary btn-sm" href="{{ url_for('workouts.index', page=page - 1) }}">{{ icon("arrow-left") }}{{ _('Nowsze') }}</a>{% endif %}
   <span class="muted small">{{ _('Strona %(page)s z %(pages)s', page=page, pages=pages) }}</span>
-  {% if page < pages %}<a class="btn btn-secondary btn-sm" href="{{ url_for('workouts.index', page=page + 1) }}">{{ _('Starsze') }} →</a>{% endif %}
+  {% if page < pages %}<a class="btn btn-secondary btn-sm" href="{{ url_for('workouts.index', page=page + 1) }}">{{ _('Starsze') }}{{ icon("arrow-right") }}</a>{% endif %}
 </nav>
 {% endif %}
 {% else %}
-<div class="card empty"><p>{{ _('Nie masz jeszcze żadnych treningów.') }}</p><a class="btn" href="{{ url_for('workouts.create') }}">{{ _('Zapisz pierwszy trening') }}</a></div>
+<div class="card empty"><span class="empty-icon">{{ icon("log") }}</span><p>{{ _('Nie masz jeszcze żadnych treningów.') }}</p><a class="btn" href="{{ url_for('workouts.create') }}">{{ _('Zapisz pierwszy trening') }}</a></div>
 {% endif %}
 {% endblock %}

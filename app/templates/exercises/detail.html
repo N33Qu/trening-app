@@ -3,7 +3,7 @@
 {% from "exercises/_muscle_map.html" import muscle_map %}
 {% block title %}{{ exercise.display_name }}{% endblock %}
 {% block content %}
-<p class="breadcrumb small"><a href="{{ url_for('exercises.index') }}">← {{ _('Biblioteka ćwiczeń') }}</a></p>
+<p class="breadcrumb"><a class="back-link" href="{{ url_for('exercises.index') }}">{{ icon("arrow-left") }}{{ _('Biblioteka ćwiczeń') }}</a></p>
 <div class="page-head">
   <div>
     <h1>{{ exercise.display_name }}</h1>
@@ -12,7 +12,7 @@
       {% for label in entry.secondary_labels %}<span class="chip chip-soft">{{ label }}</span>{% endfor %}
     </div>
   </div>
-  <a class="btn" href="{{ url_for('workouts.create', exercise=exercise.id) }}">+ {{ _('Dodaj do treningu') }}</a>
+  <a class="btn" href="{{ url_for('workouts.create', exercise=exercise.id) }}">{{ icon("plus") }}{{ _('Dodaj do treningu') }}</a>
 </div>
 
 <div class="exercise-detail">
@@ -24,7 +24,7 @@
         <img class="frame frame-{{ loop.index0 }}" src="{{ url_for('static', filename=img) }}" width="{{ entry.data.image_size[0] }}" height="{{ entry.data.image_size[1] }}" alt="{{ _('Pozycja wyjściowa') if loop.first else _('Pozycja końcowa') }}: {{ exercise.display_name }}"{% if not loop.first %} loading="lazy"{% endif %}>
         {% endfor %}
       </div>
-      {% if entry.images|length > 1 %}<figcaption class="muted small"><span>{{ _('Pozycja wyjściowa') }}</span><span aria-hidden="true">→</span><span>{{ _('Pozycja końcowa') }}</span></figcaption>{% endif %}
+      {% if entry.images|length > 1 %}<figcaption class="muted small"><span>{{ _('Pozycja wyjściowa') }}</span><span aria-hidden="true">{{ icon("arrow-right") }}</span><span>{{ _('Pozycja końcowa') }}</span></figcaption>{% endif %}
     </figure>
     {% else %}
     <div class="exercise-thumb exercise-thumb-lg"><span class="thumb-placeholder">{{ icon("dumbbell") }}</span></div>
@@ -60,7 +60,7 @@
     </div>
 
     <div class="card">
-      <div class="card-head"><h2>{{ _('Twoja historia') }}</h2>{% if sessions %}<span class="badge">{{ ngettext('%(num)s sesja', '%(num)s sesji', sessions) }}</span>{% endif %}</div>
+      <div class="card-head"><h2>{{ _('Twoja historia') }}</h2>{% if sessions %}<span class="muted small">{{ ngettext('%(num)s sesja', '%(num)s sesji', sessions) }}</span>{% endif %}</div>
       {% if history %}
       {% if best[PR_MAX_WEIGHT] or best[PR_E1RM] %}
       <div class="pr-pair">
@@ -78,7 +78,7 @@
         {% endfor %}
       </ul>
       <div class="actions mt">
-        <a class="btn btn-secondary btn-sm" href="{{ url_for('stats.index', exercise=exercise.id) }}">{{ _('Wykres progresji') }}</a>
+        <a class="btn btn-secondary btn-sm" href="{{ url_for('stats.index', exercise=exercise.id) }}">{{ icon("chart") }}{{ _('Wykres progresji') }}</a>
         {% if not exercise.is_cardio %}<a class="btn btn-ghost btn-sm" href="{{ url_for('records.history', exercise_id=exercise.id) }}">{{ _('Historia rekordów') }}</a>{% endif %}
       </div>
       {% else %}

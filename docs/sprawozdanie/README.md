@@ -1,6 +1,6 @@
 # Sprawozdanie z realizacji testów
 
-System: **Trening** (Flask + PostgreSQL) wdrożony na Kubernetes metodą GitOps.
+System: **BodyCommit** (Flask + PostgreSQL) wdrożony na Kubernetes metodą GitOps.
 Data wykonania: 2026-11-13. Autorzy: Mikołaj Stasz, Ewelina Sałata.
 
 ## Podsumowanie

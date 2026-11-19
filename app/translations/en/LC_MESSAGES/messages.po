@@ -1,9 +1,9 @@
-# Trening – English translations.
+# BodyCommit – English translations.
 msgid ""
 msgstr ""
 "Project-Id-Version: trening VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-11-18 13:23+0100\n"
+"POT-Creation-Date: 2026-11-19 08:27+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -67,8 +67,17 @@ msgstr[1] "%(num)s exercises"
 msgid "%(volume)s kg objętości"
 msgstr "%(volume)s kg volume"
 
+msgid "11 serii"
+msgstr "11 sets"
+
+msgid "14 serii"
+msgstr "14 sets"
+
 msgid "3–32 znaki: litery, cyfry, _ . -"
 msgstr "3–32 characters: letters, digits, _ . -"
+
+msgid "8 serii"
+msgstr "8 sets"
 
 msgid "Aktywne plany liczą się do realizacji tygodnia."
 msgstr "Active plans count towards weekly completion."
@@ -86,6 +95,13 @@ msgstr "Exercise library"
 msgid "Bij rekordy."
 msgstr "Break records."
 
+#, python-format
+msgid "BodyCommit zapisuje serie w formacie %(fmt)s, sam wykrywa rekordy osobiste i rysuje wykresy postępów oraz masy ciała."
+msgstr "BodyCommit logs sets as %(fmt)s, detects personal records on its own and charts your progress and body weight."
+
+msgid "BodyCommit – dziennik treningu siłowego: plany, serie, rekordy osobiste i postępy."
+msgstr "BodyCommit – a strength training log: plans, sets, personal records and progress."
+
 msgid "Brak aktywnego planu z dniami treningowymi."
 msgstr "No active plan with training days."
 
@@ -94,6 +110,9 @@ msgstr "No chart data yet – log a few workouts."
 
 msgid "Brak dostępu"
 msgstr "Access denied"
+
+msgid "Brak pasujących ćwiczeń."
+msgstr "No matching exercises."
 
 msgid "Brak pomiarów masy ciała."
 msgstr "No body weight measurements."
@@ -216,6 +235,9 @@ msgstr "Distance km"
 msgid "Dziennik"
 msgstr "Log"
 
+msgid "Dziennik treningu siłowego."
+msgstr "Strength training log."
+
 msgid "Dziennik treningów"
 msgstr "Workout log"
 
@@ -317,11 +339,21 @@ msgstr "Language"
 msgid "Kategoria"
 msgstr "Category"
 
+#, python-format
+msgid "Każdy trening to %(word)s."
+msgstr "Every workout is a %(word)s."
+
+msgid "Każdy trening to commit."
+msgstr "Every workout is a commit."
+
 msgid "Klatka"
 msgstr "Chest"
 
 msgid "Klatka (cm)"
 msgstr "Chest (cm)"
+
+msgid "Konto demonstracyjne z danymi z 12 tygodni"
+msgstr "Demo account with 12 weeks of data"
 
 msgid "Konto demonstracyjne:"
 msgstr "Demo account:"
@@ -340,6 +372,10 @@ msgstr "Workouts per week"
 
 msgid "Login"
 msgstr "Username"
+
+#, python-format
+msgid "Login %(user)s, hasło %(pw)s – albo załóż własne konto."
+msgstr "Username %(user)s, password %(pw)s – or create your own account."
 
 msgid "Login musi mieć od 3 do 32 znaków."
 msgstr "Username must be 3 to 32 characters long."
@@ -363,11 +399,11 @@ msgstr "Max weight"
 msgid "Maksymalny ciężar i szacowany 1RM (wzór Epleya) wykrywane automatycznie."
 msgstr "Max weight and estimated 1RM (Epley formula) detected automatically."
 
-msgid "Mam już konto"
-msgstr "I already have an account"
-
 msgid "Mapa mięśni"
 msgstr "Muscle map"
+
+msgid "Martwy ciąg, Podciąganie na drążku"
+msgstr "Deadlift, Pull-up"
 
 msgid "Masa"
 msgstr "Weight"
@@ -507,6 +543,9 @@ msgstr "New measurement"
 msgid "Nowy rekord! %(exercise)s – %(kind)s: %(value)s kg"
 msgstr "New record! %(exercise)s – %(kind)s: %(value)s kg"
 
+msgid "Nowy rekord: przysiad ze sztangą"
+msgstr "New record: barbell back squat"
+
 msgid "Nowy trening"
 msgstr "New workout"
 
@@ -582,6 +621,9 @@ msgstr "Enter distance or time."
 msgid "Podaj serie, np. 5x100."
 msgstr "Enter sets, e.g. 5x100."
 
+msgid "Podsumowanie"
+msgstr "Summary"
+
 msgid "Pokaż"
 msgstr "Show"
 
@@ -599,6 +641,9 @@ msgstr "Secondary:"
 
 msgid "Pon"
 msgstr "Mon"
+
+msgid "Pon – klatka i barki"
+msgstr "Mon – chest & shoulders"
 
 msgid "Poniedziałek"
 msgstr "Monday"
@@ -642,6 +687,9 @@ msgstr "Weight progression, estimated 1RM and training consistency."
 msgid "Progresja ćwiczenia"
 msgstr "Exercise progression"
 
+msgid "Przejdź do treści"
+msgstr "Skip to content"
+
 msgid "Przełącz motyw"
 msgstr "Toggle theme"
 
@@ -652,11 +700,20 @@ msgstr "Toggle light/dark theme"
 msgid "Prześlesz tutaj plik %(zip)s (lub %(xml)s)."
 msgstr "You will upload the %(zip)s file (or %(xml)s) here."
 
+msgid "Przykładowy dziennik treningów"
+msgstr "Sample workout log"
+
+msgid "Przysiad ze sztangą, Wykroki z hantlami"
+msgstr "Barbell back squat, Dumbbell lunges"
+
 msgid "Przód"
 msgstr "Front"
 
 msgid "Pt"
 msgstr "Fri"
+
+msgid "Pt – plecy"
+msgstr "Fri – back"
 
 msgid "Pulpit"
 msgstr "Dashboard"
@@ -760,6 +817,9 @@ msgstr "Estimated 1RM (kg)"
 msgid "Szukaj"
 msgstr "Search"
 
+msgid "Szukaj ćwiczenia…"
+msgstr "Search exercises…"
+
 msgid "Talia"
 msgstr "Waist"
 
@@ -805,16 +865,6 @@ msgstr "Workout"
 #, python-format
 msgid "Trening %(date)s"
 msgstr "Workout %(date)s"
-
-msgid ""
-"Trening to prosty dziennik siłowni: plany tygodniowe, zapis serii i ciężarów, automatyczne wykrywanie rekordów "
-"osobistych oraz wykresy postępów i masy ciała."
-msgstr ""
-"Trening is a simple gym log: weekly plans, sets and weights, automatic personal record detection, and progress and "
-"body weight charts."
-
-msgid "Trening – planowanie i monitorowanie treningu siłowego"
-msgstr "Trening – planning and tracking strength training"
 
 msgid "Treningi"
 msgstr "Workouts"
@@ -906,6 +956,9 @@ msgstr "Welcome"
 msgid "Witaj, %(name)s!"
 msgstr "Welcome, %(name)s!"
 
+msgid "Wpisz więcej liter, aby zawęzić listę."
+msgstr "Type more letters to narrow the list."
+
 msgid "Wróć"
 msgstr "Back"
 
@@ -935,6 +988,9 @@ msgstr "Tuesday"
 
 msgid "Wybierz ćwiczenie."
 msgstr "Choose an exercise."
+
+msgid "Wyciskanie sztangi leżąc, Wyciskanie żołnierskie"
+msgstr "Barbell bench press, Overhead press"
 
 msgid "Wyczyść"
 msgstr "Clear"
@@ -970,6 +1026,9 @@ msgstr "Custom exercise"
 msgid "Zaangażowane mięśnie"
 msgstr "Muscles worked"
 
+msgid "Zalogowano jako"
+msgstr "Signed in as"
+
 msgid "Zaloguj"
 msgstr "Sign in"
 
@@ -993,6 +1052,13 @@ msgstr "Workout saved."
 
 msgid "Zapisano zmiany."
 msgstr "Changes saved."
+
+msgid ""
+"Zapisany trening trafia do historii z datą, seriami i objętością. Z tej historii BodyCommit liczy rekordy, realizację"
+" planu tygodnia i trendy."
+msgstr ""
+"A logged workout goes into your history with its date, sets and volume. From that history BodyCommit works out "
+"records, weekly plan completion and trends."
 
 msgid "Zapisz"
 msgstr "Save"
@@ -1055,6 +1121,9 @@ msgstr "lower back"
 msgid "dowolny"
 msgstr "any"
 
+msgid "dwie wersje językowe"
+msgstr "two languages"
+
 msgid "dwugłowe uda"
 msgstr "hamstrings"
 
@@ -1081,6 +1150,9 @@ msgstr "kettlebell"
 
 msgid "klatka piersiowa"
 msgstr "chest"
+
+msgid "liczony wzorem Epleya"
+msgstr "from the Epley formula"
 
 msgid "masa ciała"
 msgstr "body weight"
@@ -1136,6 +1208,9 @@ msgstr "beginner"
 msgid "podnoszenie ciężarów"
 msgstr "Olympic weightlifting"
 
+msgid "pominięty"
+msgstr "missed"
+
 msgid "pomocnicze"
 msgstr "secondary"
 
@@ -1172,6 +1247,9 @@ msgstr "static"
 #, python-format
 msgid "strona %(page)s z %(pages)s"
 msgstr "page %(page)s of %(pages)s"
+
+msgid "strona główna"
+msgstr "home"
 
 msgid "strongman"
 msgstr "strongman"
@@ -1226,6 +1304,9 @@ msgstr "advanced"
 msgid "zobacz"
 msgstr "view"
 
+msgid "zrobione"
+msgstr "done"
+
 msgid "Ćwiczenia"
 msgstr "Exercises"
 
@@ -1238,11 +1319,17 @@ msgstr "Exercise"
 msgid "Ćwiczenie o tej nazwie już istnieje."
 msgstr "An exercise with this name already exists."
 
+msgid "ćwiczeń ze zdjęciami i mapą mięśni"
+msgstr "exercises with photos and a muscle map"
+
 msgid "łydki"
 msgstr "calves"
 
 msgid "Śr"
 msgstr "Wed"
+
+msgid "Śr – nogi"
+msgstr "Wed – legs"
 
 msgid "Środa"
 msgstr "Wednesday"

@@ -17,7 +17,7 @@ RUN python -m venv /opt/venv \
 FROM ${PYTHON_IMAGE} AS runtime
 ARG APP_VERSION=dev
 LABEL org.opencontainers.image.title="trening-app" \
-      org.opencontainers.image.description="Trening – planowanie i monitorowanie treningu siłowego" \
+      org.opencontainers.image.description="BodyCommit – planowanie i monitorowanie treningu siłowego" \
       org.opencontainers.image.source="https://github.com/N33Qu/trening-app" \
       org.opencontainers.image.version="${APP_VERSION}"
 

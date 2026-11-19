@@ -1,26 +1,20 @@
 {% extends "base.html" %}
-{% from "_macros.html" import delete_button, kg %}
+{% from "_macros.html" import delete_button, kg, icon %}
 {% block title %}{{ _('Pomiary ciała') }}{% endblock %}
 {% block content %}
 <div class="page-head">
   <div><h1>{{ _('Pomiary ciała') }}</h1><p class="subtitle">{{ _('Masa ciała, obwody i poziom tkanki tłuszczowej.') }}</p></div>
   <div class="actions">
-    <a class="btn btn-secondary" href="{{ url_for('body.import_placeholder') }}">{{ _('Import z Apple Health') }}</a>
-    <a class="btn" href="{{ url_for('body.create') }}">+ {{ _('Nowy pomiar') }}</a>
+    <a class="btn btn-secondary" href="{{ url_for('body.import_placeholder') }}">{{ icon("upload") }}{{ _('Import z Apple Health') }}</a>
+    <a class="btn" href="{{ url_for('body.create') }}">{{ icon("plus") }}{{ _('Nowy pomiar') }}</a>
   </div>
 </div>
 {% if rows %}
-<div class="grid grid-2">
-  <div class="card">
-    <div class="card-head"><h2>{{ _('Masa ciała') }}</h2>{% if change is not none %}<span class="badge {{ 'badge-success' if change <= 0 else 'badge-accent' }}">{{ '%+.1f'|format(change) }} kg</span>{% endif %}</div>
-    {% if chart.weight %}<div class="chart-box"><canvas data-chart="bodyWeight" role="img" aria-label="{{ _('Masa ciała') }}"></canvas></div>{% else %}<div class="empty"><p>{{ _('Brak pomiarów masy.') }}</p></div>{% endif %}
-  </div>
-  <div class="card stat">
-    <div class="label">{{ _('Ostatni pomiar') }}</div>
-    {% set last = rows[0] %}
-    <div class="value">{{ kg(last.weight_kg) }}<small>kg</small></div>
-    <div class="hint">{{ last.date|day }}{% if last.body_fat_pct %} · {{ kg(last.body_fat_pct) }}% {{ _('tkanki tłuszczowej') }}{% endif %}</div>
-  </div>
+{% set last = rows[0] %}
+<div class="card">
+  <div class="card-head"><h2>{{ _('Masa ciała') }}</h2>{% if change is not none %}<span class="badge {{ 'badge-success' if change <= 0 else 'badge-accent' }}">{{ '%+.1f'|format(change) }} kg</span>{% endif %}</div>
+  <div class="body-latest stat"><div class="value">{{ kg(last.weight_kg) }}<small>kg</small></div><div class="muted small">{{ _('Ostatni pomiar') }}: {{ last.date|day }}{% if last.body_fat_pct %} · {{ kg(last.body_fat_pct) }}% {{ _('tkanki tłuszczowej') }}{% endif %}</div></div>
+  {% if chart.weight %}<div class="chart-box"><canvas data-chart="bodyWeight" role="img" aria-label="{{ _('Masa ciała') }}"></canvas></div>{% else %}<div class="empty"><span class="empty-icon">{{ icon("body") }}</span><p>{{ _('Brak pomiarów masy.') }}</p></div>{% endif %}
 </div>
 <div class="card mt">
   <div class="table-wrap"><table>
@@ -35,18 +29,18 @@
       <td class="num">{{ kg(m.chest_cm) }}</td>
       <td class="num">{{ kg(m.arm_cm) }}</td>
       <td class="num">{{ kg(m.thigh_cm) }}</td>
-      <td><span class="badge">{{ m.source_label }}</span></td>
-      <td class="num nowrap">
-        <a class="btn btn-secondary btn-sm" href="{{ url_for('body.edit', measurement_id=m.id) }}">{{ _('Edytuj') }}</a>
+      <td class="muted">{{ m.source_label }}</td>
+      <td class="num nowrap"><div class="actions row-actions">
+        <a class="btn btn-secondary btn-sm" href="{{ url_for('body.edit', measurement_id=m.id) }}">{{ icon("edit") }}{{ _('Edytuj') }}</a>
         {{ delete_button(url_for('body.delete', measurement_id=m.id), delete_form, _("Usuń"), _("Usunąć pomiar?")) }}
-      </td>
+      </div></td>
     </tr>
     {% endfor %}
     </tbody>
   </table></div>
 </div>
 {% else %}
-<div class="card empty"><p>{{ _('Brak pomiarów. Dodaj pierwszy, aby śledzić zmiany sylwetki.') }}</p><a class="btn" href="{{ url_for('body.create') }}">{{ _('Dodaj pomiar') }}</a></div>
+<div class="card empty"><span class="empty-icon">{{ icon("body") }}</span><p>{{ _('Brak pomiarów. Dodaj pierwszy, aby śledzić zmiany sylwetki.') }}</p><a class="btn" href="{{ url_for('body.create') }}">{{ _('Dodaj pomiar') }}</a></div>
 {% endif %}
 {% endblock %}
 {% block scripts %}{% include "_charts.html" %}{% endblock %}

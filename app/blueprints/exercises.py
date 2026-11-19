@@ -1,4 +1,4 @@
-from flask import Blueprint, abort, flash, redirect, render_template, request, url_for
+from flask import Blueprint, abort, flash, jsonify, redirect, render_template, request, url_for
 from flask_babel import gettext
 from flask_login import current_user, login_required
 from sqlalchemy import func, select
@@ -8,7 +8,7 @@ from .. import library
 from ..extensions import db
 from ..forms import DeleteForm, ExerciseForm
 from ..models import PR_E1RM, PR_MAX_WEIGHT, Exercise, PersonalRecord, PlanExercise, Workout, WorkoutEntry
-from ..services import owned_or_404, visible_exercises_query
+from ..services import exercise_group, owned_or_404, visible_exercises_query
 
 bp = Blueprint("exercises", __name__, url_prefix="/exercises")
 
@@ -87,6 +87,35 @@ def index():
         levels=list(library.LEVEL_LABELS.items()),
         delete_form=DeleteForm(),
     )
+
+
+@bp.get("/picker.json")
+@login_required
+def picker_data():
+    """Compact list for the searchable exercise picker: own exercises first, then by group and name."""
+    exercises = db.session.execute(visible_exercises_query(current_user.id)).scalars().all()
+    items = []
+    for e in exercises:
+        order, group = exercise_group(e)
+        entry = e.library
+        names = {e.display_name, e.name}
+        if entry is not None:
+            names.update(v for k, v in entry.data.items() if k.startswith("name_") and isinstance(v, str))
+        names.discard(e.display_name)
+        thumb = entry.thumbnail if entry is not None else None
+        items.append({
+            "id": e.id,
+            "name": e.display_name,
+            "alt": " ".join(sorted(n for n in names if n)),
+            "group": str(group),
+            "order": order,
+            "own": not e.is_global,
+            "thumb": url_for("static", filename=thumb) if thumb else None,
+        })
+    items.sort(key=lambda x: (x["order"], x["name"].lower()))
+    resp = jsonify(items)
+    resp.headers["Cache-Control"] = "private, no-cache"
+    return resp
 
 
 @bp.get("/<slug>")

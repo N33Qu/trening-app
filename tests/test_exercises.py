@@ -52,3 +52,41 @@ def test_global_exercise_cannot_be_edited(auth_client, app):
         ex_id = db.session.execute(select(Exercise.id).where(Exercise.user_id.is_(None))).scalars().first()
     assert auth_client.get(f"/exercises/{ex_id}/edit").status_code == 404
     assert auth_client.post(f"/exercises/{ex_id}/delete").status_code == 404
+
+
+def test_picker_data_requires_login(client):
+    resp = client.get("/exercises/picker.json")
+    assert resp.status_code == 302
+    assert "/login" in resp.headers["Location"]
+
+
+def test_picker_data_lists_own_first_with_both_languages(auth_client):
+    auth_client.post("/exercises/new", data={"name": "Zzz moje ćwiczenie", "category": "strength"})
+    resp = auth_client.get("/exercises/picker.json")
+    assert resp.status_code == 200
+    assert resp.headers["Cache-Control"] == "private, no-cache"
+    items = resp.get_json()
+    assert len(items) > 800
+    assert items[0]["name"] == "Zzz moje ćwiczenie" and items[0]["own"] is True
+    squat = next(i for i in items if i["name"] == "Przysiad ze sztangą")
+    assert "Barbell" in squat["alt"] and squat["thumb"].endswith(".webp")
+    assert {"id", "name", "alt", "group", "order", "own", "thumb"} <= set(squat)
+    ids = [i["id"] for i in items]
+    assert len(ids) == len(set(ids))
+
+
+def test_picker_data_hides_other_users_exercises(client):
+    from .conftest import login, register
+    register(client, "owner")
+    client.post("/exercises/new", data={"name": "Sekret właściciela", "category": "strength"})
+    client.post("/logout")
+    register(client, "other")
+    login(client, "other")
+    names = {i["name"] for i in client.get("/exercises/picker.json").get_json()}
+    assert "Sekret właściciela" not in names
+
+
+def test_forms_expose_picker_hooks(auth_client):
+    html = auth_client.get("/workouts/new").get_data(as_text=True)
+    assert 'data-picker-url="/exercises/picker.json"' in html
+    assert "<optgroup" in html

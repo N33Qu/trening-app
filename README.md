@@ -1,6 +1,6 @@
-# Trening – planowanie i monitorowanie treningu siłowego
+# BodyCommit – planowanie i monitorowanie treningu siłowego
 
-Aplikacja webowa (Flask + PostgreSQL) do planowania treningów, prowadzenia dziennika
+**BodyCommit** („Każdy trening to commit.”) to aplikacja webowa (Flask + PostgreSQL) do planowania treningów, prowadzenia dziennika
 ćwiczeń, śledzenia rekordów osobistych i pomiarów ciała. Projekt zaliczeniowy z przedmiotu
 „Bezpieczeństwo procesów CI/CD”: aplikacja jest budowana i skanowana w GitHub Actions,
 a wdrażana na Kubernetes (minikube) metodą GitOps przez Argo CD, z monitoringiem
@@ -11,7 +11,7 @@ Zespół: **Mikołaj Stasz**, **Ewelina Sałata**.
 ## Funkcje aplikacji
 
 - konta użytkowników (rejestracja, logowanie, hasła przechowywane jako skrót scrypt),
-- biblioteka ok. 150 ćwiczeń ze zdjęciami, opisem techniki (PL/EN), mapą zaangażowanych mięśni,
+- biblioteka 877 ćwiczeń ze zdjęciami, opisem techniki (PL/EN), mapą zaangażowanych mięśni,
   wyszukiwarką i filtrami (partia mięśniowa, sprzęt, poziom) oraz własne ćwiczenia użytkownika,
 - plany treningowe z dniami i ćwiczeniami,
 - dziennik treningów (serie `powt. x kg`, kardio: dystans i czas),
@@ -22,6 +22,24 @@ Zespół: **Mikołaj Stasz**, **Ewelina Sałata**.
   domyślnie język z przeglądarki, a gdy nie jest obsługiwany – polski),
 - pełna izolacja danych między użytkownikami (cudzy zasób = 404),
 - konto demonstracyjne: `demo` / `demo1234` (dane przykładowe, `SEED_DEMO=true`).
+
+## Wygląd
+
+Interfejs w stylu natywnych aplikacji: jednolite tło, półprzezroczyste („matowe szkło”) karty
+i pasek nawigacji, jeden akcent (teal), jasny i ciemny motyw, układ od 375 px. Tokeny, typografia
+i komponenty: [docs/DESIGN.md](docs/DESIGN.md). Nazwa produktu to BodyCommit; nazwy infrastruktury
+(namespace `trening`, host `trening.local`, chart, obraz `ghcr.io/n33qu/trening-app`, metryki
+`trening_*`) pozostały bez zmian.
+
+| Strona startowa | Pulpit (ciemny motyw) |
+|---|---|
+| ![Strona startowa](docs/img/ui/landing.jpg) | ![Pulpit](docs/img/ui/dashboard-dark.jpg) |
+| **Szczegóły treningu** | **Wybór ćwiczenia (wyszukiwanie PL/EN)** |
+| ![Szczegóły treningu](docs/img/ui/workout-detail.jpg) | ![Wybór ćwiczenia](docs/img/ui/exercise-picker.jpg) |
+| **Biblioteka ćwiczeń** | **Szczegóły ćwiczenia** |
+| ![Biblioteka ćwiczeń](docs/img/ui/exercise-library.jpg) | ![Szczegóły ćwiczenia](docs/img/ui/exercise-detail.jpg) |
+| **Statystyki** | **Telefon (375 px)** |
+| ![Statystyki](docs/img/ui/stats.jpg) | ![Pulpit na telefonie](docs/img/ui/dashboard-mobile.jpg) |
 
 ## Baza ćwiczeń
 

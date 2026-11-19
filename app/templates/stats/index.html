@@ -1,10 +1,11 @@
 {% extends "base.html" %}
+{% from "_macros.html" import icon %}
 {% block title %}{{ _('Statystyki') }}{% endblock %}
 {% block content %}
 <div class="page-head">
   <div><h1>{{ _('Statystyki') }}</h1><p class="subtitle">{{ _('Progresja ciężarów, szacowany 1RM i regularność treningów.') }}</p></div>
   {% if exercises %}
-  <form method="get" class="inline-fields" action="{{ url_for('stats.index') }}">
+  <form method="get" class="inline-fields stats-picker" action="{{ url_for('stats.index') }}">
     <div class="field">
       <label for="exercise">{{ _('Ćwiczenie') }}</label>
       <select name="exercise" id="exercise" data-autosubmit>
@@ -19,11 +20,11 @@
 {% if selected and progress and progress.sessions %}
 <div class="grid grid-2">
   <div class="card">
-    <div class="card-head"><h2>{{ _('Dystans') if selected.is_cardio else _('Progresja ciężaru') }} – {{ selected.display_name }}</h2><span class="badge">{{ ngettext('%(num)s sesja', '%(num)s sesji', progress.sessions) }}</span></div>
+    <div class="card-head"><h2>{{ _('Dystans') if selected.is_cardio else _('Progresja ciężaru') }} – {{ selected.display_name }}</h2><span class="muted small">{{ ngettext('%(num)s sesja', '%(num)s sesji', progress.sessions) }}</span></div>
     <div class="chart-box tall"><canvas data-chart="progress" role="img" aria-label="{{ _('Progresja ćwiczenia') }}"></canvas></div>
   </div>
   <div class="card">
-    <div class="card-head"><h2>{{ _('Czas') if selected.is_cardio else _('Szacowany 1RM (Epley)') }}</h2>{% if not selected.is_cardio %}<a class="small" href="{{ url_for('records.history', exercise_id=selected.id) }}">{{ _('Historia rekordów') }} →</a>{% endif %}</div>
+    <div class="card-head"><h2>{{ _('Czas') if selected.is_cardio else _('Szacowany 1RM (Epley)') }}</h2>{% if not selected.is_cardio %}<a class="link-arrow" href="{{ url_for('records.history', exercise_id=selected.id) }}">{{ _('Historia rekordów') }}{{ icon("arrow-right") }}</a>{% endif %}</div>
     <div class="chart-box tall"><canvas data-chart="e1rm" role="img" aria-label="{{ _('Szacowany 1RM') }}"></canvas></div>
   </div>
 </div>
@@ -34,7 +35,7 @@
 </div>
 {% endif %}
 {% else %}
-<div class="card empty"><p>{{ _('Brak danych do wykresów – zapisz kilka treningów.') }}</p><a class="btn" href="{{ url_for('workouts.create') }}">{{ _('Nowy trening') }}</a></div>
+<div class="card empty"><span class="empty-icon">{{ icon("chart") }}</span><p>{{ _('Brak danych do wykresów – zapisz kilka treningów.') }}</p><a class="btn" href="{{ url_for('workouts.create') }}">{{ _('Nowy trening') }}</a></div>
 {% endif %}
 
 <div class="grid grid-2 mt">
@@ -46,7 +47,7 @@
     <div class="card-head"><h2>{{ _('Masa ciała') }}</h2></div>
     {% if charts.bodyWeight["values"] %}
     <div class="chart-box"><canvas data-chart="bodyWeight" role="img" aria-label="{{ _('Masa ciała') }}"></canvas></div>
-    {% else %}<div class="empty"><p>{{ _('Brak pomiarów.') }}</p></div>{% endif %}
+    {% else %}<div class="empty"><span class="empty-icon">{{ icon("body") }}</span><p>{{ _('Brak pomiarów.') }}</p></div>{% endif %}
   </div>
 </div>
 <div class="mt">{% include "_completion.html" %}</div>
