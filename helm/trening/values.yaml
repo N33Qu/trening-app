@@ -68,3 +68,37 @@ networkPolicy:
   enabled: true
   ingressNamespace: ingress-nginx
   monitoringNamespace: monitoring
+
+# ResourceQuota - limit zasobów całej przestrzeni nazw `trening`.
+# Wyliczenie (aplikacja: req 100m/128Mi, lim 500m/256Mi; postgres: req 100m/128Mi, lim 500m/512Mi):
+#   HPA max 6 + 1 pod surge (RollingUpdate maxSurge=1) = 7 podów aplikacji + 1 pod postgres = 8 podów
+#   requests: cpu 7*100m+100m = 800m, memory 7*128Mi+128Mi = 1024Mi
+#   limits:   cpu 7*500m+500m = 4000m, memory 7*256Mi+512Mi = 2304Mi
+# Wartości poniżej to ten stan + zapas (ok. 25-90%), żeby rollout przy 6 replikach nie był odrzucany.
+resourceQuota:
+  enabled: true
+  pods: "12"
+  requestsCpu: "1500m"
+  requestsMemory: 1536Mi
+  limitsCpu: "6"
+  limitsMemory: 3Gi
+  persistentVolumeClaims: "3"
+  requestsStorage: 5Gi
+
+# LimitRange - wartości domyślne i górne granice dla kontenerów oraz zakres rozmiaru PVC.
+# Kontener bez własnych resources dostaje default/defaultRequest; żądanie powyżej max jest odrzucane.
+limitRange:
+  enabled: true
+  container:
+    default:
+      cpu: 250m
+      memory: 256Mi
+    defaultRequest:
+      cpu: 50m
+      memory: 64Mi
+    max:
+      cpu: "1"
+      memory: 1Gi
+  pvc:
+    min: 500Mi
+    max: 5Gi
