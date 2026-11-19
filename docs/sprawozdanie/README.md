@@ -8,11 +8,6 @@ System: **BodyCommit** (Flask + PostgreSQL) wdrożony w klastrze minikube (profi
 GitHub Actions (testy, budowa obrazu, Trivy) → obraz w GHCR → commit z nowym tagiem w `helm/trening/values.yaml` → Argo CD.
 Nazwy infrastruktury pozostały `trening` (namespace `trening`, host `trening.local`, chart `helm/trening`, aplikacja Argo CD `trening`).
 
-Wszystkie zrzuty ekranu poniżej przedstawiają rzeczywiste wyniki poleceń z wykonania testów (surowy tekst każdego
-wyniku: katalog [`logs/`](logs), obrazy: [`img/`](img)). Zrzuty terminala to wyrenderowany, niezmieniony tekst
-wyniku polecenia (pierwsza linia z `$` to wykonane polecenie); zrzuty przeglądarki mają u góry pasek z adresem
-i kodem HTTP odczytanym z odpowiedzi.
-
 ## Spis treści
 
 1. [Repozytorium i manifesty](#1-repozytorium-i-manifesty)
