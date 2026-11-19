@@ -160,6 +160,15 @@ curl --resolve trening.local:8443:127.0.0.1 --cacert certs/trening-ca.crt https:
 3. **CD**: Argo CD (auto-sync, selfHeal, prune) wykrywa commit i wdraża nowy tag; stopka aplikacji
    pokazuje wersję. Rollback = `git revert` + push.
 
+## Manifesty Kubernetes
+
+Źródłem wdrożenia jest Helm chart [`helm/trening/`](helm/trening/) (szablony w `templates/`, konfiguracja w `values.yaml`),
+synchronizowany przez Argo CD ([`argocd/application.yaml`](argocd/application.yaml)). Ta sama konfiguracja jako zwykłe
+manifesty YAML (do przeglądu bez Helma): [`manifests/trening-rendered.yaml`](manifests/trening-rendered.yaml) –
+Deployment, StatefulSet (z PVC), 2× Service, 3× NetworkPolicy, Ingress, ConfigMap, ResourceQuota, LimitRange, HPA, PDB,
+ServiceMonitor, PrometheusRule. Secret: wzór [`helm/trening/secret.example.yaml`](helm/trening/secret.example.yaml);
+dodatki klastra (cert-manager, CA, monitoring): [`infra/`](infra/).
+
 ## Zabezpieczenia
 
 - kontener: użytkownik non-root (10001), `readOnlyRootFilesystem`, `drop ALL`, seccomp RuntimeDefault,
