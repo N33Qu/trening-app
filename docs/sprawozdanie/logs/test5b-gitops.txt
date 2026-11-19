@@ -1,0 +1,32 @@
+# 1) Commit z pipeline CI (github-actions[bot]) podniosl tag w values.yaml - Argo CD wdrozyl go bez kubectl apply
+d07d9dd github-actions[bot]: ci: deploy sha-130fc55 [skip ci]
+--- po wdrozeniu commita CI (sha-130fc55) (10:58:38)
+Synced   Degraded   d07d9dd6cdf8ac0fc6ae720f1d409b897235c671
+image: ghcr.io/n33qu/trening-app:sha-130fc55
+  trening-app-67c499dd4d-f6z59 1/1 Running 77s
+  trening-app-67c499dd4d-n95g4 1/1 Running 84s
+wersja (healthz przez Ingress): {"status":"ok","version":"sha-130fc55"}
+stopka: wersja 
+
+# 2) Rollback: git revert + push
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+   d07d9dd..53c3d56  main -> main
+--- po rollbacku (git revert 53c3d56) (10:59:05)
+Synced   Degraded   53c3d56c41ffc3f497645f33ee23a3aea7933851
+image: ghcr.io/n33qu/trening-app:latest
+  trening-app-6b7b545dcb-8gjrb 1/1 Running 19s
+  trening-app-6b7b545dcb-dtxnm 1/1 Running 23s
+wersja (healthz przez Ingress): {"status":"ok","version":"latest"}
+stopka: wersja 
+
+# 3) Przywrocenie przypiecia wersji: revert rollbacku + push
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+   53c3d56..eea0b5f  main -> main
+--- stan koncowy (HEAD eea0b5f) (10:59:31)
+Synced   Degraded   eea0b5fbd2169ca1998e15f210df13a4639d54c6
+image: ghcr.io/n33qu/trening-app:sha-130fc55
+  trening-app-67c499dd4d-5rhqz 1/1 Running 24s
+  trening-app-67c499dd4d-cbhqf 1/1 Running 20s
+wersja (healthz przez Ingress): {"status":"ok","version":"sha-130fc55"}
+stopka: wersja 
+5:  tag: "sha-130fc55"

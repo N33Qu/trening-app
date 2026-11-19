@@ -1,0 +1,28 @@
+$ kubectl get pods -n trening   (przed)
+NAME                           READY   STATUS    RESTARTS   AGE     IP              NODE     NOMINATED NODE   
+trening-app-6b7b545dcb-cwfm2   1/1     Running   0          4m23s   10.244.80.158   bpcicd   <none>           
+trening-app-6b7b545dcb-dd45x   1/1     Running   0          4m8s    10.244.80.160   bpcicd   <none>           
+trening-postgres-0             1/1     Running   0          4m23s   10.244.80.159   bpcicd   <none>           
+# usuwam: trening-postgres-0 oraz trening-app-6b7b545dcb-cwfm2
+10:36:10
+pod "trening-postgres-0" deleted from trening namespace
+pod "trening-app-6b7b545dcb-cwfm2" deleted from trening namespace
+10:36:13
+pod/trening-postgres-0 condition met
+Waiting for deployment "trening-app" rollout to finish: 1 of 2 updated replicas are available...
+deployment "trening-app" successfully rolled out
+10:36:20
+$ kubectl get pods -n trening   (po)
+NAME                           READY   STATUS    RESTARTS   AGE
+trening-app-6b7b545dcb-4xd9h   1/1     Running   0          10s
+trening-app-6b7b545dcb-dd45x   1/1     Running   0          4m18s
+trening-postgres-0             1/1     Running   0          8s
+$ ponowny test (logowanie A, dane)
+[OK] A loguje się ponownie 
+[OK] trening A nadal istnieje 
+[OK] rekord nadal widoczny 
+[OK] plan A nadal istnieje 
+[OK] pomiar masy 82.5 nadal istnieje 
+exit=0
+NAME                      STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+data-trening-postgres-0   Bound    pvc-f3149fb7-af3d-4f90-b1a1-fe96732a749f   1Gi        RWO            standard       <unset>                 4m43s

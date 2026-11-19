@@ -1,0 +1,54 @@
+# Czas | CPU/cel | repliki HPA | pody | gotowe (probkowanie co 10 s; k6 wystartowal ok. 10:37:20, koniec obciazenia ok. 10:41:50). Wiersze przed 10:42:50: kolumny HPA (cpu, min, max, repliki) lub tylko liczba podow; po 10:42:50 uzupelnione o replicas=<repliki HPA>.
+10:37:26 cpu: 6%/60%   2     6     2     5m39s pods=2
+10:37:36 cpu: 6%/60%   2     6     2     5m49s pods=2
+10:37:46 cpu: 6%/60%   2     6     2     5m59s pods=2
+10:37:56 cpu: 20%/60%   2     6     2     6m9s pods=2
+10:38:07 cpu: 20%/60%   2     6     2     6m20s pods=2
+10:38:27 cpu: 20%/60%   2     6     2     6m40s pods=2
+10:38:30 pods=2 ready=2
+10:38:41 pods=2 ready=2
+10:38:51 pods=4 ready=2
+10:39:01 pods=4 ready=4
+10:39:11 pods=4 ready=4
+10:39:21 pods=6 ready=4
+10:39:32 pods=6 ready=6
+10:39:42 pods=6 ready=6
+10:39:52 pods=6 ready=6
+10:40:02 pods=6 ready=6
+10:40:12 pods=6 ready=6
+10:40:23 pods=6 ready=6
+10:40:33 pods=6 ready=6
+10:40:43 pods=6 ready=6
+10:40:53 pods=6 ready=6
+10:41:03 pods=6 ready=6
+10:41:14 pods=6 ready=6
+10:41:24 pods=6 ready=6
+10:41:35 pods=6 ready=6
+10:41:45 pods=6 ready=6
+10:41:55 pods=6 ready=6
+10:42:05 pods=6 ready=6
+10:42:16 pods=6 ready=6
+10:42:25 cpu=71%/60% pods=6 ready=6
+10:42:35 cpu=71%/60% pods=6 ready=6
+10:42:45 cpu=71%/60% pods=6 ready=6
+10:42:56 cpu=5%/60% replicas=6 pods=6 ready=6
+10:43:06 cpu=5%/60% replicas=6 pods=6 ready=6
+10:43:16 cpu=5%/60% replicas=6 pods=6 ready=6
+10:43:26 cpu=5%/60% replicas=6 pods=6 ready=6
+10:43:36 cpu=5%/60% replicas=6 pods=6 ready=6
+10:43:46 cpu=5%/60% replicas=6 pods=6 ready=6
+10:43:57 cpu=3%/60% replicas=6 pods=6 ready=6
+10:44:07 cpu=3%/60% replicas=6 pods=6 ready=6
+10:44:17 cpu=3%/60% replicas=6 pods=6 ready=6
+10:44:27 cpu=3%/60% replicas=6 pods=6 ready=6
+10:44:37 cpu=3%/60% replicas=6 pods=5 ready=5
+10:44:47 cpu=3%/60% replicas=6 pods=5 ready=5
+10:44:58 cpu=3%/60% replicas=5 pods=5 ready=5
+10:45:08 cpu=3%/60% replicas=5 pods=4 ready=4
+10:45:18 cpu=3%/60% replicas=5 pods=4 ready=4
+10:45:28 cpu=3%/60% replicas=4 pods=4 ready=4
+10:45:38 cpu=3%/60% replicas=4 pods=3 ready=3
+10:45:48 cpu=3%/60% replicas=4 pods=3 ready=3
+10:45:59 cpu=3%/60% replicas=3 pods=3 ready=3
+10:46:09 cpu=3%/60% replicas=3 pods=2 ready=2
+10:46:19 cpu=3%/60% replicas=2 pods=2 ready=2

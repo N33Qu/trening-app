@@ -1,0 +1,74 @@
+$ ruff check .
+S113 Probable use of `requests` call without timeout
+   --> infra/e2e_check.py:120:13
+    |
+118 |         r = B.get("/workouts/")
+119 |         check("lista treningów B pusta", "test_a_" not in r.text and "Nowy rekord" not in r.text)
+120 |         r = requests.get(base + "/workouts/", verify=a.ca, allow_redirects=False)
+    |             ^^^^^^^^^^^^
+121 |         check("bez logowania -> redirect do /login", r.status_code in (301, 302, 303, 308)
+122 |               and "login" in r.headers.get("Location", ""), str(r.status_code))
+    |
+
+S113 Probable use of `requests` call without timeout
+   --> infra/e2e_check.py:123:13
+    |
+121 |         check("bez logowania -> redirect do /login", r.status_code in (301, 302, 303, 308)
+122 |               and "login" in r.headers.get("Location", ""), str(r.status_code))
+123 |         r = requests.post(base + "/plans/new", data={"name": "x"}, verify=a.ca, allow_redirects=False)
+    |             ^^^^^^^^^^^^^
+124 |         check("POST bez CSRF/sesji odrzucony", r.status_code in (302, 400, 401, 403), str(r.status_code))
+125 |         json.dump({"a": ua, "b": ub, "pw": pw, "workout": workout_url, "plan": plan_url}, open(STATE, "w"))
+    |
+
+Found 2 errors.
+$ pytest --cov=app
+  @classmethod
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+/Library/Frameworks/Python.framework/Versions/3.13/lib/python3.13/collections/__init__.py:450: ResourceWarning: unclosed database in <sqlite3.Connection object at 0x10b9dd5d0>
+  @classmethod
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+         [100%]
+================================ tests coverage ================================
+_______________ coverage: platform darwin, python 3.13.5-final-0 _______________
+
+Name                          Stmts   Miss Branch BrPart  Cover
+---------------------------------------------------------------
+app/__init__.py                 118     13     16      5    85%
+app/blueprints/__init__.py        0      0      0      0   100%
+app/blueprints/auth.py           93      5     22      1    95%
+app/blueprints/body.py           60      0      8      1    99%
+app/blueprints/exercises.py      66      6     14      1    91%
+app/blueprints/health.py         21      0      0      0   100%
+app/blueprints/plans.py         102      2     18      5    94%
+app/blueprints/records.py        29      0      6      1    97%
+app/blueprints/stats.py          80      0     12      0   100%
+app/blueprints/workouts.py      146      5     44      3    96%
+app/config.py                    32      1     16      1    96%
+app/extensions.py                13      0      0      0   100%
+app/forms.py                     77      0      6      0   100%
+app/metrics.py                   48      3      2      1    92%
+app/models.py                   162      1      2      1    99%
+app/seed.py                     131     13     30      2    91%
+app/services.py                 112      5     54      4    95%
+---------------------------------------------------------------
+TOTAL                          1290     54    250     26    95%
+$ trivy config helm/
+234.57 KiB / 234.57 KiB [------------------------------------------------------] 100.00% ? p/s 200ms2026-11-13T10:42:56+01:00	WARN	[helm scanner] Skipping chart	file_path="trening" err="parse chart: YAML parse error on trening/templates/.__helpers.tpl: error converting YAML to JSON: yaml: control characters are not allowed"
+2026-11-13T10:42:56+01:00	INFO	Detected config files	num=0
+2026-11-13T10:42:56+01:00	WARN	[report] Supported files for scanner(s) not found.	scanners=[misconfig]
+
+Report Summary
+
+┌────────┬──────┬───────────────────┐
+│ Target │ Type │ Misconfigurations │
+├────────┼──────┼───────────────────┤
+│   -    │  -   │         -         │
+└────────┴──────┴───────────────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
+$ helm template trening helm/trening | trivy config --severity HIGH,CRITICAL
+Failures: 1 (HIGH: 1, CRITICAL: 0)
+KSV-0014 (HIGH): Container 'postgres' of StatefulSet 'trening-postgres' should set 'securityContext.readOnlyRootFilesystem' to true

@@ -1,0 +1,34 @@
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+     execution: local
+        script: infra/loadtest/k6.js
+        output: -
+     scenarios: (100.00%) 1 scenario, 50 max VUs, 5m0s max duration (incl. graceful stop):
+              * default: Up to 50 looping VUs for 4m30s over 3 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+  █ THRESHOLDS 
+    http_req_duration
+    ✓ 'p(95)<1000' p(95)=43.41ms
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+  █ TOTAL RESULTS 
+    checks_total.......: 101348  375.323651/s
+    checks_succeeded...: 100.00% 101348 out of 101348
+    checks_failed......: 0.00%   0 out of 101348
+    ✓ login page 200
+    ✓ healthz 200
+    HTTP
+    http_req_duration..............: avg=10.93ms  min=864µs    med=2.23ms  max=832.35ms p(90)=41.97ms  p(95)=43.41ms 
+      { expected_response:true }...: avg=10.93ms  min=864µs    med=2.23ms  max=832.35ms p(90)=41.97ms  p(95)=43.41ms 
+    http_req_failed................: 0.00%  0 out of 101348
+    http_reqs......................: 101348 375.323651/s
+    EXECUTION
+    iteration_duration.............: avg=222.43ms min=202.17ms med=205.3ms max=1.14s    p(90)=245.99ms p(95)=272.37ms
+    iterations.....................: 50674  187.661826/s
+    vus............................: 1      min=1           max=50
+    vus_max........................: 50     min=50          max=50
+    NETWORK
+    data_received..................: 236 MB 872 kB/s
+    data_sent......................: 4.8 MB 18 kB/s

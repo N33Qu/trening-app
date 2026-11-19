@@ -1,0 +1,26 @@
+# Hasla w bazie (kolumna password_hash, tylko poczatek skrotu)
+                                          Table "public.users"
+    Column     |            Type             | Collation | Nullable |              Default              
+---------------+-----------------------------+-----------+----------+-----------------------------------
+ id            | integer                     |           | not null | nextval('users_id_seq'::regclass)
+ username      | character varying(32)       |           | not null | 
+ password_hash | character varying(255)      |           | not null | 
+ created_at    | timestamp without time zone |           | not null | 
+Indexes:
+    "users_pkey" PRIMARY KEY, btree (id)
+    "ix_users_username" UNIQUE, btree (username)
+Referenced by:
+    TABLE "body_measurements" CONSTRAINT "body_measurements_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    TABLE "exercises" CONSTRAINT "exercises_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    TABLE "personal_records" CONSTRAINT "personal_records_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    TABLE "plans" CONSTRAINT "plans_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    TABLE "workouts" CONSTRAINT "workouts_user_id_fkey" FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+
+   username    |        hash_prefix        | len 
+---------------+---------------------------+-----
+ test_b_562545 | scrypt:32768:8:1$19fb33PW | 162
+ test_a_562545 | scrypt:32768:8:1$1jRxIle8 | 162
+ test_b_562539 | scrypt:32768:8:1$A9P7QZDB | 162
+ test_a_562539 | scrypt:32768:8:1$xP3G4wtz | 162
+(4 rows)
+

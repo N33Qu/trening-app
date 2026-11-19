@@ -1,0 +1,64 @@
+# kontrola: alert nieaktywny
+  TreningAppDown: brak (nieaktywny)
+11:01:33
+$ kubectl -n argocd patch application trening --type merge -p {"spec":{"syncPolicy":{"automated":null}}}
+application.argoproj.io/trening patched
+horizontalpodautoscaler.autoscaling "trening-app" deleted from trening namespace
+deployment.apps/trening-app scaled
+11:01:33
+NAME                           READY   STATUS        RESTARTS   AGE
+trening-app-67c499dd4d-5rhqz   1/1     Terminating   0          2m25s
+trening-app-67c499dd4d-cbhqf   1/1     Terminating   0          2m21s
+trening-postgres-0             1/1     Running       0          25m
+11:01:53
+  TreningAppDown: brak (nieaktywny)
+11:02:14
+  TreningAppDown: [('pending', '2026-11-13T10:02:08.206285649Z')]
+11:02:34
+  TreningAppDown: [('pending', '2026-11-13T10:02:08.206285649Z')]
+11:02:54
+  TreningAppDown: [('pending', '2026-11-13T10:02:08.206285649Z')]
+11:03:14
+  TreningAppDown: [('firing', '2026-11-13T10:02:08.206285649Z')]
+11:03:34
+  TreningAppDown: [('firing', '2026-11-13T10:02:08.206285649Z')]
+11:03:54
+  TreningAppDown: [('firing', '2026-11-13T10:02:08.206285649Z')]
+
+# przywrocenie: kubectl apply -f argocd/application.yaml (oryginalna polityka syncPolicy)
+11:03:58
+appproject.argoproj.io/trening unchanged
+application.argoproj.io/trening configured
+{"automated":{"prune":true,"selfHeal":true},"syncOptions":["CreateNamespace=false"]}
+11:06:00
+NAME                     READY   STATUS    RESTARTS   AGE
+pod/trening-postgres-0   1/1     Running   0          29m
+
+NAME                                              REFERENCE                TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/trening-app   Deployment/trening-app   cpu: <unknown>/60%   2         6         0          2m1s
+NAME      SYNC STATUS   HEALTH STATUS
+trening   Synced        Healthy
+11:06:15   TreningAppDown: [('firing', '2026-11-13T10:02:08.206285649Z')]
+11:06:30   TreningAppDown: [('firing', '2026-11-13T10:02:08.206285649Z')]
+11:06:46   TreningAppDown: [('firing', '2026-11-13T10:02:08.206285649Z')]
+11:07:01   TreningAppDown: [('firing', '2026-11-13T10:02:08.206285649Z')]
+
+# Uwaga: HPA przy replicas=0 jest wylaczony (ScalingDisabled), a chart nie ustawia spec.replicas przy wlaczonym HPA - Argo nie koryguje recznego skalowania do 0.
+# Reczne przywrocenie: kubectl -n trening scale deploy trening-app --replicas=2 (dalej steruje HPA)
+11:07:04
+deployment.apps/trening-app scaled
+Waiting for deployment "trening-app" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "trening-app" rollout to finish: 1 of 2 updated replicas are available...
+deployment "trening-app" successfully rolled out
+11:07:16   TreningAppDown: [('firing', '2026-11-13T10:02:08.206285649Z')]
+11:07:31   TreningAppDown: [('firing', '2026-11-13T10:02:08.206285649Z')]
+11:07:55 TreningAppDown: brak (alert rozwiazany po przywroceniu 2 replik)
+NAME      SYNC STATUS   HEALTH STATUS
+trening   Synced        Healthy
+NAME                               READY   STATUS    RESTARTS   AGE
+pod/trening-app-67c499dd4d-5fj6l   1/1     Running   0          2m5s
+pod/trening-app-67c499dd4d-cnmrj   1/1     Running   0          2m5s
+pod/trening-postgres-0             1/1     Running   0          32m
+
+NAME                                              REFERENCE                TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/trening-app   Deployment/trening-app   cpu: 3%/60%   2         6         2          5m10s

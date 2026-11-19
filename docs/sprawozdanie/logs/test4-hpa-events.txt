@@ -1,0 +1,11 @@
+# Zdarzenia HPA (czas UTC; czas lokalny = UTC+1)
+2026-11-13T09:32:02Z   SuccessfulRescale              New size: 2; reason: Current number of replicas below Spec.MinReplicas
+2026-11-13T09:38:47Z   SuccessfulRescale              New size: 4; reason: cpu resource utilization (percentage of request) above target
+2026-11-13T09:39:17Z   SuccessfulRescale              New size: 6; reason: cpu resource utilization (percentage of request) above target
+2026-11-13T09:44:34Z   SuccessfulRescale              New size: 5; reason: All metrics below target
+2026-11-13T09:45:04Z   SuccessfulRescale              New size: 4; reason: All metrics below target
+2026-11-13T09:45:34Z   SuccessfulRescale              New size: 3; reason: All metrics below target
+2026-11-13T09:46:04Z   SuccessfulRescale              New size: 2; reason: All metrics below target
+
+NAME          REFERENCE                TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+trening-app   Deployment/trening-app   cpu: 3%/60%   2         6         2          14m

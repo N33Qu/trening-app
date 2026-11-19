@@ -1,0 +1,39 @@
+# gh run view 43404820070 -R N33Qu/trening-app
+url: https://github.com/N33Qu/trening-app/actions/runs/43404820070
+headSha: 130fc554ac5cce4cba2e06a3457c1966a83bf777
+conclusion: success
+job test: success
+   - Run actions/checkout@v4: success
+   - Run actions/setup-python@v5: success
+   - Run pip install -r requirements-dev.txt -r requirements.txt: success
+   - Run ruff check .: success
+   - Run pytest --cov=app --cov-report=term-missing --cov-report=xml: success
+   - Run actions/upload-artifact@v4: success
+url: https://github.com/N33Qu/trening-app/actions/runs/43404820070
+headSha: 130fc554ac5cce4cba2e06a3457c1966a83bf777
+conclusion: success
+job build: success
+   - Build hadolint/hadolint-action@v3.1.0: success
+   - Run actions/checkout@v4: success
+   - Short SHA: success
+   - Hadolint (report only): success
+   - Run docker/setup-qemu-action@v3: success
+   - Run docker/setup-buildx-action@v3: success
+   - Run docker/login-action@v3: success
+   - Run docker/build-push-action@v6: success
+   - Trivy image scan (SARIF, report): success
+   - Run github/codeql-action/upload-sarif@v3: success
+   - Trivy image gate (fail on CRITICAL): success
+   - Trivy config scan of helm/ (report only): success
+url: https://github.com/N33Qu/trening-app/actions/runs/43404820070
+headSha: 130fc554ac5cce4cba2e06a3457c1966a83bf777
+conclusion: success
+job deploy: success
+   - Run actions/checkout@v4: success
+   - Bump image tag: success
+   - Commit and push: success
+
+# poprzednie proby (naprawione bledy workflow)
+43404820070 success 130fc55 CI: aktualizacja trivy-action do v0.36.0
+43404267089 failure 9a89c21 CI: poprawna wersja akcji trivy-action (v0.33.1)
+43401881901 failure 554c46a Pipeline CI/CD: testy, budowa obrazu, skan Trivy, aktualizacja wersji…
