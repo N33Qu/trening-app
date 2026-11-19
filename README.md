@@ -28,19 +28,19 @@ Zespół: **Mikołaj Stasz**, **Ewelina Sałata**.
 Biblioteka ćwiczeń (zdjęcia pozycji wyjściowej i końcowej, opisy, partie mięśniowe, sprzęt, poziom)
 pochodzi z projektu [Free Exercise DB](https://github.com/yuhonas/free-exercise-db) udostępnionego
 na licencji [Unlicense](https://github.com/yuhonas/free-exercise-db/blob/main/LICENSE) (domena publiczna).
-Z ok. 870 ćwiczeń wybrano 154 najpopularniejsze (sztanga, hantle, wyciągi, maszyny, masa ciała,
-kettlebell, gumy, cardio, rozciąganie) i dodano pływanie; nazwy, partie mięśniowe i opisy wykonania
+Wszystkie 876 ćwiczeń zbioru (sztanga, hantle, wyciągi, maszyny, masa ciała,
+kettlebell, gumy, cardio, rozciąganie) oraz dodane pływanie to łącznie 877 pozycji; nazwy, partie mięśniowe i opisy wykonania
 przetłumaczono na polski. Mapa mięśni (przód/tył sylwetki) to własna grafika SVG rysowana w szablonie.
 
-- `scripts/exercises_curated.json` – lista wybranych ćwiczeń (identyfikatory z Free Exercise DB),
+- `scripts/exercises_curated.json` – polskie teksty wszystkich ćwiczeń (identyfikatory z Free Exercise DB),
   polskie nazwy i opisy, dodatkowe ćwiczenia spoza zbioru,
 - `scripts/import_exercises.py` – pobiera `dist/exercises.json` i zdjęcia z repozytorium źródłowego,
-  konwertuje zdjęcia do WebP (maks. 640 px szerokości, jakość 75) i zapisuje
-  `app/data/exercises.json` oraz `app/static/exercises/<slug>/{0,1}.webp` (łącznie ok. 6 MB).
+  konwertuje zdjęcia do WebP (maks. 480 px szerokości, jakość 70) i zapisuje
+  `app/data/exercises.json` oraz `app/static/exercises/<slug>/{0,1}.webp` (łącznie ok. 21 MB).
 
 ```bash
 pip install -r requirements-dev.txt          # Pillow
-python scripts/import_exercises.py           # opcjonalnie --cache DIR --quality 75 --width 640
+python scripts/import_exercises.py           # opcjonalnie --cache DIR --quality 70 --width 480
 ```
 
 Ćwiczenia z biblioteki są zapisywane w tabeli `exercises` jako ćwiczenia globalne powiązane z danymi
