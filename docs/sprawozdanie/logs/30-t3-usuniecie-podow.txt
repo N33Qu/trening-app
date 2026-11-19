@@ -1,0 +1,25 @@
+$ kubectl -n trening get pods,pvc
+$ kubectl -n trening delete pod/trening-postgres-0 pod/<pod trening-app>
+$ kubectl -n trening wait --for=condition=Ready pod/trening-postgres-0 --timeout=180s
+$ kubectl -n trening rollout status deploy/trening-app
+$ kubectl -n trening get pods,pvc
+NAME                               READY   STATUS    RESTARTS   AGE
+pod/trening-app-6c479b7b84-8spc2   1/1     Running   0          60s
+pod/trening-app-6c479b7b84-vd477   1/1     Running   0          4m24s
+pod/trening-postgres-0             1/1     Running   0          59s
+
+NAME                                            STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/data-trening-postgres-0   Bound    pvc-f3149fb7-af3d-4f90-b1a1-fe96732a749f   1Gi        RWO            standard       <unset>                 5d22h
+--- usuwam: trening-postgres-0 i pod/trening-app-6c479b7b84-8spc2
+pod "trening-postgres-0" deleted from trening namespace
+pod "trening-app-6c479b7b84-8spc2" deleted from trening namespace
+pod/trening-postgres-0 condition met
+Waiting for deployment "trening-app" rollout to finish: 1 of 2 updated replicas are available...
+deployment "trening-app" successfully rolled out
+NAME                               READY   STATUS    RESTARTS   AGE
+pod/trening-app-6c479b7b84-55gh7   1/1     Running   0          7s
+pod/trening-app-6c479b7b84-vd477   1/1     Running   0          4m31s
+pod/trening-postgres-0             1/1     Running   0          6s
+
+NAME                                            STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/data-trening-postgres-0   Bound    pvc-f3149fb7-af3d-4f90-b1a1-fe96732a749f   1Gi        RWO            standard       <unset>                 5d22h

@@ -1,0 +1,11 @@
+$ kubectl -n trening get prometheusrule trening-app -o jsonpath=...   # reguły alertów
+$ curl -sG localhost:9090/api/v1/query --data-urlencode 'query=up{namespace="trening",service="trening-app"}'   # targety ServiceMonitor
+$ curl -s localhost:9090/api/v1/alerts   # aktywne alerty
+TreningAppDown | for: 1m | (sum(up{namespace="trening", service="trening-app"}) or vector(0)) == 0
+TreningHighErrorRate | for: 5m | sum(rate(flask_http_request_total{namespace="trening", status=~"5.."}[5m]))
+  / sum(rate(flask_http_request_total{namespace="trening"}[5m])) > 0.05
+
+trening-app-6c479b7b84-8j28n up = 1
+trening-app-6c479b7b84-9sxfs up = 1
+(wyników: 2)
+alerty Trening*: brak (żaden nie jest aktywny)

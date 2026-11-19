@@ -1,0 +1,16 @@
+$ python infra/e2e_check.py setup --ca certs/trening-ca.crt
+[OK] rejestracja A 
+[OK] rejestracja B 
+[OK] A tworzy plan https://trening.local:8443/plans/6
+[OK] A zapisuje trening https://trening.local:8443/workouts/35
+[OK] flash 'Nowy rekord!' 
+[OK] A dodaje pomiar masy ciała 
+[OK] pomiar 82.5 widoczny 
+[OK] B -> trening A /workouts/35 = 404 404
+[OK] B -> /workouts/35/edit = 404 404
+[OK] B -> plan A /plans/6 = 404 404
+[OK] lista planów B nie zawiera planu A 
+[OK] lista treningów B pusta 
+[OK] bez logowania -> redirect do /login 302
+[OK] POST bez CSRF/sesji odrzucony 400
+state: test_a_074884 test_b_074884

@@ -1,0 +1,15 @@
+$ kubectl get pods,pvc -n trening; kubectl get certificate,ingress -n trening; kubectl -n argocd get app trening
+NAME                               READY   STATUS    RESTARTS      AGE
+pod/trening-app-6c479b7b84-rj8wd   1/1     Running   0             2m17s
+pod/trening-app-6c479b7b84-vd477   1/1     Running   0             2m23s
+pod/trening-postgres-0             1/1     Running   3 (36m ago)   5d22h
+
+NAME                                            STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/data-trening-postgres-0   Bound    pvc-f3149fb7-af3d-4f90-b1a1-fe96732a749f   1Gi        RWO            standard       <unset>                 5d22h
+NAME                                      READY   SECRET        AGE
+certificate.cert-manager.io/trening-tls   True    trening-tls   5d22h
+
+NAME                                    CLASS   HOSTS           ADDRESS        PORTS     AGE
+ingress.networking.k8s.io/trening-app   nginx   trening.local   192.168.58.2   80, 443   5d22h
+NAME      SYNC STATUS   HEALTH STATUS
+trening   Synced        Healthy

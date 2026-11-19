@@ -1,0 +1,20 @@
+$ kubectl -n trening describe resourcequota trening-quota; kubectl -n trening top pods   # w szczycie obciążenia (6 replik)
+Name:                   trening-quota
+Namespace:              trening
+Resource                Used   Hard
+--------                ----   ----
+limits.cpu              3500m  6
+limits.memory           2Gi    3Gi
+persistentvolumeclaims  1      3
+pods                    7      12
+requests.cpu            700m   1500m
+requests.memory         896Mi  1536Mi
+requests.storage        1Gi    5Gi
+NAME                           CPU(cores)   MEMORY(bytes)   
+trening-app-6c479b7b84-2758p   160m         151Mi           
+trening-app-6c479b7b84-55gh7   184m         161Mi           
+trening-app-6c479b7b84-hcpwq   135m         165Mi           
+trening-app-6c479b7b84-t4b68   153m         150Mi           
+trening-app-6c479b7b84-vd477   192m         182Mi           
+trening-app-6c479b7b84-xwgcw   155m         164Mi           
+trening-postgres-0             7m           61Mi            

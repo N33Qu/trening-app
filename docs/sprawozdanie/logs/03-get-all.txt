@@ -1,0 +1,59 @@
+$ kubectl get all,pvc,ingress,networkpolicy,configmap,secret,resourcequota,limitrange,hpa,pdb -n trening
+NAME                               READY   STATUS    RESTARTS      AGE
+pod/trening-app-6c479b7b84-rj8wd   1/1     Running   0             2m4s
+pod/trening-app-6c479b7b84-vd477   1/1     Running   0             2m10s
+pod/trening-postgres-0             1/1     Running   3 (36m ago)   5d22h
+
+NAME                       TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)    AGE
+service/trening-app        ClusterIP   10.103.131.205   <none>        80/TCP     5d22h
+service/trening-postgres   ClusterIP   None             <none>        5432/TCP   5d22h
+
+NAME                          READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/trening-app   2/2     2            2           5d22h
+
+NAME                                     DESIRED   CURRENT   READY   AGE
+replicaset.apps/trening-app-54cccc5b48   0         0         0       16m
+replicaset.apps/trening-app-56c4fcd868   0         0         0       5d20h
+replicaset.apps/trening-app-5cfd9f4476   0         0         0       19h
+replicaset.apps/trening-app-5f6b8d4d56   0         0         0       5d21h
+replicaset.apps/trening-app-67c499dd4d   0         0         0       5d21h
+replicaset.apps/trening-app-6c479b7b84   2         2         2       2m10s
+replicaset.apps/trening-app-6d79dcf96    0         0         0       18h
+replicaset.apps/trening-app-7dd55dc96    0         0         0       27m
+replicaset.apps/trening-app-8445b9f88    0         0         0       5d20h
+replicaset.apps/trening-app-855cd5b896   0         0         0       5d20h
+replicaset.apps/trening-app-8d8658884    0         0         0       5d21h
+
+NAME                                READY   AGE
+statefulset.apps/trening-postgres   1/1     5d22h
+
+NAME                                              REFERENCE                TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/trening-app   Deployment/trening-app   cpu: 3%/60%   2         6         2          5d21h
+
+NAME                                            STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/data-trening-postgres-0   Bound    pvc-f3149fb7-af3d-4f90-b1a1-fe96732a749f   1Gi        RWO            standard       <unset>                 5d22h
+
+NAME                                    CLASS   HOSTS           ADDRESS        PORTS     AGE
+ingress.networking.k8s.io/trening-app   nginx   trening.local   192.168.58.2   80, 443   5d22h
+
+NAME                                                    POD-SELECTOR                              AGE
+networkpolicy.networking.k8s.io/allow-app-to-postgres   app.kubernetes.io/name=trening-postgres   5d22h
+networkpolicy.networking.k8s.io/allow-ingress-to-app    app.kubernetes.io/name=trening-app        5d22h
+networkpolicy.networking.k8s.io/default-deny-ingress    <none>                                    5d22h
+
+NAME                         DATA   AGE
+configmap/kube-root-ca.crt   1      5d22h
+configmap/trening-config     4      5d22h
+
+NAME                     TYPE                DATA   AGE
+secret/trening-secrets   Opaque              3      5d22h
+secret/trening-tls       kubernetes.io/tls   3      5d22h
+
+NAME                          REQUEST                                                                                                                       LIMIT                                         AGE
+resourcequota/trening-quota   persistentvolumeclaims: 1/3, pods: 3/12, requests.cpu: 300m/1500m, requests.memory: 384Mi/1536Mi, requests.storage: 1Gi/5Gi   limits.cpu: 1500m/6, limits.memory: 1Gi/3Gi   4m47s
+
+NAME                        CREATED AT
+limitrange/trening-limits   2026-11-19T07:47:46Z
+
+NAME                                     MIN AVAILABLE   MAX UNAVAILABLE   ALLOWED DISRUPTIONS   AGE
+poddisruptionbudget.policy/trening-app   1               N/A               1                     5d22h

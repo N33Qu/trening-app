@@ -1,0 +1,17 @@
+$ helm lint helm/trening && helm template trening helm/trening -n trening | grep -E "^kind:" | sort | uniq -c
+==> Linting helm/trening
+[INFO] Chart.yaml: icon is recommended
+
+1 chart(s) linted, 0 chart(s) failed
+   1 kind: ConfigMap
+   1 kind: Deployment
+   1 kind: HorizontalPodAutoscaler
+   1 kind: Ingress
+   1 kind: LimitRange
+   3 kind: NetworkPolicy
+   1 kind: PodDisruptionBudget
+   1 kind: PrometheusRule
+   1 kind: ResourceQuota
+   2 kind: Service
+   1 kind: ServiceMonitor
+   1 kind: StatefulSet

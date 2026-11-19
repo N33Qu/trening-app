@@ -1,0 +1,4 @@
+$ kubectl -n trening get deploy,sts -o custom-columns=NAME:.metadata.name,CPU_REQ:.spec.template.spec.containers[0].resources.requests.cpu,MEM_REQ:.spec.template.spec.containers[0].resources.requests.memory,CPU_LIM:.spec.template.spec.containers[0].resources.limits.cpu,MEM_LIM:.spec.template.spec.containers[0].resources.limits.memory
+NAME               CPU_REQ   MEM_REQ   CPU_LIM   MEM_LIM
+trening-app        100m      128Mi     500m      256Mi
+trening-postgres   100m      128Mi     500m      512Mi

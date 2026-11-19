@@ -1,0 +1,14 @@
+$ kubectl -n trening describe hpa trening-app | grep -E '^Events|Type|----|SuccessfulRescale'
+      - Type: Pods  Value: 2  Period: 30 seconds
+      - Type: Pods  Value: 1  Period: 30 seconds
+  Type            Status  Reason            Message
+  ----            ------  ------            -------
+Events:
+  Type     Reason                        Age                From                       Message
+  ----     ------                        ----               ----                       -------
+  Normal   SuccessfulRescale             8m54s              horizontal-pod-autoscaler  New size: 4; reason: cpu resource utilization (percentage of request) above target
+  Normal   SuccessfulRescale             8m24s              horizontal-pod-autoscaler  New size: 6; reason: cpu resource utilization (percentage of request) above target
+  Normal   SuccessfulRescale             3m22s              horizontal-pod-autoscaler  New size: 5; reason: All metrics below target
+  Normal   SuccessfulRescale             2m52s              horizontal-pod-autoscaler  New size: 4; reason: All metrics below target
+  Normal   SuccessfulRescale             2m22s              horizontal-pod-autoscaler  New size: 3; reason: All metrics below target
+  Normal   SuccessfulRescale             111s               horizontal-pod-autoscaler  New size: 2; reason: All metrics below target

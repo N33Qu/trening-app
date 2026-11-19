@@ -1,0 +1,24 @@
+$ echo "# 1. manifesty Secret w repozytorium (tylko przykład z placeholderami):"
+git grep -n "kind: Secret" -- . ":!docs"
+echo "# 2. hasła/klucze/tokeny wpisane na stałe w kodzie i manifestach (poza testami i docs):"
+git grep -niE "(password|secret_key|token|api_key)\s*[:=]\s*[\"'][^\"']{6,}" -- . ':!tests' ':!docs' || echo "brak trafień"
+echo "# 3. Secret w klastrze: tylko nazwy kluczy i rozmiar (wartości nie są wypisywane):"
+kubectl -n trening get secret trening-secrets -o json | python3 -c 'import json,sys; d=json.load(sys.stdin); print("typ:", d["type"]); [print(" ", k, "->", len(v), "znaków base64 [wartość ukryta]") for k,v in d["data"].items()]'
+echo "# 4. Deployment pobiera sekrety przez secretRef:"
+kubectl -n trening get deploy trening-app -o jsonpath='{.spec.template.spec.containers[0].envFrom}'; echo
+echo "# 5. obraz: użytkownik i NAZWY zmiennych środowiskowych (bez wartości):"
+minikube -p bpcicd ssh -- docker image inspect ghcr.io/n33qu/trening-app:sha-0130ed2 | python3 -c 'import sys,json; c=json.load(sys.stdin)[0]["Config"]; print("User:",c["User"]); print("Env (tylko nazwy):",[x.split("=")[0] for x in c["Env"]])'
+# 1. manifesty Secret w repozytorium (tylko przykład z placeholderami):
+helm/trening/secret.example.yaml:7:kind: Secret
+# 2. hasła/klucze/tokeny wpisane na stałe w kodzie i manifestach (poza testami i docs):
+infra/bootstrap.sh:35:    --from-literal=admin-password="$(openssl rand -hex 12)"
+# 3. Secret w klastrze: tylko nazwy kluczy i rozmiar (wartości nie są wypisywane):
+typ: Opaque
+  DATABASE_URL -> 124 znaków base64 [wartość ukryta]
+  POSTGRES_PASSWORD -> 44 znaków base64 [wartość ukryta]
+  SECRET_KEY -> 88 znaków base64 [wartość ukryta]
+# 4. Deployment pobiera sekrety przez secretRef:
+[{"configMapRef":{"name":"trening-config"}},{"secretRef":{"name":"trening-secrets"}}]
+# 5. obraz: użytkownik i NAZWY zmiennych środowiskowych (bez wartości):
+User: 10001:10001
+Env (tylko nazwy): ['PATH', 'LANG', 'GPG_KEY', 'PYTHON_VERSION', 'PYTHON_SHA256', 'PYTHONDONTWRITEBYTECODE', 'PYTHONUNBUFFERED', 'APP_ENV', 'APP_VERSION', 'PROMETHEUS_MULTIPROC_DIR', 'GUNICORN_WORKERS']

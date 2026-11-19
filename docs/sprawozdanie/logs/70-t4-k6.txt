@@ -1,0 +1,47 @@
+$ k6 run -e HOSTS_IP=127.0.0.1:8443 -e VUS=50 infra/loadtest/k6.js   # (wynik końcowy; linie postępu pominięte)
+
+         /\      Grafana   /‾‾/  
+    /\  /  \     |\  __   /  /   
+   /  \/    \    | |/ /  /   ‾‾\ 
+  /          \   |   (  |  (‾)  |
+ / __________ \  |_|\_\  \_____/ 
+
+     execution: local
+        script: infra/loadtest/k6.js
+        output: -
+
+     scenarios: (100.00%) 1 scenario, 50 max VUs, 5m0s max duration (incl. graceful stop):
+              * default: Up to 50 looping VUs for 4m30s over 3 stages (gracefulRampDown: 30s, gracefulStop: 30s)
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<1000' p(95)=85.01ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 94372   349.259353/s
+    checks_succeeded...: 100.00% 94372 out of 94372
+    checks_failed......: 0.00%   0 out of 94372
+
+    ✓ login page 200
+    ✓ healthz 200
+
+    HTTP
+    http_req_duration..............: avg=19.17ms  min=859µs    med=2.83ms   max=895.64ms p(90)=43.06ms  p(95)=85.01ms 
+      { expected_response:true }...: avg=19.17ms  min=859µs    med=2.83ms   max=895.64ms p(90)=43.06ms  p(95)=85.01ms 
+    http_req_failed................: 0.00%  0 out of 94372
+    http_reqs......................: 94372  349.259353/s
+
+    EXECUTION
+    iteration_duration.............: avg=238.86ms min=202.76ms med=229.96ms max=1.9s     p(90)=252.53ms p(95)=304.53ms
+    iterations.....................: 47186  174.629677/s
+    vus............................: 1      min=1          max=50
+    vus_max........................: 50     min=50         max=50
+
+    NETWORK
+    data_received..................: 502 MB 1.9 MB/s
+    data_sent......................: 11 MB  39 kB/s

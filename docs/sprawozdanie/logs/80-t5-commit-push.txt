@@ -1,0 +1,5 @@
+$ git add app/templates/base.html && git commit -q -m "Stopka: znacznik wdrożenia przez GitOps (demonstracja testu 5)" && git push -q 2>&1; git log --oneline -3; date +%T
+b0910f6 Stopka: znacznik wdrożenia przez GitOps (demonstracja testu 5)
+9dc49b6 ci: deploy sha-0130ed2 [skip ci]
+0130ed2 Helm: ResourceQuota i LimitRange dla przestrzeni trening; przykładowy manifest Secret
+09:08:06

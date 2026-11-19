@@ -1,0 +1,26 @@
+$ kubectl apply -f argocd/application.yaml   # przywraca auto-sync (prune, selfHeal); Argo odtwarza HPA
+$ kubectl -n trening scale deploy trening-app --replicas=2
+$ # co 10 s: curl -s localhost:9090/api/v1/alerts
+$ kubectl -n argocd get app trening; kubectl -n trening get deploy,hpa,pods
+09:18:45 przywracanie
+appproject.argoproj.io/trening unchanged
+application.argoproj.io/trening configured
+deployment.apps/trening-app scaled
+Waiting for deployment "trening-app" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "trening-app" rollout to finish: 1 of 2 updated replicas are available...
+deployment "trening-app" successfully rolled out
+09:18:48 alerty Trening*: [('TreningAppDown', 'firing')]
+09:18:59 alerty Trening*: [('TreningAppDown', 'firing')]
+09:19:09 alerty Trening*: brak (żaden nie jest aktywny)
+NAME      SYNC STATUS   HEALTH STATUS
+trening   Synced        Healthy
+NAME                          READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/trening-app   2/2     2            2           5d22h
+
+NAME                                              REFERENCE                TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/trening-app   Deployment/trening-app   cpu: 3%/60%   2         6         2          2m5s
+
+NAME                               READY   STATUS    RESTARTS   AGE
+pod/trening-app-6c479b7b84-mdp5t   1/1     Running   0          2m5s
+pod/trening-app-6c479b7b84-nqz96   1/1     Running   0          2m5s
+pod/trening-postgres-0             1/1     Running   0          26m

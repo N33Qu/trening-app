@@ -1,0 +1,26 @@
+$ kubectl -n argocd patch application trening --type merge -p '{"spec":{"syncPolicy":{"automated":null}}}'
+$ kubectl -n trening delete hpa trening-app
+$ kubectl -n trening scale deploy trening-app --replicas=0
+$ # co 10 s: curl -s localhost:9090/api/v1/alerts (stan alertu TreningAppDown)
+09:16:04 wyłączenie auto-sync, usunięcie HPA, skalowanie do 0
+application.argoproj.io/trening patched
+horizontalpodautoscaler.autoscaling "trening-app" deleted from trening namespace
+deployment.apps/trening-app scaled
+NAME                          READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/trening-app   2/0     2            2           5d22h
+
+NAME                               READY   STATUS        RESTARTS   AGE
+pod/trening-app-6c479b7b84-8j28n   1/1     Terminating   0          103s
+pod/trening-app-6c479b7b84-9sxfs   1/1     Terminating   0          97s
+pod/trening-postgres-0             1/1     Running       0          21m
+09:16:04 alerty Trening*: brak (żaden nie jest aktywny)
+09:16:14 alerty Trening*: brak (żaden nie jest aktywny)
+09:16:24 alerty Trening*: brak (żaden nie jest aktywny)
+09:16:34 alerty Trening*: brak (żaden nie jest aktywny)
+09:16:45 alerty Trening*: [('TreningAppDown', 'pending')]
+09:16:55 alerty Trening*: [('TreningAppDown', 'pending')]
+09:17:05 alerty Trening*: [('TreningAppDown', 'pending')]
+09:17:15 alerty Trening*: [('TreningAppDown', 'pending')]
+09:17:25 alerty Trening*: [('TreningAppDown', 'pending')]
+09:17:35 alerty Trening*: [('TreningAppDown', 'pending')]
+09:17:45 alerty Trening*: [('TreningAppDown', 'firing')]

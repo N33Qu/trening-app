@@ -1,0 +1,6 @@
+$ python infra/e2e_check.py verify --ca certs/trening-ca.crt
+[OK] A loguje się ponownie 
+[OK] trening A nadal istnieje 
+[OK] rekord nadal widoczny 
+[OK] plan A nadal istnieje 
+[OK] pomiar masy 82.5 nadal istnieje 

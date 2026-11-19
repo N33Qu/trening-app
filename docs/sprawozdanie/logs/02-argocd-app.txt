@@ -1,0 +1,4 @@
+$ kubectl -n argocd get app trening -o wide; kubectl -n argocd get app trening -o jsonpath="repo={.spec.source.repoURL} path={.spec.source.path} rev={.status.sync.revision} autoSync={.spec.syncPolicy.automated}{\"\n\"}"
+NAME      SYNC STATUS   HEALTH STATUS   REVISION                                   PROJECT
+trening   Synced        Healthy         9dc49b6e9f1a7b697921cff7c32ca75fb52224d9   trening
+repo=https://github.com/N33Qu/trening-app.git path=helm/trening rev=9dc49b6e9f1a7b697921cff7c32ca75fb52224d9 autoSync={"prune":true,"selfHeal":true}

@@ -1,0 +1,9 @@
+$ curl -v --resolve trening.local:8443:127.0.0.1 --cacert certs/trening-ca.crt https://trening.local:8443/healthz 2>&1 | grep -E "^\* +(SSL connection|subject|issuer|expire|SSL certificate verify)|^< HTTP/2|^.\"status"
+* SSL connection using TLSv1.3 / AEAD-AES256-GCM-SHA384 / [blank] / UNDEF
+*  subject: [NONE]
+*  expire date: Feb 11 09:31:48 2027 GMT
+*  subjectAltName: host "trening.local" matched cert's "trening.local"
+*  issuer: CN=trening-root-ca
+*  SSL certificate verify ok.
+< HTTP/2 200 
+{"status":"ok","version":"sha-0130ed2"}

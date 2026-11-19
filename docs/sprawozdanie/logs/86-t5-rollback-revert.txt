@@ -1,0 +1,11 @@
+$ git revert --no-commit 86114ae b0910f6   # commit CI z tagiem + zmiana w stopce
+$ git commit -m "Wycofanie zmiany w stopce i tagu wdrożenia (rollback przez git revert) [skip ci]"
+$ git push
+$ git log --oneline -4; git show HEAD -- helm/trening/values.yaml | grep "^[-+] *tag"
+815b624 Wycofanie zmiany w stopce i tagu wdrożenia (rollback przez git revert) [skip ci]
+86114ae ci: deploy sha-b0910f6 [skip ci]
+b0910f6 Stopka: znacznik wdrożenia przez GitOps (demonstracja testu 5)
+9dc49b6 ci: deploy sha-0130ed2 [skip ci]
+-  tag: "sha-b0910f6"
++  tag: "sha-0130ed2"
+09:14:13

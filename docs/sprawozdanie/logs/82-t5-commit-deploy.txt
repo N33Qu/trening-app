@@ -1,0 +1,10 @@
+$ git pull --rebase --autostash -q; git log --oneline -3; git show --stat --format="%h %an: %s" HEAD | head -6; git show HEAD -- helm/trening/values.yaml | grep "^[-+] *tag"
+86114ae ci: deploy sha-b0910f6 [skip ci]
+b0910f6 Stopka: znacznik wdrożenia przez GitOps (demonstracja testu 5)
+9dc49b6 ci: deploy sha-0130ed2 [skip ci]
+86114ae github-actions[bot]: ci: deploy sha-b0910f6 [skip ci]
+
+ helm/trening/values.yaml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+-  tag: "sha-0130ed2"
++  tag: "sha-b0910f6"

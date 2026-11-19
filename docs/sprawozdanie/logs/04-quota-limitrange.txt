@@ -1,0 +1,21 @@
+$ kubectl describe resourcequota,limitrange -n trening
+Name:                   trening-quota
+Namespace:              trening
+Resource                Used   Hard
+--------                ----   ----
+limits.cpu              1500m  6
+limits.memory           1Gi    3Gi
+persistentvolumeclaims  1      3
+pods                    3      12
+requests.cpu            300m   1500m
+requests.memory         384Mi  1536Mi
+requests.storage        1Gi    5Gi
+
+
+Name:                  trening-limits
+Namespace:             trening
+Type                   Resource  Min    Max  Default Request  Default Limit  Max Limit/Request Ratio
+----                   --------  ---    ---  ---------------  -------------  -----------------------
+Container              memory    -      1Gi  64Mi             256Mi          -
+Container              cpu       -      1    50m              250m           -
+PersistentVolumeClaim  storage   500Mi  5Gi  -                -              -

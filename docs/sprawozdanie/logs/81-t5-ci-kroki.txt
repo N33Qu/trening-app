@@ -1,0 +1,31 @@
+$ gh run view 44485055521 --verbose | sed -n '1,/^ANNOTATIONS/p' | grep -v 'Post Run\|Post Trivy\|Set up job\|Complete job\|ANNOTATIONS'
+
+✓ main CI · 44485055521
+Triggered via push about 4 minutes ago
+
+JOBS
+✓ test in 1m7s (ID 135426318807)
+  ✓ Run actions/checkout@v4
+  ✓ Run actions/setup-python@v5
+  ✓ Run pip install -r requirements-dev.txt -r requirements.txt
+  ✓ Run ruff check .
+  ✓ Run pybabel compile -d app/translations
+  ✓ Run pytest --cov=app --cov-report=term-missing --cov-report=xml
+  ✓ Run actions/upload-artifact@v4
+✓ build in 2m8s (ID 135426844309)
+  ✓ Build hadolint/hadolint-action@v3.1.0
+  ✓ Run actions/checkout@v4
+  ✓ Short SHA
+  ✓ Hadolint (report only)
+  ✓ Run docker/setup-qemu-action@v3
+  ✓ Run docker/setup-buildx-action@v3
+  ✓ Run docker/login-action@v3
+  ✓ Run docker/build-push-action@v6
+  ✓ Trivy image scan (SARIF, report)
+  ✓ Run github/codeql-action/upload-sarif@v3
+  ✓ Trivy image gate (fail on CRITICAL)
+  ✓ Trivy config scan of helm/ (report only)
+✓ deploy in 12s (ID 135427864559)
+  ✓ Run actions/checkout@v4
+  ✓ Bump image tag
+  ✓ Commit and push

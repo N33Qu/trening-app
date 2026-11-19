@@ -1,0 +1,20 @@
+$ kubectl -n trening get networkpolicy; kubectl -n trening describe networkpolicy allow-app-to-postgres
+NAME                    POD-SELECTOR                              AGE
+allow-app-to-postgres   app.kubernetes.io/name=trening-postgres   5d22h
+allow-ingress-to-app    app.kubernetes.io/name=trening-app        5d22h
+default-deny-ingress    <none>                                    5d22h
+Name:         allow-app-to-postgres
+Namespace:    trening
+Created on:   2026-11-13 10:31:47 +0100 CET
+Labels:       app.kubernetes.io/managed-by=Helm
+              app.kubernetes.io/part-of=trening
+              helm.sh/chart=trening-0.1.0
+Annotations:  argocd.argoproj.io/tracking-id: trening:networking.k8s.io/NetworkPolicy:trening/allow-app-to-postgres
+Spec:
+  PodSelector:     app.kubernetes.io/name=trening-postgres
+  Allowing ingress traffic:
+    To Port: 5432/TCP
+    From:
+      PodSelector: app.kubernetes.io/name=trening-app
+  Not affecting egress traffic
+  Policy Types: Ingress

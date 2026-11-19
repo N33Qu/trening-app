@@ -1,0 +1,14 @@
+$ # po rollbacku (git revert + push; Argo CD z auto-sync, bez kubectl apply)
+$ kubectl -n argocd get app trening -o custom-columns=...
+$ kubectl -n trening get deploy trening-app -o jsonpath='{...image}'
+$ curl -s --resolve trening.local:8443:127.0.0.1 --cacert certs/trening-ca.crt https://trening.local:8443/healthz
+$ kubectl -n trening get pods
+NAME      SYNC     HEALTH    REVISION
+trening   Synced   Healthy   815b624d929564d06a4364e5c50de2ece2e4bf0f
+ghcr.io/n33qu/trening-app:sha-0130ed2
+{"status":"ok","version":"sha-0130ed2"}
+
+NAME                           READY   STATUS    RESTARTS   AGE
+trening-app-6c479b7b84-8j28n   1/1     Running   0          77s
+trening-app-6c479b7b84-9sxfs   1/1     Running   0          71s
+trening-postgres-0             1/1     Running   0          20m

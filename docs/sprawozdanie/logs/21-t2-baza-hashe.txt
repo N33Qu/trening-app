@@ -1,0 +1,8 @@
+$ kubectl -n trening exec trening-postgres-0 -- psql -U trening -d trening -c "select username, left(password_hash,25) as hash_poczatek, length(password_hash) as dlugosc from users order by id desc limit 4;"
+   username    |       hash_poczatek       | dlugosc 
+---------------+---------------------------+---------
+ test_b_074884 | scrypt:32768:8:1$pnK3hD3Z |     162
+ test_a_074884 | scrypt:32768:8:1$PW7oAoH7 |     162
+ test_b_074806 | scrypt:32768:8:1$9hK2p6U9 |     162
+ test_a_074806 | scrypt:32768:8:1$Z6Q2Nnn2 |     162
+(4 rows)

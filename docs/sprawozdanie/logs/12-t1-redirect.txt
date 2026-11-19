@@ -1,0 +1,13 @@
+$ curl -sI --resolve trening.local:8080:127.0.0.1 http://trening.local:8080/ | head -6; echo "--- weryfikacja certyfikatu: z CA projektu:"; echo | openssl s_client -connect 127.0.0.1:8443 -servername trening.local -CAfile certs/trening-ca.crt 2>&1 | grep -E "Verification|Verify return"; echo "--- bez CA projektu (domyslne zaufane):"; echo | openssl s_client -connect 127.0.0.1:8443 -servername trening.local 2>&1 | grep -E "Verification|Verify return"
+HTTP/1.1 308 Permanent Redirect
+Date: Thu, 19 Nov 2026 07:53:12 GMT
+Content-Type: text/html
+Content-Length: 164
+Connection: keep-alive
+Location: https://trening.local
+--- weryfikacja certyfikatu: z CA projektu:
+Verification: OK
+Verify return code: 0 (ok)
+--- bez CA projektu (domyslne zaufane):
+Verification error: unable to verify the first certificate
+Verify return code: 21 (unable to verify the first certificate)

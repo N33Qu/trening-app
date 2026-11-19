@@ -1,0 +1,14 @@
+$ # Argo CD pobrał commit CI (adnotacja refresh=hard przyspiesza odświeżenie, domyślnie ok. 3 min)
+$ kubectl -n argocd get app trening -o custom-columns=...
+$ kubectl -n trening get deploy trening-app -o jsonpath='{...image}'
+$ curl -s --resolve trening.local:8443:127.0.0.1 --cacert certs/trening-ca.crt https://trening.local:8443/healthz
+$ kubectl -n trening get pods
+NAME      SYNC     HEALTH    REVISION
+trening   Synced   Healthy   86114aed016d5618521c464d3075afaabbe3240d
+ghcr.io/n33qu/trening-app:sha-b0910f6
+{"status":"ok","version":"sha-b0910f6"}
+
+NAME                           READY   STATUS    RESTARTS   AGE
+trening-app-86748dc788-98rvt   1/1     Running   0          103s
+trening-app-86748dc788-qsbl5   1/1     Running   0          113s
+trening-postgres-0             1/1     Running   0          18m

@@ -91,6 +91,16 @@ nie są modyfikowane.
  └────────────────────────────────────────────────────────────────────────────────┘
 ```
 
+## Sprawozdanie
+
+Sprawozdanie końcowe (potwierdzenie wdrożenia, testy 1–5 ze zrzutami ekranu, komentarz do funkcjonalności):
+[Markdown](docs/sprawozdanie/README.md) oraz [PDF](docs/sprawozdanie/Sprawozdanie_BodyCommit_Stasz_Salata.pdf).
+Tabela wymaganych obiektów Kubernetes (Deployment, StatefulSet, Service, NetworkPolicy, Ingress, PVC, ConfigMap, Secret,
+Requests/Limits, ResourceQuota, LimitRange) wraz z plikami w repozytorium:
+[sekcja 1 sprawozdania](docs/sprawozdanie/README.md#1-repozytorium-i-manifesty).
+Secret `trening-secrets` nie jest przechowywany w repozytorium – tworzy go `infra/create-secrets.sh` z losowymi wartościami;
+przykład struktury z placeholderami: [`helm/trening/secret.example.yaml`](helm/trening/secret.example.yaml).
+
 ## Struktura repozytorium
 
 ```
@@ -99,11 +109,11 @@ app/data/            dane biblioteki ćwiczeń (exercises.json); zdjęcia w app/
 scripts/             import_exercises.py – budowa biblioteki ćwiczeń z Free Exercise DB
 tests/               testy pytest (jednostkowe i integracyjne, SQLite)
 Dockerfile           obraz multi-stage, użytkownik non-root (uid 10001), gunicorn
-helm/trening/        chart Helm: app, PostgreSQL, Ingress+TLS, HPA, PDB, NetworkPolicy, monitoring
+helm/trening/        chart Helm: app, PostgreSQL, Ingress+TLS, HPA, PDB, NetworkPolicy, ResourceQuota, LimitRange, monitoring
 argocd/              AppProject i Application (GitOps)
 infra/               bootstrap.sh, create-secrets.sh, export-ca.sh, cert-manager, monitoring, k6, e2e_check.py
 .github/workflows/   pipeline CI/CD (ci.yml)
-docs/sprawozdanie/   sprawozdanie z testów, logi i zrzuty ekranu
+docs/sprawozdanie/   sprawozdanie końcowe (Markdown + PDF), logi i zrzuty ekranu
 ```
 
 ## Szybki start (minikube, macOS)
@@ -155,7 +165,9 @@ curl --resolve trening.local:8443:127.0.0.1 --cacert certs/trening-ca.crt https:
 - kontener: użytkownik non-root (10001), `readOnlyRootFilesystem`, `drop ALL`, seccomp RuntimeDefault,
   brak tokenu ServiceAccount, obraz multi-stage,
 - NetworkPolicy: do aplikacji tylko ingress-nginx i monitoring; do PostgreSQL tylko pody aplikacji,
-- Secret `trening-secrets` tworzony poza repozytorium (losowe wartości), brak haseł w kodzie i obrazie,
+- Secret `trening-secrets` tworzony poza repozytorium skryptem `infra/create-secrets.sh` (losowe wartości), brak haseł w kodzie i obrazie;
+  struktura Secretu (same placeholdery): [`helm/trening/secret.example.yaml`](helm/trening/secret.example.yaml),
+- ResourceQuota i LimitRange w przestrzeni `trening` (wartości w `values.yaml`),
 - TLS na Ingress z własnego CA (cert-manager), przekierowanie HTTP → HTTPS,
 - ochrona CSRF (Flask-WTF), hasła hashowane (scrypt), ograniczanie prób logowania, izolacja danych użytkowników,
 - Trivy: skan obrazu i konfiguracji Helm w pipeline.
