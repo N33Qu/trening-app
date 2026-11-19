@@ -10,7 +10,10 @@
   <meta name="theme-color" content="#0c0c0e" media="(prefers-color-scheme: dark)">
   <title>{% block title %}BodyCommit{% endblock %} · BodyCommit</title>
   <script nonce="{{ csp_nonce }}">(function(){var t=null;try{t=localStorage.getItem("theme");}catch(e){}if(t!=="dark"&&t!=="light"){t=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";}document.documentElement.setAttribute("data-theme",t);})();</script>
-  <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}" type="image/svg+xml">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}?v=2" sizes="any">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.svg') }}?v=2" type="image/svg+xml">
+  <link rel="icon" href="{{ url_for('static', filename='favicon-32.png') }}?v=2" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}?v=2">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}?v={{ app_version }}">
 </head>
 <body class="{% block body_class %}{% endblock %}"{% if current_user.is_authenticated %} data-picker-url="{{ url_for('exercises.picker_data') }}" data-picker-i18n="{{ {'placeholder': _('Szukaj ćwiczenia…'), 'all': _('Wszystkie'), 'none': _('Brak pasujących ćwiczeń.'), 'more': _('Wpisz więcej liter, aby zawęzić listę.'), 'mine': _('Moje ćwiczenia')}|tojson|forceescape }}"{% endif %}>
