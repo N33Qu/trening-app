@@ -163,10 +163,17 @@ Przekierowanie HTTP → HTTPS (308) oraz weryfikacja certyfikatu z CA projektu (
 
 ![Test 1 – przekierowanie i weryfikacja certyfikatu](img/12-t1-redirect.png)
 
-Strona aplikacji otwarta w przeglądarce pod `https://trening.local/` (zrzut z przeglądarki w trybie headless; nie obejmuje paska z kłódką – o poprawności
-certyfikatu świadczą powyższe wyniki `curl` i `openssl`):
+Strona aplikacji otwarta w przeglądarce pod `https://trening.local/`:
 
 ![Test 1 – aplikacja przez HTTPS](img/13-t1-aplikacja-https.png)
+
+Ta sama strona w Google Chrome na komputerze z zaufanym certyfikatem własnego CA (dostęp przez port-forward kontrolera
+ingress na porcie 8443). Pasek adresu nie pokazuje ostrzeżenia, a informacje o witrynie potwierdzają bezpieczne połączenie
+(„Connection is secure”):
+
+![Test 1 – Chrome: strona przez HTTPS bez ostrzeżeń](img/53-chrome-https-trening-local.jpg)
+
+![Test 1 – Chrome: „Connection is secure”](img/54-chrome-polaczenie-bezpieczne.png)
 
 **Wynik: ZALICZONY.** Dwa pody aplikacji i `trening-postgres-0` w stanie `Running 1/1`, PVC `data-trening-postgres-0` `Bound` (1 Gi),
 Argo CD `Synced / Healthy`, certyfikat `Ready`, HTTPS z weryfikacją własnego CA, HTTP zwraca `308 Permanent Redirect` na HTTPS
